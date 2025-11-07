@@ -1,0 +1,314 @@
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Courier New', monospace;
+}
+
+body {
+    background-color: #0a0a0a;
+    color: #00ff00;
+    overflow-x: hidden;
+    line-height: 1.6;
+}
+
+/* Terminal-like cursor */
+.cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background-color: #00ff00;
+    margin-left: 4px;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* Header Styles */
+header {
+    padding: 20px;
+    border-bottom: 1px solid #00ff00;
+    position: relative;
+    overflow: hidden;
+}
+
+.glitch {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    text-shadow: 0.05em 0 0 #00ff00, -0.03em -0.04em 0 #ff00ff,
+                 0.025em 0.04em 0 #0000ff;
+    animation: glitch 725ms infinite;
+}
+
+@keyframes glitch {
+    0% {
+        text-shadow: 0.05em 0 0 #00ff00, -0.03em -0.04em 0 #ff00ff,
+                     0.025em 0.04em 0 #0000ff;
+    }
+    15% {
+        text-shadow: 0.05em 0 0 #00ff00, -0.03em -0.04em 0 #ff00ff,
+                     0.025em 0.04em 0 #0000ff;
+    }
+    16% {
+        text-shadow: -0.05em -0.025em 0 #00ff00, 0.025em 0.035em 0 #ff00ff,
+                     -0.05em -0.05em 0 #0000ff;
+    }
+    49% {
+        text-shadow: -0.05em -0.025em 0 #00ff00, 0.025em 0.035em 0 #ff00ff,
+                     -0.05em -0.05em 0 #0000ff;
+    }
+    50% {
+        text-shadow: 0.05em 0.035em 0 #00ff00, 0.03em 0 0 #ff00ff,
+                     0 -0.04em 0 #0000ff;
+    }
+    99% {
+        text-shadow: 0.05em 0.035em 0 #00ff00, 0.03em 0 0 #ff00ff,
+                     0 -0.04em 0 #0000ff;
+    }
+    100% {
+        text-shadow: -0.05em 0 0 #00ff00, -0.025em -0.04em 0 #ff00ff,
+                     -0.04em -0.025em 0 #0000ff;
+    }
+}
+
+/* Navigation */
+nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+.nav-item {
+    margin: 0 15px;
+    padding: 10px 20px;
+    border: 1px solid #00ff00;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-item:hover {
+    background-color: #00ff00;
+    color: #0a0a0a;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.nav-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.4), transparent);
+    transition: 0.5s;
+}
+
+.nav-item:hover::before {
+    left: 100%;
+}
+
+.active {
+    background-color: #00ff00;
+    color: #0a0a0a;
+}
+
+/* Main Content */
+main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    min-height: 60vh;
+}
+
+.content {
+    display: none;
+    animation: fadeIn 0.5s;
+    padding: 20px;
+    border: 1px solid #00ff00;
+    box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.active-content {
+    display: block;
+}
+
+/* Home Section */
+.home-content {
+    text-align: center;
+}
+
+.matrix-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: 0.2;
+}
+
+.terminal {
+    background-color: rgba(0, 0, 0, 0.8);
+    border: 1px solid #00ff00;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: left;
+    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+.terminal-line {
+    margin-bottom: 10px;
+}
+
+.prompt {
+    color: #00ff00;
+}
+
+/* Databases Section */
+.db-banner {
+    background-color: #0a0a0a;
+    border: 2px solid #ff0000;
+    padding: 30px;
+    text-align: center;
+    margin: 20px 0;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+    position: relative;
+}
+
+.db-banner::before, .db-banner::after {
+    content: 'ACCESS DENIED';
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 100%;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff0000;
+    text-shadow: 0 0 10px #ff0000;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.redirect-message {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #00ff00;
+    background-color: rgba(0, 255, 0, 0.1);
+}
+
+/* About Section */
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.about-text {
+    padding: 20px;
+}
+
+.hacker-img {
+    width: 100%;
+    height: 300px;
+    background: linear-gradient(45deg, #0a0a0a, #003300, #0a0a0a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #00ff00;
+    position: relative;
+    overflow: hidden;
+}
+
+.hacker-img::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 50px,
+        rgba(0, 255, 0, 0.1) 50px,
+        rgba(0, 255, 0, 0.1) 51px
+    );
+    animation: animate 20s linear infinite;
+}
+
+@keyframes animate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Credits Section */
+.credits-list {
+    list-style-type: none;
+    padding: 20px;
+}
+
+.credit-item {
+    padding: 10px;
+    margin: 10px 0;
+    border-left: 3px solid #00ff00;
+    background-color: rgba(0, 255, 0, 0.05);
+    transition: all 0.3s;
+}
+
+.credit-item:hover {
+    background-color: rgba(0, 255, 0, 0.1);
+    transform: translateX(10px);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #00ff00;
+    margin-top: 40px;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .glitch {
+        font-size: 1.8rem;
+    }
+    
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-item {
+        margin: 5px 0;
+        width: 80%;
+    }
+}

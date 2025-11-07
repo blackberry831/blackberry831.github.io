@@ -4,6 +4,8 @@
     padding: 0;
     box-sizing: border-box;
     font-family: 'Courier New', monospace;
+    cursor: none !important;
+    user-select: none;
 }
 
 body {
@@ -11,6 +13,94 @@ body {
     color: #00ff00;
     overflow-x: hidden;
     line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #00ff00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s;
+    mix-blend-mode: difference;
+}
+
+.custom-cursor.hover {
+    transform: scale(1.5);
+    background-color: rgba(0, 255, 0, 0.2);
+}
+
+.cursor-trail {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background-color: #00ff00;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    opacity: 0.7;
+    transition: all 0.1s;
+}
+
+/* Loading Screen */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a0a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transition: opacity 0.5s, visibility 0.5s;
+}
+
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.loading-content {
+    text-align: center;
+    width: 80%;
+    max-width: 500px;
+}
+
+.loading-text {
+    font-size: 1.5rem;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px #00ff00;
+    animation: pulse 2s infinite;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 20px;
+    background-color: #003300;
+    border: 1px solid #00ff00;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.loading-progress {
+    height: 100%;
+    width: 0%;
+    background-color: #00ff00;
+    transition: width 0.3s;
+    box-shadow: 0 0 10px #00ff00;
+}
+
+.loading-status {
+    font-size: 0.9rem;
+    color: #00cc00;
 }
 
 /* Terminal-like cursor */
@@ -26,6 +116,11 @@ body {
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
 }
 
 /* Header Styles */
@@ -44,6 +139,8 @@ header {
     text-shadow: 0.05em 0 0 #00ff00, -0.03em -0.04em 0 #ff00ff,
                  0.025em 0.04em 0 #0000ff;
     animation: glitch 725ms infinite;
+    user-select: none;
+    pointer-events: none;
 }
 
 @keyframes glitch {
@@ -89,7 +186,7 @@ nav {
     margin: 0 15px;
     padding: 10px 20px;
     border: 1px solid #00ff00;
-    cursor: pointer;
+    cursor: none;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
@@ -126,7 +223,7 @@ main {
     max-width: 1200px;
     margin: 40px auto;
     padding: 0 20px;
-    min-height: 60vh;
+    flex: 1;
 }
 
 .content {
@@ -152,7 +249,7 @@ main {
 }
 
 .matrix-bg {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -169,13 +266,46 @@ main {
     max-width: 800px;
     text-align: left;
     box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.terminal-output {
+    flex: 1;
+    margin-bottom: 10px;
+    overflow-y: auto;
+    max-height: 350px;
 }
 
 .terminal-line {
     margin-bottom: 10px;
+    word-wrap: break-word;
 }
 
 .prompt {
+    color: #00ff00;
+}
+
+.terminal-input {
+    display: flex;
+    align-items: center;
+    border-top: 1px solid #00ff00;
+    padding-top: 10px;
+}
+
+.cmd-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    outline: none;
+    margin-left: 5px;
+}
+
+.cmd-output {
     color: #00ff00;
 }
 
@@ -188,10 +318,13 @@ main {
     margin: 20px 0;
     box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
     position: relative;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.db-banner::before, .db-banner::after {
-    content: 'ACCESS DENIED';
+.access-denied {
     position: absolute;
     top: 10px;
     left: 0;
@@ -201,11 +334,6 @@ main {
     color: #ff0000;
     text-shadow: 0 0 10px #ff0000;
     animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.5; }
 }
 
 .redirect-message {
@@ -288,7 +416,7 @@ footer {
     text-align: center;
     padding: 20px;
     border-top: 1px solid #00ff00;
-    margin-top: 40px;
+    margin-top: auto;
     font-size: 0.9rem;
 }
 
@@ -310,5 +438,9 @@ footer {
     .nav-item {
         margin: 5px 0;
         width: 80%;
+    }
+    
+    .terminal {
+        min-height: 300px;
     }
 }

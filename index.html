@@ -25,13 +25,17 @@
     <canvas id="matrix" class="matrix-bg"></canvas>
     
     <header>
-        <h1 class="glitch">BLACKBERRY831</h1>
-        <nav>
-            <div class="nav-item active" data-target="home">Home</div>
-            <div class="nav-item" data-target="databases">Databases</div>
-            <div class="nav-item" data-target="about">About Us</div>
-            <div class="nav-item" data-target="credits">Credits</div>
-        </nav>
+        <div class="header-content">
+            <h1 class="glitch">BLACKBERRY831</h1>
+            <nav>
+                <div class="nav-item active" data-target="home">Home</div>
+                <div class="nav-item" data-target="selling">Selling</div>
+                <div class="nav-item" data-target="hire">Hire Us</div>
+                <div class="nav-item" data-target="databases">Databases</div>
+                <div class="nav-item" data-target="about">About</div>
+                <div class="nav-item" data-target="credits">Credits</div>
+            </nav>
+        </div>
     </header>
     
     <main>
@@ -57,51 +61,326 @@
             </div>
         </section>
         
-        <section id="databases" class="content">
-            <h2>DATABASE ACCESS</h2>
-            <div class="db-banner">
-                <div class="access-denied">ACCESS DENIED</div>
-                <h3>DATABASE SYSTEM OFFLINE</h3>
-                <p>This section is closed.</p>
+        <section id="selling" class="content">
+            <h2>SERVICES & PRODUCTS</h2>
+            <div class="services-grid">
+                <div class="service-item">
+                    <h3>DATA PACKAGES</h3>
+                    <ul>
+                        <li>Corporate Databases - $500-5000</li>
+                        <li>Government Leaks - $1000-10000</li>
+                        <li>Financial Records - $300-3000</li>
+                        <li>Personal Information - $100-1000</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h3>EXPLOITS & TOOLS</h3>
+                    <ul>
+                        <li>Custom Malware - $2000+</li>
+                        <li>Zero-Day Exploits - $5000+</li>
+                        <li>Ransomware Kits - $1500</li>
+                        <li>DDoS Services - $100/hour</li>
+                    </ul>
+                </div>
+                <div class="service-item">
+                    <h3>TRAINING & CONSULTING</h3>
+                    <ul>
+                        <li>OpSec Training - $2000</li>
+                        <li>Penetration Testing - $5000+</li>
+                        <li>Social Engineering - $3000</li>
+                        <li>Custom Operations - Contact</li>
+                    </ul>
+                </div>
             </div>
-            <div class="redirect-message">
-                <p>You will be redirected to an external database system.</p>
-                <p>Connection refused.</p>
+            <div class="disclaimer">
+                <p>Note: All transactions in cryptocurrency only. Delivery upon full payment.</p>
             </div>
         </section>
         
-        <section id="about" class="content">
-            <h2>ABOUT US</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>We are a group of cyber criminals that moderated breachforums.info  breached.is breached.sh breach-forums.live and many more. we are called Asha(name of full name).</p>
-                    <p>Our mission is to take down all breachforums releted clones, or people that are impersontating staff team of breachforums/raidforums.</p>
-                    <p>We are many, some of us owns part of the goverment, companies, and very known services you all use!</p>
-                    <p>Of course we aren't here to just for the ego, we only say this beacuse it's abut page duh.</p>
-                    <p>We don't use any known socials, we have our own platform that has nowhere code avalible.</p>
-                    <p>The way we recruit people is that we gain access to they're system and we give them a choice, call it however you want to.</p>
-                    <p>Of course if it's an minor we just run a ransom and that's that.</p>
-                    <p>We are not known, it's better this way.</p>
-                    <p>We also go by many other names, that we won't discloce we aren't that dumb to reveal our stuff.</p>
-                    <p>Want to work with us? contact us here:</p>
-                    <p>Want to buy something? contant us here:</p>
-                </div>
-                <div class="hacker-img">
-                    <span>SYSTEM VISUALIZATION</span>
+        <section id="hire" class="content">
+            <h2>RECRUITMENT FORM</h2>
+            <div class="form-container">
+                <form id="recruitment-form">
+                    <div class="form-group">
+                        <label>Your group name (if any)</label>
+                        <input type="text" name="group_name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Were you previously connected with breachforums or raidforums community?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="prev_yes" name="previous_connection" value="yes">
+                            <label for="prev_yes">Yes</label>
+                            <input type="radio" id="prev_no" name="previous_connection" value="no">
+                            <label for="prev_no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Do you have connections to law enforcement or have you ever given them information?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="le_yes" name="law_enforcement" value="yes">
+                            <label for="le_yes">Yes</label>
+                            <input type="radio" id="le_no" name="law_enforcement" value="no">
+                            <label for="le_no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>What is your nickname/alias?</label>
+                        <input type="text" name="nickname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Where did you find us?</label>
+                        <input type="text" name="discovery_source" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="custom_message_toggle">
+                            Add custom message
+                        </label>
+                        <textarea id="custom_message" name="custom_message" style="display: none;" placeholder="Type your custom message here..."></textarea>
+                    </div>
+                    
+                    <div class="skills-section">
+                        <h3>SKILL ASSESSMENT</h3>
+                        <div class="skill-group">
+                            <label>OSINT (Open Source Intelligence)</label>
+                            <select name="osint_skill">
+                                <option value="1">Beginner</option>
+                                <option value="2">Intermediate</option>
+                                <option value="3">Advanced</option>
+                                <option value="4">Expert</option>
+                                <option value="5">Elite</option>
+                            </select>
+                        </div>
+                        
+                        <div class="skill-group">
+                            <label>OpSec (Operational Security)</label>
+                            <select name="opsec_skill">
+                                <option value="1">Beginner</option>
+                                <option value="2">Intermediate</option>
+                                <option value="3">Advanced</option>
+                                <option value="4">Expert</option>
+                                <option value="5">Elite</option>
+                            </select>
+                        </div>
+                        
+                        <div class="skill-group">
+                            <label>Exploiting Vulnerabilities</label>
+                            <select name="exploit_skill">
+                                <option value="1">Beginner</option>
+                                <option value="2">Intermediate</option>
+                                <option value="3">Advanced</option>
+                                <option value="4">Expert</option>
+                                <option value="5">Elite</option>
+                            </select>
+                        </div>
+                        
+                        <div class="skill-group">
+                            <label>Vulnerability Finding</label>
+                            <select name="vuln_finding_skill">
+                                <option value="1">Beginner</option>
+                                <option value="2">Intermediate</option>
+                                <option value="3">Advanced</option>
+                                <option value="4">Expert</option>
+                                <option value="5">Elite</option>
+                            </select>
+                        </div>
+                        
+                        <div class="skill-group">
+                            <label>Social Engineering / Manipulation</label>
+                            <select name="manipulation_skill">
+                                <option value="1">Beginner</option>
+                                <option value="2">Intermediate</option>
+                                <option value="3">Advanced</option>
+                                <option value="4">Expert</option>
+                                <option value="5">Elite</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Can you control your emotions under pressure?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="emotions_yes" name="emotions" value="yes">
+                            <label for="emotions_yes">Yes</label>
+                            <input type="radio" id="emotions_no" name="emotions" value="no">
+                            <label for="emotions_no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Are you able to lie to your own team if necessary?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="lie_yes" name="lying" value="yes">
+                            <label for="lie_yes">Yes</label>
+                            <input type="radio" id="lie_no" name="lying" value="no">
+                            <label for="lie_no">No</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Previous forum connections (select all that apply)</label>
+                        <div class="forums-container">
+                            <div class="forums-column">
+                                <div class="forum-option"><input type="checkbox" name="forums" value="nulled.to"> nulled.to</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="cracked.to"> cracked.to</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="cracked.sh"> cracked.sh</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="breachforums.st"> breachforums.st</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="breachforums.vc"> breachforums.vc</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="breachforums.it"> breachforums.it</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="breachforums.com"> breachforums.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="raidforums.com"> raidforums.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="xss.is"> xss.is</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="blackhatworld.com"> blackhatworld.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="hackforums.net"> hackforums.net</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="evilzone.org"> evilzone.org</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="0x00sec.org"> 0x00sec.org</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reddit.com/r/netsec"> reddit.com/r/netsec</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reddit.com/r/blackhat"> reddit.com/r/blackhat</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="mpgh.net"> mpgh.net</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="sinister.ly"> sinister.ly</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="cracking.org"> cracking.org</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="cracking.com"> cracking.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="antichat.ru"> antichat.ru</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="exploit.in"> exploit.in</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="forums.mozillazine.org"> forums.mozillazine.org</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="wilderssecurity.com"> wilderssecurity.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="ghostlyhacks.com"> ghostlyhacks.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="cardenial.com"> cardenial.com</div>
+                            </div>
+                            <div class="forums-column">
+                                <div class="forum-option"><input type="checkbox" name="forums" value="kernelmode.info"> kernelmode.info</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="unknowncheats.me"> unknowncheats.me</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="guidedhacking.com"> guidedhacking.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.io"> reversing.io</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.life"> reversing.life</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.ws"> reversing.ws</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.zone"> reversing.zone</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.club"> reversing.club</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.team"> reversing.team</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.xyz"> reversing.xyz</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.net"> reversing.net</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.org"> reversing.org</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.com"> reversing.com</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.info"> reversing.info</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.dev"> reversing.dev</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.pro"> reversing.pro</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.tech"> reversing.tech</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.host"> reversing.host</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.site"> reversing.site</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.space"> reversing.space</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.work"> reversing.work</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.services"> reversing.services</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.solutions"> reversing.solutions</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.consulting"> reversing.consulting</div>
+                                <div class="forum-option"><input type="checkbox" name="forums" value="reversing.expert"> reversing.expert</div>
+                            </div>
+                        </div>
+                        <div class="forum-note">
+                            <p>Note: You can provide Wayback Machine URLs for banned/dead forums</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Profile links for selected forums (one per line)</label>
+                        <textarea name="profile_links" placeholder="https://forum.example.com/user/yourprofile&#10;https://web.archive.org/..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">SUBMIT APPLICATION</button>
+                </form>
+                
+                <div class="legal-disclaimer">
+                    <h3>LEGAL DISCLAIMER</h3>
+                    <p>This website and its content are for educational and entertainment purposes only. We do not condone, promote, or engage in any illegal activities. All information provided is fictional and part of a simulated cybersecurity learning environment. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.</p>
                 </div>
             </div>
         </section>
         
-        <section id="credits" class="content">
-            <h2>CREDITS</h2>
-            <ul class="credits-list">
-                <li class="credit-item">Web Design: Asha</li>
-            </ul>
-        </section>
-    </main>
+<section id="databases" class="content">
+    <h2>DATABASE ACCESS</h2>
+    <div class="db-banner">
+        <div class="access-denied">ACCESS DENIED</div>
+        <div class="connection-status">
+            <div class="status-line">> Establishing connection to external database...</div>
+            <div class="status-line">> Authentication required...</div>
+            <div class="status-line error">> ERROR: Connection refused - Insufficient privileges</div>
+            <div class="status-line">> Falling back to secure tunnel...</div>
+            <div class="status-line error">> ERROR: Secure tunnel failed to initialize</div>
+            <div class="status-line">> SYSTEM OFFLINE - Contact administrator for access</div>
+        </div>
+    </div>
+    <div class="redirect-message">
+        <p>External database systems are temporarily unavailable.</p>
+        <p>All connections are being routed through encrypted channels.</p>
+        <p>Stand by for system restoration...</p>
+    </div>
+</section>
+
+<section id="about" class="content">
+    <h2>ABOUT US</h2>
+    <div class="about-content">
+        <div class="about-text">
+            <p>We are <strong>Asha</strong> - Advanced Security Hunters Agency. A collective of cybersecurity specialists operating in the digital shadows.</p>
+            <p>Our name represents our mission: <strong>A</strong>dvanced <strong>S</strong>ecurity <strong>H</strong>unters <strong>A</strong>gency. We hunt those who hunt others.</p>
+            <p>We previously moderated and secured multiple underground platforms including <span class="url">breachforums.info</span>, <span class="url">breached.is</span>, <span class="url">breached.sh</span>, <span class="url">breach-forums.live</span> and numerous others.</p>
+            
+            <div class="former-staff">
+                <h3>Former RaidForums Administration</h3>
+                <div class="staff-grid">
+                    <div class="staff-category">
+                        <h4>Administrators</h4>
+                        <ul>
+                            <li>Omniphent</li>
+                            <li>Punpunruin</li>
+                            <li>ShinyHunters</li>
+                            <li>Anastasia</li>
+                            <li>N/A</li>
+                            <li>Specter</li>
+                            <li>Phantom</li>
+                        </ul>
+                    </div>
+                    <div class="staff-category">
+                        <h4>Moderators</h4>
+                        <ul>
+                            <li>Pine</li>
+                            <li>Loki</li>
+                            <li>666</li>
+                            <li>Tanaka</li>
+                            <li>Kitsune</li>
+                            <li>Raven</li>
+                            <li>Ghost</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <p>Our current mission is to eliminate all BreachForums-related clones and individuals impersonating former staff members of BreachForums and RaidForums.</p>
+            <p>Our network is extensive - some of our members hold positions within government agencies, major corporations, and the very services you use daily.</p>
+            <p>We maintain no presence on conventional social media platforms, operating exclusively through our own encrypted communication systems with no publicly available source code.</p>
+            <p>Our recruitment process is unique: we identify potential candidates through their digital footprint and extend invitations directly. Some might call this unconventional - we call it efficient.</p>
+            <p>We maintain strict operational security - our anonymity is our greatest asset.</p>
+            <p>We operate under multiple aliases across different operations, none of which we will disclose for obvious security reasons.</p>
+            
+            <div class="contact-info">
+                <h3>Contact Channels</h3>
+                <p>For recruitment inquiries: <span class="url">bluerasperry@onionmail.com</span></p>
+                <p>For service acquisition: <span class="url">bluerasperry@onionmail.com</span></p>
+                <p>All communications must be encrypted and include proper verification.</p>
+            </div>
+        </div>
+        <div class="hacker-img">
+            <span>OPERATIONAL SECURITY ACTIVE</span>
+        </div>
+    </div>
+</section>
     
     <footer>
         <p>BLACKBERRY831 &copy; 2023 | SYSTEM STATUS: <span style="color: #00ff00;">ONLINE</span></p>
+        <p class="disclaimer">This website is for educational and entertainment purposes only. All content is fictional.</p>
     </footer>
     
     <script src="script.js"></script>

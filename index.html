@@ -7,6 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-text">INITIALIZING SYSTEM</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-status">LOADING: <span id="load-percent">0%</span></div>
+        </div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-trail"></div>
+    
     <canvas id="matrix" class="matrix-bg"></canvas>
     
     <header>
@@ -22,21 +37,30 @@
     <main>
         <section id="home" class="content active-content">
             <div class="home-content">
-                <h2>WELCOME TO THE SYSTEM<span class="cursor"></span></h2>
+                <h2>WELCOME TO THE SYSTEM</h2>
                 <div class="terminal">
-                    <div class="terminal-line"><span class="prompt">user@blackberry831:~$</span> whoami</div>
-                    <div class="terminal-line">blackberry831</div>
-                    <div class="terminal-line"><span class="prompt">user@blackberry831:~$</span> cat about.txt</div>
-                    <div class="terminal-line">Cybersecurity enthusiast and developer.</div>
-                    <div class="terminal-line">Exploring the digital frontier.</div>
-                    <div class="terminal-line"><span class="prompt">user@blackberry831:~$</span> <span class="cursor"></span></div>
+                    <div class="terminal-output">
+                        <div class="terminal-line"><span class="prompt">user@blackberry831:~$</span> welcome</div>
+                        <div class="terminal-line">Initializing system... OK</div>
+                        <div class="terminal-line">Loading security protocols... OK</div>
+                        <div class="terminal-line">Establishing secure connection... OK</div>
+                        <div class="terminal-line">System ready.</div>
+                        <div class="terminal-line">Type 'help' for available commands.</div>
+                        <div class="terminal-line"><span class="prompt">user@blackberry831:~$</span> <span class="cmd-output"></span></div>
+                    </div>
+                    <div class="terminal-input">
+                        <span class="prompt">user@blackberry831:~$</span>
+                        <input type="text" class="cmd-input" autofocus>
+                        <span class="cursor"></span>
+                    </div>
                 </div>
             </div>
         </section>
         
         <section id="databases" class="content">
-            <h2>DATABASE ACCESS<span class="cursor"></span></h2>
+            <h2>DATABASE ACCESS</h2>
             <div class="db-banner">
+                <div class="access-denied">ACCESS DENIED</div>
                 <h3>DATABASE SYSTEM OFFLINE</h3>
                 <p>This section is currently under maintenance.</p>
             </div>
@@ -47,7 +71,7 @@
         </section>
         
         <section id="about" class="content">
-            <h2>ABOUT US<span class="cursor"></span></h2>
+            <h2>ABOUT US</h2>
             <div class="about-content">
                 <div class="about-text">
                     <p>We are a collective of cybersecurity enthusiasts and developers dedicated to exploring the digital frontier.</p>
@@ -61,7 +85,7 @@
         </section>
         
         <section id="credits" class="content">
-            <h2>CREDITS<span class="cursor"></span></h2>
+            <h2>CREDITS</h2>
             <ul class="credits-list">
                 <li class="credit-item">Web Design: Blackberry831 Team</li>
                 <li class="credit-item">Sound Engineering: Audio Synthesis API</li>

@@ -1,8 +1,11 @@
-// Loading Screen
+// Loading Screen with sound
 window.addEventListener('load', function() {
     const loadingScreen = document.getElementById('loading-screen');
     const loadingProgress = document.querySelector('.loading-progress');
     const loadPercent = document.getElementById('load-percent');
+    
+    // Play loading sound
+    playLoadingSound();
     
     let progress = 0;
     const interval = setInterval(() => {
@@ -54,7 +57,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Hover effects for interactive elements
-document.querySelectorAll('.nav-item, input, textarea, select, button, .forum-option, .checkbox-label').forEach(item => {
+document.querySelectorAll('.nav-item, input, textarea, select, button, .forum-option, .checkbox-label, .product-item, .staff-member').forEach(item => {
     item.addEventListener('mouseenter', () => {
         cursor.classList.add('hover');
         playHoverSound();
@@ -96,14 +99,19 @@ document.querySelectorAll('.nav-item').forEach(item => {
         
         // Play navigation sound
         playNavSound();
+        
+        // Special handling for databases section
+        if (target === 'databases') {
+            playAccessDeniedSound();
+        }
     });
 });
 
-// Matrix background animation
+// Matrix background animation - only on left half
 const canvas = document.getElementById('matrix');
 const ctx = canvas.getContext('2d');
 
-// Set canvas to full window size
+// Set canvas to full window size but only use left half
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
@@ -111,7 +119,7 @@ canvas.height = window.innerHeight;
 const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
 const charArray = chars.split("");
 const fontSize = 14;
-const columns = canvas.width / fontSize;
+const columns = canvas.width / fontSize / 2; // Only left half
 
 // Array of drops - one per column
 const drops = [];
@@ -122,7 +130,7 @@ for (let i = 0; i < columns; i++) {
 function drawMatrix() {
     // Semi-transparent black background for trail effect
     ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillRect(0, 0, canvas.width / 2, canvas.height); // Only left half
     
     ctx.fillStyle = "#00ff00";
     ctx.font = fontSize + "px monospace";
@@ -131,7 +139,7 @@ function drawMatrix() {
         // Random character
         const text = charArray[Math.floor(Math.random() * charArray.length)];
         
-        // Draw the character
+        // Draw the character - only on left half
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         
         // Reset drop to top when it reaches bottom with random delay
@@ -267,7 +275,7 @@ const forums = [
     "truthfinder.com", "ussearch.com", "zabasearch.com", "peekyou.com", "yasni.com",
     "webmii.com", "pimeyes.com", "facecheck.id", "berify.com", "social-searcher.com",
     "socialmention.com", "brand24.com", "mention.com", "talkwalker.com", "brandwatch.com",
-    "sysomos.com", "crimsonhexagon.com", "netbase.com", "fusion.net", "datasift.com",
+    "sysomos.com", "crimsonhexagon.com", "fusion.net", "datasift.com",
     "gnip.com", "radian6.com", "simplymeasured.com", "iconosquare.com", "socialbakers.com",
     "quintly.com", "crowdtangle.com", "buzzsumo.com", "awario.com", "agorapulse.com",
     "sendible.com", "socialoomph.com", "buffer.com", "hootsuite.com", "sproutsocial.com",
@@ -372,128 +380,325 @@ if (recruitmentForm) {
     });
 }
 
-// Initialize when page loads
-window.addEventListener('load', function() {
-    populateForums();
-    
-    // Add typing animation to connection status
-    const statusLines = document.querySelectorAll('.status-line');
-    statusLines.forEach((line, index) => {
-        line.style.animationDelay = `${0.5 + (index * 0.5)}s`;
+// Product modal functionality
+const productModal = document.getElementById('product-modal');
+const productModalName = document.getElementById('modal-product-name');
+const productModalDetails = document.getElementById('modal-product-details');
+const productCloseBtn = productModal.querySelector('.modal-close');
+
+// Product data
+const productData = {
+    facebook: {
+        name: "Facebook Database 2021",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">533 million</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2021-04-03</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">SQL Dump</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$2,500</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>user_id: 123456789
+phone: +1-555-0123
+email: john.doe@example.com
+name: John Doe
+location: New York, US
+birth_date: 1985-03-15
+gender: male
+registration_date: 2012-08-22</code></pre>
+            </div>
+        `
+    },
+    linkedin: {
+        name: "LinkedIn Database 2021",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">700 million</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2021-06-22</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">CSV Export</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$1,800</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>email: sarah.connor@techcorp.com
+full_name: Sarah Connor
+phone: +1-555-0456
+company: TechCorp Inc
+position: Senior Developer
+industry: Information Technology
+location: San Francisco, CA</code></pre>
+            </div>
+        `
+    },
+    twitter: {
+        name: "Twitter Database 2022",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">5.4 million</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2022-01-01</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">JSON Export</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$3,200</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>{
+  "user_id": "789012345",
+  "username": "hacker_pro",
+  "email": "pro.hacker@securemail.com",
+  "phone": "+44-7911-123456",
+  "followers": 15432,
+  "account_created": "2015-11-30",
+  "last_tweet": "2022-12-15",
+  "verified": false
+}</code></pre>
+            </div>
+        `
+    },
+    instagram: {
+        name: "Instagram Scraped Data 2023",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">487 million</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2023-03-15</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">MongoDB Dump</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$2,100</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>{
+  "_id": "507f1f77bcf86cd799439011",
+  "username": "travel_lover_23",
+  "full_name": "Emma Wilson",
+  "email": "emma.w@example.org",
+  "phone": "+49-157-98765432",
+  "followers": 1247,
+  "posts": 89,
+  "bio": "Digital nomad | Photography enthusiast",
+  "business_account": false,
+  "last_post": "2023-12-01"
+}</code></pre>
+            </div>
+        `
+    },
+    uber: {
+        name: "Uber Employee Data 2022",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">77,000</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2022-09-15</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">Excel Sheets</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$4,500</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>employee_id: UB-789456
+full_name: Michael Rodriguez
+email: m.rodriguez@uber.com
+position: Senior Software Engineer
+department: Engineering
+salary_band: L5
+location: San Francisco, CA
+hire_date: 2019-08-12
+internal_id: 654321987</code></pre>
+            </div>
+        `
+    },
+    rockyou: {
+        name: "RockYou 2021 Password List",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">8.4 billion</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2021-12-25</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">Text File</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$800</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>password123
+admin
+123456
+qwerty
+password
+letmein
+welcome
+monkey
+abc123
+111111
+1234567
+iloveyou
+admin123</code></pre>
+            </div>
+        `
+    },
+    telegram: {
+        name: "Telegram User Data 2023",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">42 million</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2023-07-30</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">SQL + Phone Numbers</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$3,800</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>user_id: 9876543210
+phone: +1-555-0789
+username: crypto_whale
+first_name: Alex
+last_name: Thompson
+dc_id: 4
+language: en
+premium: true
+last_seen: 2023-11-20 14:30:00</code></pre>
+            </div>
+        `
+    },
+    voter: {
+        name: "US Voter Registration Data",
+        details: `
+            <div class="detail-row">
+                <span class="detail-label">Records:</span>
+                <span class="detail-value">191 million</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Date of Breach:</span>
+                <span class="detail-value">2015-12-28</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Format:</span>
+                <span class="detail-value">Multiple CSV Files</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Price:</span>
+                <span class="detail-value">$1,200</span>
+            </div>
+            <div class="sample-data">
+                <h4>Sample Data:</h4>
+                <pre><code>first_name: Jennifer
+last_name: Martinez
+address: 1234 Oak Street
+city: Miami
+state: FL
+zip_code: 33101
+dob: 1988-07-22
+voter_id: FL987654321
+party: Democratic
+registration_date: 2012-10-15</code></pre>
+            </div>
+        `
+    }
+};
+
+// Add click event to product items
+document.querySelectorAll('.product-item').forEach(item => {
+    item.addEventListener('click', function() {
+        const productId = this.getAttribute('data-id');
+        if (productData[productId]) {
+            productModalName.textContent = productData[productId].name;
+            productModalDetails.innerHTML = productData[productId].details;
+            productModal.style.display = 'block';
+            playModalOpenSound();
+        }
     });
 });
 
-// Sound generation functions
-function playNavSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sawtooth';
-    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
-}
+// Staff modal functionality
+const staffModal = document.getElementById('staff-modal');
+const staffModalName = document.getElementById('modal-staff-name');
+const staffModalDescription = document.getElementById('modal-staff-description');
+const staffCloseBtn = staffModal.querySelector('.modal-close');
 
-function playHoverSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.05);
-    
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.05);
-}
-
-function playClickSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'square';
-    oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
-}
-
-function playTerminalSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.05);
-    
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.05);
-}
-
-function playSystemReadySound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.2);
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.2);
-}
-
-function playSubmitSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.3);
-    
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.3);
-}
+// Staff data
+const staffData = {
+    "Baphomet": "Founder and lead administrator of multiple underground forums. Known for expertise in operational security and database management.",
+    "ShinyHunters": "Prominent hacking group responsible for multiple high-profile data breaches. Known for selling and leaking databases.",
+    "Pompompurin": "Founder of BreachForums. Known for creating one of the largest data breach communities after the takedown of RaidForums.",
+    "N/A": "Anonymous administrator who maintains operational security by not disclosing any personal information.",
+    "Hollow": "Senior moderator known for enforcing forum rules and maintaining community standards across multiple platforms.",
+    "Manitora": "Technical administrator specializing in forum infrastructure and security measures.",
+    "Loki": "Moderator known for expertise in social engineering and community management.",
+    "888": "Moderator with background in cryptocurrency and financial security.",
+    "Tanaka": "International moderator with connections to Asian hacking communities.",
+    "Paw": "Technical moderator specializing in exploit development and vulnerability research.",
+    "Dedale": "Community moderator focused on user verification and anti-law enforcement measures.",
+    "Moderator": "Generic moderator account used by multiple staff members for operational security.",
+    "Pine": "Moderator with expertise in OSINT and open source intelligence gathering.",
+    "Koko": "Community manager known for organizing forum events and user engagement.",
+    "Omnipotent": "Lead administrator of RaidForums with extensive experience in underground communities.",
+    "Jaw": "Technical administrator responsible for RaidForums infrastructure and security.",
+    "Moot": "Community administrator with background in anonymous imageboards and forums.",
+    "Sem": "Moderator specializing in data breach verification and validation.",
+    "Burpingjimmy_Bot": "Automated moderation bot with custom rules for content filtering.",
+    "Thu": "International moderator with connections to European hacking communities.",
+    "Boootted": "Moderator known for expertise in DDoS

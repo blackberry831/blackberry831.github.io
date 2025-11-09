@@ -1,5 +1,5 @@
-// Loading Screen with sound - FIXED
-window.addEventListener('load', function() {
+// Loading Screen with sound - FIXED VERSION
+document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
     const loadingProgress = document.querySelector('.loading-progress');
     const loadPercent = document.getElementById('load-percent');
@@ -9,7 +9,7 @@ window.addEventListener('load', function() {
     
     let progress = 0;
     const interval = setInterval(() => {
-        progress += Math.random() * 10;
+        progress += Math.random() * 15;
         if (progress >= 100) {
             progress = 100;
             clearInterval(interval);
@@ -21,9 +21,13 @@ window.addEventListener('load', function() {
             }, 500);
         }
         
-        loadingProgress.style.width = `${progress}%`;
-        loadPercent.textContent = `${Math.round(progress)}%`;
-    }, 150);
+        if (loadingProgress) {
+            loadingProgress.style.width = `${progress}%`;
+        }
+        if (loadPercent) {
+            loadPercent.textContent = `${Math.round(progress)}%`;
+        }
+    }, 100);
 });
 
 // Custom Cursor

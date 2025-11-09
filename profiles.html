@@ -1,1 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profiles | Blackberry831</title>
+    <link rel="stylesheet" href="profile-style.css">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="loading-text">ACCESSING SECURE PROFILES</div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <div class="loading-status">LOADING: <span id="load-percent">0%</span></div>
+        </div>
+    </div>
 
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+    <div class="cursor-trail"></div>
+    
+    <canvas id="matrix" class="matrix-bg"></canvas>
+    
+    <div class="profiles-container">
+        <div class="profile-card">
+            <div class="profile-pic">
+                <!-- Replace with your uploaded image -->
+                <img src="assets/profile-pic.jpg" alt="Profile Picture" onerror="this.style.display='none'">
+                <div class="profile-placeholder">BB831</div>
+            </div>
+            <div class="profile-name">BlackBerry831</div>
+            <div class="profile-description">
+                Cybersecurity Specialist | Threat Intelligence | Digital Forensics
+                <br>Former BreachForums/RaidForums Staff
+                <br>Operational since 2018
+            </div>
+            <div class="profile-socials">
+                <a href="https://t.me/blackberry831" class="social-link" target="_blank">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram">
+                    <span>Telegram</span>
+                </a>
+                <a href="#" class="social-link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/55/Session_icon_%28Google_Play%29.png" alt="Session">
+                    <span>Session</span>
+                </a>
+                <a href="#" class="social-link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Qtox_logo.svg" alt="qTox">
+                    <span>qTox</span>
+                </a>
+                <a href="mailto:bluerasperry@onionmail.com" class="social-link">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">
+                    <span>Email</span>
+                </a>
+            </div>
+            <div class="profile-stats">
+                <div class="stat">
+                    <div class="stat-number">47</div>
+                    <div class="stat-label">Takedowns</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">6+</div>
+                    <div class="stat-label">Years Active</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">OpSec</div>
+                </div>
+            </div>
+        </div>
+        
+        <a href="index.html" class="back-btn">← Back to Main Site</a>
+    </div>
+
+    <script src="profile-script.js"></script>
+</body>
+</html>

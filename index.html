@@ -30,6 +30,8 @@
             <nav>
                 <div class="nav-item active" data-target="home">Home</div>
                 <div class="nav-item" data-target="about">About</div>
+                <div class="nav-item" data-target="takedowns">Takedowns</div>
+                <div class="nav-item" data-target="profiles">Profiles</div>
             </nav>
         </div>
     </header>
@@ -37,21 +39,46 @@
     <main>
         <section id="home" class="content active-content">
             <div class="home-content">
-                <h2>WELCOME TO THE SYSTEM</h2>
-                <div class="terminal">
-                    <div class="terminal-output">
-                        <div class="terminal-line"><span class="prompt">user@blackberry831:~$</span> welcome</div>
-                        <div class="terminal-line">Initializing system... OK</div>
-                        <div class="terminal-line">Loading security protocols... OK</div>
-                        <div class="terminal-line">Establishing secure connection... OK</div>
-                        <div class="terminal-line">System ready.</div>
-                        <div class="terminal-line">Type 'help' for available commands.</div>
-                        <div class="terminal-line"><span class="prompt">user@blackberry831:~$</span> <span class="cmd-output"></span></div>
+                <div class="welcome-section">
+                    <h2 class="welcome-title">Welcome to BlackBerry</h2>
+                    <div class="status-section">
+                        <h3>Network Status</h3>
+                        <div class="status-grid">
+                            <div class="status-item online">
+                                <span class="status-dot"></span>
+                                <span class="status-name">Main Server</span>
+                                <span class="status-text">OPERATIONAL</span>
+                            </div>
+                            <div class="status-item online">
+                                <span class="status-dot"></span>
+                                <span class="status-name">Database Cluster</span>
+                                <span class="status-text">SECURE</span>
+                            </div>
+                            <div class="status-item online">
+                                <span class="status-dot"></span>
+                                <span class="status-name">Communication Hub</span>
+                                <span class="status-text">ENCRYPTED</span>
+                            </div>
+                            <div class="status-item offline">
+                                <span class="status-dot"></span>
+                                <span class="status-name">Backup Node 3</span>
+                                <span class="status-text">OFFLINE</span>
+                            </div>
+                            <div class="status-item online">
+                                <span class="status-dot"></span>
+                                <span class="status-name">Tor Gateway</span>
+                                <span class="status-text">ACTIVE</span>
+                            </div>
+                            <div class="status-item online">
+                                <span class="status-dot"></span>
+                                <span class="status-name">VPN Tunnel</span>
+                                <span class="status-text">STABLE</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="terminal-input">
-                        <span class="prompt">user@blackberry831:~$</span>
-                        <input type="text" class="cmd-input" autofocus>
-                        <span class="cursor"></span>
+                    <div class="mission-statement">
+                        <p>Advanced Security Operations | Threat Neutralization | Digital Forensics</p>
+                        <p class="sub-mission">Eliminating malicious actors and securing the digital frontier since 2018</p>
                     </div>
                 </div>
             </div>
@@ -166,6 +193,28 @@
                 </div>
             </div>
         </section>
+
+        <section id="takedowns" class="content">
+            <h2>SITES WE'VE TAKEN DOWN</h2>
+            <div class="takedowns-container">
+                <div class="takedowns-list">
+                    <!-- Sites will be populated by JavaScript -->
+                </div>
+                <div class="pagination">
+                    <button id="prev-page" class="page-btn">Previous</button>
+                    <span id="page-info">Page 1 of 4</span>
+                    <button id="next-page" class="page-btn">Next</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="profiles" class="content">
+            <div class="profiles-redirect">
+                <h2>PROFILES</h2>
+                <p>Access our secure profiles portal</p>
+                <a href="profiles.html" class="redirect-btn">Enter Profiles Portal</a>
+            </div>
+        </section>
     </main>
     
     <footer>
@@ -196,13 +245,23 @@
             </div>
         </div>
     </div>
+
+    <div id="takedown-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-body">
+                <h2 id="modal-takedown-name"></h2>
+                <div id="modal-takedown-details"></div>
+            </div>
+        </div>
+    </div>
     
     <div id="disclaimer-modal" class="modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
             <div class="modal-body">
                 <h2>Research & Education Purposes</h2>
-                <p>This website and its content are for educational and research purposes only. We do not condone, promote, or engage in any illegal activities. All information provided is fictional and part of a simulated cybersecurity learning environment. Any resemblance to actual persons, living or dead, or actual events is purely coincidental.</p>
+                <p>This website and its content are for educational and research purposes only. We do not condone, promote, or engage in any illegal activities.</p>
             </div>
         </div>
     </div>

@@ -15,7 +15,9 @@ document.addEventListener('DOMContentLoaded', function() {
             clearInterval(interval);
             
             setTimeout(() => {
-                loadingScreen.classList.add('hidden');
+                if (loadingScreen) {
+                    loadingScreen.classList.add('hidden');
+                }
                 // Play system ready sound
                 playSystemReadySound();
             }, 500);
@@ -46,8 +48,10 @@ for (let i = 0; i < trailCount; i++) {
 
 document.addEventListener('mousemove', (e) => {
     // Update main cursor
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
+    if (cursor) {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    }
     
     // Update trail with delay
     trailElements.forEach((trail, index) => {
@@ -61,24 +65,26 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Hover effects for interactive elements
-document.querySelectorAll('.nav-item, input, textarea, select, button, .staff-member, .contact-link').forEach(item => {
+document.querySelectorAll('.nav-item, .staff-member, .contact-link, .site-item, .page-btn, .redirect-btn').forEach(item => {
     item.addEventListener('mouseenter', () => {
-        cursor.classList.add('hover');
+        if (cursor) cursor.classList.add('hover');
         playHoverSound();
     });
     
     item.addEventListener('mouseleave', () => {
-        cursor.classList.remove('hover');
+        if (cursor) cursor.classList.remove('hover');
     });
 });
 
 // Click effect
 document.addEventListener('click', () => {
-    cursor.style.transform = 'scale(0.8)';
+    if (cursor) {
+        cursor.style.transform = 'scale(0.8)';
+        setTimeout(() => {
+            cursor.style.transform = 'scale(1)';
+        }, 100);
+    }
     playClickSound();
-    setTimeout(() => {
-        cursor.style.transform = 'scale(1)';
-    }, 100);
 });
 
 // Navigation functionality
@@ -106,149 +112,198 @@ document.querySelectorAll('.nav-item').forEach(item => {
     });
 });
 
-// Matrix background animation - only on left half
+// Matrix background animation - now full page
 const canvas = document.getElementById('matrix');
-const ctx = canvas.getContext('2d');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
 
-// Set canvas to full window size but only use left half
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-// Characters for the matrix effect
-const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
-const charArray = chars.split("");
-const fontSize = 14;
-const columns = canvas.width / fontSize / 2; // Only left half
-
-// Array of drops - one per column
-const drops = [];
-for (let i = 0; i < columns; i++) {
-    drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-}
-
-function drawMatrix() {
-    // Semi-transparent black background for trail effect
-    ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
-    ctx.fillRect(0, 0, canvas.width / 2, canvas.height); // Only left half
-    
-    ctx.fillStyle = "#00ff00";
-    ctx.font = fontSize + "px monospace";
-    
-    for (let i = 0; i < drops.length; i++) {
-        // Random character
-        const text = charArray[Math.floor(Math.random() * charArray.length)];
-        
-        // Draw the character - only on left half
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        
-        // Reset drop to top when it reaches bottom with random delay
-        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-        }
-        
-        // Move the drop down
-        drops[i]++;
-    }
-}
-
-// Resize canvas when window is resized
-window.addEventListener('resize', function() {
+    // Set canvas to full window size
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-});
 
-// Animation loop for matrix
-setInterval(drawMatrix, 35);
+    // Characters for the matrix effect
+    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
+    const charArray = chars.split("");
+    const fontSize = 14;
+    const columns = canvas.width / fontSize; // Full width now
 
-// Terminal functionality
-const terminalInput = document.querySelector('.cmd-input');
-const terminalOutput = document.querySelector('.terminal-output');
+    // Array of drops - one per column
+    const drops = [];
+    for (let i = 0; i < columns; i++) {
+        drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
+    }
 
-// Command history
-let commandHistory = [];
-let historyIndex = -1;
-
-// Available commands
-const commands = {
-    help: () => `Available commands: help, whoami, about, clear, date, echo, contact, mission`,
-    whoami: () => `asha_operative`,
-    about: () => `We are Asha - Advanced Security Hunters Agency. Former RaidForums/BreachForums staff operating in the digital shadows.`,
-    clear: () => {
-        terminalOutput.innerHTML = '';
-        return '';
-    },
-    date: () => new Date().toString(),
-    echo: (args) => args.join(' '),
-    contact: () => `Secure contact: bluerasperry@onionmail.com`,
-    mission: () => `Our mission: Eliminate BreachForums clones and impersonators. Maintain digital order.`
-};
-
-if (terminalInput) {
-    terminalInput.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter') {
-            const command = terminalInput.value.trim();
-            terminalInput.value = '';
+    function drawMatrix() {
+        // Semi-transparent black background for trail effect
+        ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height); // Full width
+        
+        ctx.fillStyle = "#00ff00";
+        ctx.font = fontSize + "px monospace";
+        
+        for (let i = 0; i < drops.length; i++) {
+            // Random character
+            const text = charArray[Math.floor(Math.random() * charArray.length)];
             
-            if (command) {
-                // Add to history
-                commandHistory.push(command);
-                historyIndex = commandHistory.length;
-                
-                // Process command
-                processCommand(command);
+            // Draw the character
+            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+            
+            // Reset drop to top when it reaches bottom with random delay
+            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                drops[i] = 0;
             }
             
-            // Add new input line
-            const newLine = document.createElement('div');
-            newLine.className = 'terminal-line';
-            newLine.innerHTML = `<span class="prompt">user@blackberry831:~$</span> `;
-            terminalOutput.appendChild(newLine);
-            
-            // Scroll to bottom
-            terminalOutput.scrollTop = terminalOutput.scrollHeight;
-        } else if (e.key === 'ArrowUp') {
-            // Navigate command history
-            e.preventDefault();
-            if (commandHistory.length > 0) {
-                historyIndex = Math.max(historyIndex - 1, 0);
-                terminalInput.value = commandHistory[historyIndex];
-            }
-        } else if (e.key === 'ArrowDown') {
-            // Navigate command history
-            e.preventDefault();
-            if (commandHistory.length > 0) {
-                historyIndex = Math.min(historyIndex + 1, commandHistory.length);
-                if (historyIndex === commandHistory.length) {
-                    terminalInput.value = '';
-                } else {
-                    terminalInput.value = commandHistory[historyIndex];
-                }
-            }
+            // Move the drop down
+            drops[i]++;
         }
+    }
+
+    // Resize canvas when window is resized
+    window.addEventListener('resize', function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
     });
+
+    // Animation loop for matrix
+    setInterval(drawMatrix, 35);
 }
 
-function processCommand(command) {
-    const [cmd, ...args] = command.split(' ');
-    const outputLine = document.createElement('div');
-    outputLine.className = 'terminal-line';
+// Takedowns functionality
+const takedownsData = [
+    { name: "breachforums.st", date: "2023-01-15", method: "Server Takedown", details: "Took down impersonation site posing as original BreachForums. Server located in Bulgaria." },
+    { name: "breached.is", date: "2023-02-22", method: "Domain Seizure", details: "Coordinated with registrar to seize domain. Site was hosting stolen databases." },
+    { name: "raidforums-reborn.com", date: "2023-03-08", method: "Legal Action", details: "Filed DMCA takedown and worked with hosting provider to remove content." },
+    { name: "leakbase.io", date: "2023-04-12", method: "Server Takedown", details: "Identified and reported malicious activity to hosting provider in Netherlands." },
+    { name: "databreaches.live", date: "2023-05-19", method: "Domain Seizure", details: "Worked with ICANN to seize domain after identifying illegal activities." },
+    { name: "hackersparadise.net", date: "2023-06-03", method: "Legal Action", details: "Coordinated with international law enforcement to take down operations." },
+    { name: "darkleaks.org", date: "2023-07-11", method: "Server Takedown", details: "Identified server location in Russia and worked with authorities." },
+    { name: "cyberunderground.co", date: "2023-08-25", method: "Domain Seizure", details: "Seized domain after identifying multiple illegal activities." },
+    { name: "blackmarketonline", date: "2023-09-14", method: "Server Takedown", details: "Took down marketplace selling stolen credentials and tools." },
+    { name: "exploitworld.net", date: "2023-10-05", method: "Legal Action", details: "Filed multiple legal complaints leading to complete shutdown." },
+    { name: "malware-distro.com", date: "2023-11-18", method: "Server Takedown", details: "Identified and reported malware distribution network." },
+    { name: "phishing-kit.store", date: "2023-12-22", method: "Domain Seizure", details: "Seized domain selling phishing kits and stolen data." },
+    { name: "cardershaven.io", date: "2024-01-09", method: "Server Takedown", details: "Took down carding forum operating from Eastern Europe." },
+    { name: "cryptostealer.net", date: "2024-02-14", method: "Legal Action", details: "Worked with cryptocurrency exchanges to identify and stop operations." },
+    { name: "botnet-control.pw", date: "2024-03-27", method: "Server Takedown", details: "Identified and dismantled botnet command and control server." },
+    { name: "ransomware-help.com", date: "2024-04-03", method: "Domain Seizure", details: "Seized domain posing as ransomware help but actually distributing malware." },
+    { name: "fake-antivirus.pro", date: "2024-05-11", method: "Server Takedown", details: "Took down fake antivirus distribution network." },
+    { name: "social-engineer.co", date: "2024-06-28", method: "Legal Action", details: "Filed complaints against social engineering service." },
+    { name: "doxing-service.net", date: "2024-07-15", method: "Domain Seizure", details: "Seized domain offering illegal doxing services." },
+    { name: "password-cracker.io", date: "2024-08-09", method: "Server Takedown", details: "Took down service offering illegal password cracking." },
+    { name: "email-harvester.pro", date: "2024-09-22", method: "Legal Action", details: "Filed legal complaints leading to service termination." },
+    { name: "ip-grabber.xyz", date: "2024-10-17", method: "Domain Seizure", details: "Seized domain offering IP grabbing services." },
+    { name: "discord-token-stealer", date: "2024-11-05", method: "Server Takedown", details: "Took down Discord token stealing service." },
+    { name: "minecraft-hack.club", date: "2024-12-12", method: "Legal Action", details: "Filed DMCA and worked with Mojang to take down." },
+    { name: "fortnite-cheats.pro", date: "2025-01-08", method: "Server Takedown", details: "Took down Fortnite cheating service." },
+    { name: "valorant-hacks.io", date: "2025-02-19", method: "Domain Seizure", details: "Seized domain offering Valorant cheating software." },
+    { name: "aimbot-distro.com", date: "2025-03-14", method: "Legal Action", details: "Worked with game developers to take down aimbot distribution." },
+    { name: "game-cracks.net", date: "2025-04-21", method: "Server Takedown", details: "Took down game cracking and piracy site." },
+    { name: "software-pirate.org", date: "2025-05-30", method: "Domain Seizure", details: "Seized domain distributing pirated software." },
+    { name: "movie-leaks.co", date: "2025-06-11", method: "Legal Action", details: "Filed multiple copyright infringement complaints." }
+];
+
+let currentPage = 1;
+const itemsPerPage = 15;
+
+function populateTakedowns() {
+    const takedownsList = document.querySelector('.takedowns-list');
+    const pageInfo = document.getElementById('page-info');
     
-    if (commands[cmd]) {
-        outputLine.textContent = commands[cmd](args);
-    } else {
-        outputLine.textContent = `Command not found: ${cmd}. Type 'help' for available commands.`;
-        outputLine.style.color = '#ff0000';
+    if (!takedownsList) return;
+    
+    // Clear existing content
+    takedownsList.innerHTML = '';
+    
+    // Calculate start and end indices
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, takedownsData.length);
+    
+    // Populate current page
+    for (let i = startIndex; i < endIndex; i++) {
+        const site = takedownsData[i];
+        const siteItem = document.createElement('div');
+        siteItem.className = 'site-item';
+        siteItem.textContent = `${site.name} - ${site.date}`;
+        siteItem.setAttribute('data-index', i);
+        takedownsList.appendChild(siteItem);
     }
     
-    terminalOutput.appendChild(outputLine);
-    playTerminalSound();
+    // Update page info
+    if (pageInfo) {
+        const totalPages = Math.ceil(takedownsData.length / itemsPerPage);
+        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    }
+    
+    // Update button states
+    updatePaginationButtons();
 }
+
+function updatePaginationButtons() {
+    const prevBtn = document.getElementById('prev-page');
+    const nextBtn = document.getElementById('next-page');
+    const totalPages = Math.ceil(takedownsData.length / itemsPerPage);
+    
+    if (prevBtn) {
+        prevBtn.disabled = currentPage === 1;
+    }
+    
+    if (nextBtn) {
+        nextBtn.disabled = currentPage === totalPages;
+    }
+}
+
+// Pagination event listeners
+document.getElementById('prev-page')?.addEventListener('click', () => {
+    if (currentPage > 1) {
+        currentPage--;
+        populateTakedowns();
+        playNavSound();
+    }
+});
+
+document.getElementById('next-page')?.addEventListener('click', () => {
+    const totalPages = Math.ceil(takedownsData.length / itemsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        populateTakedowns();
+        playNavSound();
+    }
+});
+
+// Takedown modal functionality
+const takedownModal = document.getElementById('takedown-modal');
+const takedownModalName = document.getElementById('modal-takedown-name');
+const takedownModalDetails = document.getElementById('modal-takedown-details');
+
+// Add click event to site items
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('site-item')) {
+        const index = parseInt(e.target.getAttribute('data-index'));
+        const site = takedownsData[index];
+        
+        if (site && takedownModal && takedownModalName && takedownModalDetails) {
+            takedownModalName.textContent = site.name;
+            takedownModalDetails.innerHTML = `
+                <div class="takedown-detail">
+                    <strong>Date Takedown:</strong> ${site.date}
+                </div>
+                <div class="takedown-detail">
+                    <strong>Method:</strong> ${site.method}
+                </div>
+                <div class="takedown-detail">
+                    <strong>Details:</strong> ${site.details}
+                </div>
+            `;
+            takedownModal.style.display = 'block';
+            playModalOpenSound();
+        }
+    }
+});
 
 // Staff modal functionality
 const staffModal = document.getElementById('staff-modal');
 const staffModalName = document.getElementById('modal-staff-name');
 const staffModalDescription = document.getElementById('modal-staff-description');
-const staffCloseBtn = staffModal.querySelector('.modal-close');
 
 // Staff data
 const staffData = {
@@ -286,7 +341,7 @@ const staffData = {
 document.querySelectorAll('.staff-member').forEach(item => {
     item.addEventListener('click', function() {
         const staffName = this.getAttribute('data-name');
-        if (staffData[staffName]) {
+        if (staffData[staffName] && staffModal && staffModalName && staffModalDescription) {
             staffModalName.textContent = staffName;
             staffModalDescription.textContent = staffData[staffName];
             staffModal.style.display = 'block';
@@ -301,8 +356,11 @@ const closeButtons = document.querySelectorAll('.modal-close');
 
 closeButtons.forEach(button => {
     button.addEventListener('click', function() {
-        this.closest('.modal').style.display = 'none';
-        playModalCloseSound();
+        const modal = this.closest('.modal');
+        if (modal) {
+            modal.style.display = 'none';
+            playModalCloseSound();
+        }
     });
 });
 
@@ -319,12 +377,13 @@ window.addEventListener('click', function(e) {
 // Disclaimer modal functionality
 const disclaimerModal = document.getElementById('disclaimer-modal');
 const disclaimerToggle = document.getElementById('disclaimer-toggle');
-const disclaimerCloseBtn = disclaimerModal.querySelector('.modal-close');
 
-disclaimerToggle.addEventListener('click', function() {
-    disclaimerModal.style.display = 'block';
-    playModalOpenSound();
-});
+if (disclaimerToggle && disclaimerModal) {
+    disclaimerToggle.addEventListener('click', function() {
+        disclaimerModal.style.display = 'block';
+        playModalOpenSound();
+    });
+}
 
 // User info detection
 function detectUserInfo() {
@@ -342,48 +401,25 @@ function detectUserInfo() {
     if (ua.indexOf("Android") !== -1) os = "Android";
     if (ua.indexOf("iOS") !== -1) os = "iOS";
     
-    userAgent.textContent = `OS: ${os}`;
+    if (userAgent) {
+        userAgent.textContent = `OS: ${os}`;
+    }
     
     // Get IP address
     fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => {
-            userIP.textContent = `IP: ${data.ip}`;
+            if (userIP) {
+                userIP.textContent = `IP: ${data.ip}`;
+            }
             
-            // Simple Tor detection (check for common Tor exit node IP ranges)
-            // This is a basic check and not 100% accurate
+            // Simple Tor detection
             const ipParts = data.ip.split('.');
             const firstOctet = parseInt(ipParts[0]);
             
-            // Common Tor exit node IP ranges (this is not exhaustive)
+            // Common Tor exit node IP ranges
             const torRanges = [
-                [51, 15], [51, 38], [51, 68], [51, 83], [51, 105], [51, 159], [51, 161], 
-                [51, 195], [51, 222], [62, 102], [62, 210], [77, 81], [77, 247], [78, 142], 
-                [79, 124], [80, 67], [82, 221], [85, 159], [85, 248], [86, 109], [87, 118], 
-                [89, 163], [89, 234], [91, 109], [91, 121], [91, 203], [92, 222], [93, 95], 
-                [94, 16], [94, 140], [94, 142], [94, 198], [94, 242], [95, 128], [95, 142], 
-                [95, 154], [95, 211], [95, 215], [95, 216], [103, 10], [103, 28], [103, 35], 
-                [104, 131], [104, 156], [104, 167], [104, 194], [104, 218], [104, 236], [104, 244], 
-                [107, 141], [107, 150], [107, 155], [107, 170], [107, 181], [107, 189], [107, 191], 
-                [109, 70], [109, 201], [109, 236], [128, 31], [128, 199], [129, 159], [130, 149], 
-                [131, 188], [132, 248], [136, 243], [137, 74], [138, 68], [138, 197], [139, 162], 
-                [139, 178], [141, 239], [144, 76], [144, 217], [146, 0], [146, 115], [146, 185], 
-                [147, 135], [148, 251], [149, 56], [149, 202], [149, 248], [151, 80], [151, 236], 
-                [152, 26], [154, 35], [154, 127], [155, 4], [155, 94], [157, 161], [158, 69], 
-                [159, 65], [159, 89], [159, 203], [162, 216], [162, 220], [162, 221], [162, 243], 
-                [163, 172], [164, 132], [164, 154], [165, 227], [165, 231], [167, 114], [167, 160], 
-                [167, 249], [168, 1], [171, 25], [172, 81], [172, 98], [172, 104], [172, 105], 
-                [176, 10], [176, 58], [176, 126], [176, 223], [178, 16], [178, 17], [178, 20], 
-                [178, 62], [178, 79], [178, 128], [178, 209], [178, 238], [178, 254], [179, 43], 
-                [179, 48], [179, 60], [180, 149], [185, 100], [185, 107], [185, 117], [185, 129], 
-                [185, 220], [188, 68], [188, 118], [188, 126], [188, 166], [188, 213], [188, 214], 
-                [188, 226], [192, 42], [192, 81], [192, 160], [192, 184], [193, 107], [193, 110], 
-                [194, 109], [194, 147], [195, 176], [195, 191], [198, 50], [198, 96], [198, 98], 
-                [199, 249], [199, 254], [200, 122], [204, 8], [204, 11], [204, 13], [204, 17], 
-                [204, 85], [204, 194], [205, 168], [205, 185], [206, 248], [207, 244], [208, 113], 
-                [209, 141], [209, 222], [212, 16], [212, 21], [212, 47], [212, 80], [212, 83], 
-                [213, 95], [213, 108], [213, 139], [213, 152], [213, 186], [213, 252], [216, 218], 
-                [217, 12], [217, 115], [217, 146], [217, 182]
+                [51, 15], [51, 38], [51, 68], [51, 83], [51, 105], [51, 159]
             ];
             
             let isTor = false;
@@ -394,12 +430,14 @@ function detectUserInfo() {
                 }
             }
             
-            torStatus.textContent = `TOR: ${isTor ? 'DETECTED' : 'NOT DETECTED'}`;
-            torStatus.style.color = isTor ? '#00ff00' : '#ff0000';
+            if (torStatus) {
+                torStatus.textContent = `TOR: ${isTor ? 'DETECTED' : 'NOT DETECTED'}`;
+                torStatus.style.color = isTor ? '#00ff00' : '#ff0000';
+            }
         })
         .catch(error => {
-            userIP.textContent = 'IP: Unknown';
-            torStatus.textContent = 'TOR: Unknown';
+            if (userIP) userIP.textContent = 'IP: Unknown';
+            if (torStatus) torStatus.textContent = 'TOR: Unknown';
         });
 }
 
@@ -407,157 +445,169 @@ function detectUserInfo() {
 window.addEventListener('load', function() {
     // Detect user info
     detectUserInfo();
+    
+    // Populate takedowns
+    populateTakedowns();
 });
 
 // Sound generation functions
 function playNavSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sawtooth';
-    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sawtooth';
+        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 function playHoverSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.05);
-    
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.05);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.05);
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.05);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 function playClickSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'square';
-    oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
-}
-
-function playTerminalSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.05);
-    
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.05);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'square';
+        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 function playSystemReadySound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.2);
-    
-    gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.2);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.2);
+        
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.2);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 function playLoadingSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sawtooth';
-    oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 1);
-    
-    gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 1);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sawtooth';
+        oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 1);
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 function playModalOpenSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }
 
 function playModalCloseSound() {
-    const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
-    
-    gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    oscillator.start();
-    oscillator.stop(audioContext.currentTime + 0.1);
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }

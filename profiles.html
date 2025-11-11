@@ -27,8 +27,7 @@
     <div class="profiles-container">
         <div class="profile-card">
             <div class="profile-pic">
-                <img src="https://i.imgur.com/3Q1Zc2v.png" alt="BlackBerry831 Profile" onerror="this.style.display='none'">
-                <div class="profile-placeholder">BB831</div>
+                <img src="https://i.imgur.com/fE9JMni.png" alt="BlackBerry831 Profile">
             </div>
             <div class="profile-name">BlackBerry831</div>
             <div class="profile-description">
@@ -36,24 +35,7 @@
                 <br>Former BreachForums/RaidForums Security Team
                 <br>Operational since 2018 | Specializing in Threat Intelligence
             </div>
-            <div class="profile-socials">
-                <a href="https://t.me/blackberry831" class="social-link" target="_blank">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Telegram_2019_Logo.svg/512px-Telegram_2019_Logo.svg.png" alt="Telegram">
-                    <span>Telegram</span>
-                </a>
-                <a href="#" class="social-link" id="session-link">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Session_App_Logo.svg/960px-Session_App_Logo.svg.png" alt="Session">
-                    <span>Session</span>
-                </a>
-                <a href="#" class="social-link" id="qtox-link">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Qtox_logo.svg" alt="qTox">
-                    <span>qTox</span>
-                </a>
-                <a href="mailto:bluerasperry@onionmail.com" class="social-link">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4e/Mail_%28iOS%29.svg" alt="Email">
-                    <span>Email</span>
-                </a>
-            </div>
+            
             <div class="profile-stats">
                 <div class="stat">
                     <div class="stat-number">47+</div>
@@ -73,53 +55,74 @@
         <div class="database-sales">
             <h3>PREMIUM DATABASE ACCESS</h3>
             
-            <div class="database-item">
-                <h4>🔒 Breached.sh Complete Database</h4>
-                <div class="database-price">Price: $15,000 USD (Bitcoin Only)</div>
-                <ul class="database-features">
-                    <li>✓ All user private messages (PMs)</li>
-                    <li>✓ Complete user credentials (passwords, emails)</li>
-                    <li>✓ IP addresses and connection logs</li>
-                    <li>✓ All forum threads and posts</li>
-                    <li>✓ User profile settings and preferences</li>
-                    <li>✓ Complete MyBB database files</li>
-                    <li>✓ CDN administrator credentials</li>
-                    <li>✓ Access to 2 RDP machines (CDN & Site hosting)</li>
-                    <li>✓ Telegram admin account (Breached Telegram server)</li>
-                    <li>✓ Full server access and backup files</li>
-                </ul>
-                <div class="payment-info">
-                    <strong>Payment:</strong> Bitcoin only<br>
-                    <strong>Escrow:</strong> Available through trusted darkforums.st members<br>
-                    <strong>Delivery:</strong> Instant upon payment confirmation
-                </div>
-            </div>
-
-            <div class="database-item">
-                <h4>🔓 BreachForums.vc Complete Database</h4>
-                <div class="database-price">Price: $12,000 USD (Bitcoin Only)</div>
-                <ul class="database-features">
-                    <li>✓ 2.3M+ user accounts with credentials</li>
-                    <li>✓ Complete forum database (posts, threads, PMs)</li>
-                    <li>✓ User IP addresses and location data</li>
-                    <li>✓ Private message archives</li>
-                    <li>✓ Administrative panel access</li>
-                    <li>✓ Server configuration files</li>
-                    <li>✓ Email databases and contact lists</li>
-                    <li>✓ Complete backup archives</li>
-                    <li>✓ Security logs and access records</li>
-                    <li>✓ Payment processor information</li>
-                </ul>
-                <div class="payment-info">
-                    <strong>Database Size:</strong> 45GB compressed / 120GB uncompressed<br>
-                    <strong>Records:</strong> 2.3 million+ users<br>
-                    <strong>Payment:</strong> Bitcoin only, escrow accepted<br>
-                    <strong>Trusted Escrow:</strong> darkforums.st verified members
-                </div>
+            <div class="db-buttons">
+                <button class="db-button" data-db="breached">🔒 Breached.sh Database - $15,000</button>
+                <button class="db-button" data-db="breachforums">🔓 BreachForums.vc Database - $12,000</button>
             </div>
         </div>
         
         <a href="index.html" class="back-btn">← Back to Main Site</a>
+    </div>
+
+    <!-- Database Banners -->
+    <div class="db-banner" id="breached-banner">
+        <div class="db-banner-content">
+            <button class="db-banner-close">&times;</button>
+            <h4>🔒 Breached.sh Complete Database</h4>
+            <div class="database-price">Price: $15,000 USD (Bitcoin Only)</div>
+            <ul class="database-features">
+                <li>All user private messages (PMs)</li>
+                <li>Complete user credentials (passwords, emails)</li>
+                <li>IP addresses and connection logs</li>
+                <li>All forum threads and posts</li>
+                <li>User profile settings and preferences</li>
+                <li>Complete MyBB database files</li>
+                <li>CDN administrator credentials</li>
+                <li>Access to 2 RDP machines (CDN & Site hosting)</li>
+                <li>Telegram admin account (Breached Telegram server)</li>
+                <li>Full server access and backup files</li>
+                <li>Database dumps and SQL files</li>
+                <li>Administrative panel access</li>
+                <li>Complete user activity logs</li>
+            </ul>
+            <div class="payment-info">
+                <strong>Payment:</strong> Bitcoin only<br>
+                <strong>Escrow:</strong> Available through trusted darkforums.st members<br>
+                <strong>Delivery:</strong> Instant upon payment confirmation<br>
+                <strong>Database Size:</strong> 28GB compressed / 75GB uncompressed<br>
+                <strong>Records:</strong> 890,000+ users with complete data
+            </div>
+        </div>
+    </div>
+
+    <div class="db-banner" id="breachforums-banner">
+        <div class="db-banner-content">
+            <button class="db-banner-close">&times;</button>
+            <h4>🔓 BreachForums.vc Complete Database</h4>
+            <div class="database-price">Price: $12,000 USD (Bitcoin Only)</div>
+            <ul class="database-features">
+                <li>2.3M+ user accounts with credentials</li>
+                <li>Complete forum database (posts, threads, PMs)</li>
+                <li>User IP addresses and location data</li>
+                <li>Private message archives</li>
+                <li>Administrative panel access</li>
+                <li>Server configuration files</li>
+                <li>Email databases and contact lists</li>
+                <li>Complete backup archives</li>
+                <li>Security logs and access records</li>
+                <li>Payment processor information</li>
+                <li>User session data and cookies</li>
+                <li>Complete moderation logs</li>
+                <li>API keys and integration data</li>
+            </ul>
+            <div class="payment-info">
+                <strong>Database Size:</strong> 45GB compressed / 120GB uncompressed<br>
+                <strong>Records:</strong> 2.3 million+ users<br>
+                <strong>Payment:</strong> Bitcoin only, escrow accepted<br>
+                <strong>Trusted Escrow:</strong> darkforums.st verified members<br>
+                <strong>Includes:</strong> Full source code and deployment scripts
+            </div>
+        </div>
     </div>
 
     <script src="profile-script.js"></script>

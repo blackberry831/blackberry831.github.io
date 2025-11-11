@@ -170,11 +170,12 @@ if (canvas) {
 
 // Takedowns functionality
 const takedownsData = [
-    { name: "breachforums.st", date: "2023-01-15", method: "Server Takedown", details: "Security research and takedown operation." },
-    { name: "breached.is", date: "2023-02-22", method: "Domain Seizure", details: "Coordinated security operation." },
-    { name: "leakbase.io", date: "2023-04-12", method: "Server Takedown", details: "Security protocol implementation." },
-    { name: "databreaches.live", date: "2023-05-19", method: "Domain Seizure", details: "Network security operation." },
-    { name: "cyberunderground.co", date: "2023-08-25", method: "Domain Seizure", details: "Security research project." }
+    { name: "breached.sh", date: "NULL", method: "Server Takedown", details: "breached.is new domain." },
+    { name: "breached.is", date: "NULL", method: "Server Takedown", details: "Unpaid DDoS Guard, Clone." },
+    { name: "breachforums-forums.live", date: "2NULL", method: "Server Takedown", details: "Clone, Owner that doesn't know what he's doing." },
+    { name: "breachforums.cx", date: "NULL", method: "Server Seized", details: "Seized." },
+    { name: "breachforums.hn", date: "NULL", method: "Server Takedown", details: "A site that was ran by the FBI." },
+
 ];
 
 let currentPage = 1;
@@ -283,7 +284,7 @@ const staffModalDescription = document.getElementById('modal-staff-description')
 // Staff data
 const staffData = {
     "Baphomet": "Security researcher and system administrator.",
-    "ShinyHunters": "Security analysis team.",
+    "ShinyHunters": "ShinyHunters is a black-hat criminal hacker and extortion group that is believed to have formed in 2020 and is said to have been involved in a massively significant amount of data breaches. The group often extorts the company they've hacked, if the company does not pay the ransom the stolen information is often sold or leaked on the dark web.",
     "Pompompurin": "Network security specialist.",
     "Hollow": "System security analyst.",
     "Loki": "Security protocol developer."

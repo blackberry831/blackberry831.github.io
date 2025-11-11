@@ -17,6 +17,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 20px;
 }
 
 /* Custom Cursor */
@@ -123,15 +124,16 @@ body {
 /* Profiles Container */
 .profiles-container {
     text-align: center;
-    padding: 40px 20px;
-    max-width: 500px;
+    padding: 20px;
+    max-width: 800px;
     width: 100%;
+    margin: 0 auto;
 }
 
 .profile-card {
     background-color: rgba(10, 10, 10, 0.9);
     border: 2px solid #00ff00;
-    padding: 40px 30px;
+    padding: 30px;
     border-radius: 10px;
     box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
     margin-bottom: 30px;
@@ -182,26 +184,32 @@ body {
     color: #00cc00;
     line-height: 1.8;
     font-size: 1.1rem;
+    text-align: center;
 }
 
 .profile-socials {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 15px;
     margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .social-link {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 12px;
+    padding: 15px 10px;
     border: 1px solid #00ff00;
     background-color: rgba(0, 255, 0, 0.05);
     color: #00ff00;
     text-decoration: none;
     transition: all 0.3s;
-    gap: 10px;
+    gap: 8px;
+    min-height: 80px;
 }
 
 .social-link:hover {
@@ -211,8 +219,8 @@ body {
 }
 
 .social-link img {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
 }
 
@@ -220,17 +228,26 @@ body {
     filter: invert(0%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%);
 }
 
+.social-link span {
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
 .profile-stats {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 20px;
     margin-top: 25px;
     padding-top: 25px;
     border-top: 1px solid #003300;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .stat {
     text-align: center;
+    padding: 10px;
 }
 
 .stat-number {
@@ -246,6 +263,72 @@ body {
     color: #00cc00;
 }
 
+/* Database Sales Section */
+.database-sales {
+    margin-top: 40px;
+    padding: 25px;
+    border: 2px solid #00ff00;
+    background-color: rgba(0, 255, 0, 0.05);
+    border-radius: 10px;
+}
+
+.database-sales h3 {
+    color: #00ff00;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+.database-item {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 1px solid #00ff00;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+}
+
+.database-item h4 {
+    color: #00ff00;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.database-price {
+    color: #00ffff;
+    font-weight: bold;
+    font-size: 1.3rem;
+    margin: 10px 0;
+}
+
+.database-features {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.database-features li {
+    padding: 5px 0;
+    border-bottom: 1px dashed #003300;
+    color: #00cc00;
+}
+
+.database-features li:last-child {
+    border-bottom: none;
+}
+
+.payment-info {
+    background-color: rgba(255, 255, 0, 0.1);
+    border: 1px solid #ffff00;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+    color: #ffff00;
+}
+
+.payment-info strong {
+    color: #ffff00;
+}
+
 .back-btn {
     display: inline-block;
     padding: 12px 25px;
@@ -255,6 +338,7 @@ body {
     text-decoration: none;
     transition: all 0.3s;
     font-size: 1rem;
+    margin-top: 20px;
 }
 
 .back-btn:hover {
@@ -265,12 +349,16 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    body {
+        padding: 10px;
+    }
+    
     .profiles-container {
-        padding: 20px 15px;
+        padding: 10px;
     }
     
     .profile-card {
-        padding: 30px 20px;
+        padding: 20px 15px;
     }
     
     .profile-pic {
@@ -287,11 +375,41 @@ body {
     }
     
     .profile-socials {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+    
+    .social-link {
+        padding: 12px 8px;
+        min-height: 70px;
+    }
+    
+    .social-link img {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .profile-stats {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+    
+    .database-sales {
+        padding: 20px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-socials {
         grid-template-columns: 1fr;
     }
     
     .profile-stats {
         grid-template-columns: 1fr;
-        gap: 15px;
+        gap: 10px;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem;
     }
 }

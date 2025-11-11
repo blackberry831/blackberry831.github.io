@@ -59,18 +59,60 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Hover effects with sounds
-document.querySelectorAll('.social-link, .back-btn, .database-item').forEach(item => {
-    item.addEventListener('mouseenter', () => {
+// Database Banner Functionality
+document.querySelectorAll('.db-button').forEach(button => {
+    button.addEventListener('mouseenter', () => {
         if (cursor) cursor.classList.add('hover');
         playHoverSound();
     });
     
-    item.addEventListener('mouseleave', () => {
+    button.addEventListener('mouseleave', () => {
         if (cursor) cursor.classList.remove('hover');
     });
     
-    item.addEventListener('click', () => {
+    button.addEventListener('click', function() {
+        const dbType = this.getAttribute('data-db');
+        const banner = document.getElementById(`${dbType}-banner`);
+        if (banner) {
+            banner.classList.add('active');
+            playModalOpenSound();
+        }
+    });
+});
+
+// Close banner functionality
+document.querySelectorAll('.db-banner-close').forEach(closeBtn => {
+    closeBtn.addEventListener('click', function() {
+        const banner = this.closest('.db-banner');
+        if (banner) {
+            banner.classList.remove('active');
+            playModalCloseSound();
+        }
+    });
+});
+
+// Close banner when clicking outside content
+document.querySelectorAll('.db-banner').forEach(banner => {
+    banner.addEventListener('click', function(e) {
+        if (e.target === this) {
+            this.classList.remove('active');
+            playModalCloseSound();
+        }
+    });
+});
+
+// Back button hover effects
+document.querySelectorAll('.back-btn').forEach(btn => {
+    btn.addEventListener('mouseenter', () => {
+        if (cursor) cursor.classList.add('hover');
+        playHoverSound();
+    });
+    
+    btn.addEventListener('mouseleave', () => {
+        if (cursor) cursor.classList.remove('hover');
+    });
+    
+    btn.addEventListener('click', () => {
         playClickSound();
     });
 });
@@ -164,6 +206,52 @@ function playClickSound() {
         oscillator.type = 'square';
         oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
         oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playModalOpenSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playModalCloseSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
         
         gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);

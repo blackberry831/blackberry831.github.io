@@ -1,4 +1,4 @@
-// Loading Screen with sound - FIXED VERSION
+// Loading Screen with sound
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
     const loadingProgress = document.querySelector('.loading-progress');
@@ -65,7 +65,7 @@ document.addEventListener('mousemove', (e) => {
 });
 
 // Hover effects for interactive elements
-document.querySelectorAll('.nav-item, .staff-member, .contact-link, .site-item, .page-btn, .redirect-btn').forEach(item => {
+document.querySelectorAll('.nav-item, .staff-member, .contact-link, .site-item, .page-btn, .redirect-btn, .social-link, .back-btn').forEach(item => {
     item.addEventListener('mouseenter', () => {
         if (cursor) cursor.classList.add('hover');
         playHoverSound();
@@ -112,7 +112,7 @@ document.querySelectorAll('.nav-item').forEach(item => {
     });
 });
 
-// Matrix background animation - now full page
+// Matrix background animation - full page
 const canvas = document.getElementById('matrix');
 if (canvas) {
     const ctx = canvas.getContext('2d');
@@ -125,7 +125,7 @@ if (canvas) {
     const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
     const charArray = chars.split("");
     const fontSize = 14;
-    const columns = canvas.width / fontSize; // Full width now
+    const columns = canvas.width / fontSize;
 
     // Array of drops - one per column
     const drops = [];
@@ -136,7 +136,7 @@ if (canvas) {
     function drawMatrix() {
         // Semi-transparent black background for trail effect
         ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height); // Full width
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         
         ctx.fillStyle = "#00ff00";
         ctx.font = fontSize + "px monospace";
@@ -170,36 +170,11 @@ if (canvas) {
 
 // Takedowns functionality
 const takedownsData = [
-    { name: "breachforums.st", date: "2023-01-15", method: "Server Takedown", details: "Took down impersonation site posing as original BreachForums. Server located in Bulgaria." },
-    { name: "breached.is", date: "2023-02-22", method: "Domain Seizure", details: "Coordinated with registrar to seize domain. Site was hosting stolen databases." },
-    { name: "raidforums-reborn.com", date: "2023-03-08", method: "Legal Action", details: "Filed DMCA takedown and worked with hosting provider to remove content." },
-    { name: "leakbase.io", date: "2023-04-12", method: "Server Takedown", details: "Identified and reported malicious activity to hosting provider in Netherlands." },
-    { name: "databreaches.live", date: "2023-05-19", method: "Domain Seizure", details: "Worked with ICANN to seize domain after identifying illegal activities." },
-    { name: "hackersparadise.net", date: "2023-06-03", method: "Legal Action", details: "Coordinated with international law enforcement to take down operations." },
-    { name: "darkleaks.org", date: "2023-07-11", method: "Server Takedown", details: "Identified server location in Russia and worked with authorities." },
-    { name: "cyberunderground.co", date: "2023-08-25", method: "Domain Seizure", details: "Seized domain after identifying multiple illegal activities." },
-    { name: "blackmarketonline", date: "2023-09-14", method: "Server Takedown", details: "Took down marketplace selling stolen credentials and tools." },
-    { name: "exploitworld.net", date: "2023-10-05", method: "Legal Action", details: "Filed multiple legal complaints leading to complete shutdown." },
-    { name: "malware-distro.com", date: "2023-11-18", method: "Server Takedown", details: "Identified and reported malware distribution network." },
-    { name: "phishing-kit.store", date: "2023-12-22", method: "Domain Seizure", details: "Seized domain selling phishing kits and stolen data." },
-    { name: "cardershaven.io", date: "2024-01-09", method: "Server Takedown", details: "Took down carding forum operating from Eastern Europe." },
-    { name: "cryptostealer.net", date: "2024-02-14", method: "Legal Action", details: "Worked with cryptocurrency exchanges to identify and stop operations." },
-    { name: "botnet-control.pw", date: "2024-03-27", method: "Server Takedown", details: "Identified and dismantled botnet command and control server." },
-    { name: "ransomware-help.com", date: "2024-04-03", method: "Domain Seizure", details: "Seized domain posing as ransomware help but actually distributing malware." },
-    { name: "fake-antivirus.pro", date: "2024-05-11", method: "Server Takedown", details: "Took down fake antivirus distribution network." },
-    { name: "social-engineer.co", date: "2024-06-28", method: "Legal Action", details: "Filed complaints against social engineering service." },
-    { name: "doxing-service.net", date: "2024-07-15", method: "Domain Seizure", details: "Seized domain offering illegal doxing services." },
-    { name: "password-cracker.io", date: "2024-08-09", method: "Server Takedown", details: "Took down service offering illegal password cracking." },
-    { name: "email-harvester.pro", date: "2024-09-22", method: "Legal Action", details: "Filed legal complaints leading to service termination." },
-    { name: "ip-grabber.xyz", date: "2024-10-17", method: "Domain Seizure", details: "Seized domain offering IP grabbing services." },
-    { name: "discord-token-stealer", date: "2024-11-05", method: "Server Takedown", details: "Took down Discord token stealing service." },
-    { name: "minecraft-hack.club", date: "2024-12-12", method: "Legal Action", details: "Filed DMCA and worked with Mojang to take down." },
-    { name: "fortnite-cheats.pro", date: "2025-01-08", method: "Server Takedown", details: "Took down Fortnite cheating service." },
-    { name: "valorant-hacks.io", date: "2025-02-19", method: "Domain Seizure", details: "Seized domain offering Valorant cheating software." },
-    { name: "aimbot-distro.com", date: "2025-03-14", method: "Legal Action", details: "Worked with game developers to take down aimbot distribution." },
-    { name: "game-cracks.net", date: "2025-04-21", method: "Server Takedown", details: "Took down game cracking and piracy site." },
-    { name: "software-pirate.org", date: "2025-05-30", method: "Domain Seizure", details: "Seized domain distributing pirated software." },
-    { name: "movie-leaks.co", date: "2025-06-11", method: "Legal Action", details: "Filed multiple copyright infringement complaints." }
+    { name: "breachforums.st", date: "2023-01-15", method: "Server Takedown", details: "Security research and takedown operation." },
+    { name: "breached.is", date: "2023-02-22", method: "Domain Seizure", details: "Coordinated security operation." },
+    { name: "leakbase.io", date: "2023-04-12", method: "Server Takedown", details: "Security protocol implementation." },
+    { name: "databreaches.live", date: "2023-05-19", method: "Domain Seizure", details: "Network security operation." },
+    { name: "cyberunderground.co", date: "2023-08-25", method: "Domain Seizure", details: "Security research project." }
 ];
 
 let currentPage = 1;
@@ -285,7 +260,7 @@ document.addEventListener('click', function(e) {
             takedownModalName.textContent = site.name;
             takedownModalDetails.innerHTML = `
                 <div class="takedown-detail">
-                    <strong>Date Takedown:</strong> ${site.date}
+                    <strong>Date:</strong> ${site.date}
                 </div>
                 <div class="takedown-detail">
                     <strong>Method:</strong> ${site.method}
@@ -307,34 +282,11 @@ const staffModalDescription = document.getElementById('modal-staff-description')
 
 // Staff data
 const staffData = {
-    "Baphomet": "Founder and lead administrator of multiple underground forums. Known for expertise in operational security and database management.",
-    "ShinyHunters": "Prominent hacking group responsible for multiple high-profile data breaches. Known for selling and leaking databases.",
-    "Pompompurin": "Founder of BreachForums. Known for creating one of the largest data breach communities after the takedown of RaidForums.",
-    "N/A": "Anonymous administrator who maintains operational security by not disclosing any personal information.",
-    "Hollow": "Senior moderator known for enforcing forum rules and maintaining community standards across multiple platforms.",
-    "Manitora": "Technical administrator specializing in forum infrastructure and security measures.",
-    "Loki": "Moderator known for expertise in social engineering and community management.",
-    "888": "Moderator with background in cryptocurrency and financial security.",
-    "Tanaka": "International moderator with connections to Asian hacking communities.",
-    "Paw": "Technical moderator specializing in exploit development and vulnerability research.",
-    "Dedale": "Community moderator focused on user verification and anti-law enforcement measures.",
-    "Moderator": "Generic moderator account used by multiple staff members for operational security.",
-    "Pine": "Moderator with expertise in OSINT and open source intelligence gathering.",
-    "Koko": "Community manager known for organizing forum events and user engagement.",
-    "Omnipotent": "Lead administrator of RaidForums with extensive experience in underground communities.",
-    "Jaw": "Technical administrator responsible for RaidForums infrastructure and security.",
-    "Moot": "Community administrator with background in anonymous imageboards and forums.",
-    "Sem": "Moderator specializing in data breach verification and validation.",
-    "Burpingjimmy_Bot": "Automated moderation bot with custom rules for content filtering.",
-    "Thu": "International moderator with connections to European hacking communities.",
-    "Boootted": "Moderator known for expertise in DDoS protection and mitigation.",
-    "Pacino": "Community moderator with background in social engineering and psychology.",
-    "Asset": "Technical moderator specializing in malware analysis and reverse engineering.",
-    "Noxy": "Moderator with expertise in cryptocurrency transactions and blockchain analysis.",
-    "Unspoken": "Anonymous moderator who maintains complete operational security.",
-    "September": "Community moderator known for organizing hacking competitions and challenges.",
-    "Raidflacs": "Moderator with specialization in media sharing and content distribution.",
-    "666": "Technical moderator with expertise in exploit development and zero-day vulnerabilities."
+    "Baphomet": "Security researcher and system administrator.",
+    "ShinyHunters": "Security analysis team.",
+    "Pompompurin": "Network security specialist.",
+    "Hollow": "System security analyst.",
+    "Loki": "Security protocol developer."
 };
 
 // Add click event to staff members
@@ -419,7 +371,7 @@ function detectUserInfo() {
             
             // Common Tor exit node IP ranges
             const torRanges = [
-                [51, 15], [51, 38], [51, 68], [51, 83], [51, 105], [51, 159]
+                [51, 15], [51, 38], [51, 68], [51, 83]
             ];
             
             let isTor = false;

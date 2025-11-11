@@ -59,14 +59,19 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Hover effects
-document.querySelectorAll('.social-link, .back-btn').forEach(item => {
+// Hover effects with sounds
+document.querySelectorAll('.social-link, .back-btn, .database-item').forEach(item => {
     item.addEventListener('mouseenter', () => {
         if (cursor) cursor.classList.add('hover');
+        playHoverSound();
     });
     
     item.addEventListener('mouseleave', () => {
         if (cursor) cursor.classList.remove('hover');
+    });
+    
+    item.addEventListener('click', () => {
+        playClickSound();
     });
 });
 
@@ -124,4 +129,51 @@ if (canvas) {
 
     // Animation loop for matrix
     setInterval(drawMatrix, 35);
+}
+
+// Sound generation functions
+function playHoverSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.05);
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.05);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playClickSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'square';
+        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
 }

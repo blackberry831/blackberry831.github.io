@@ -80,6 +80,18 @@ document.querySelectorAll('.db-button').forEach(button => {
     });
 });
 
+// Social link hover effects
+document.querySelectorAll('.social-link').forEach(link => {
+    link.addEventListener('mouseenter', () => {
+        if (cursor) cursor.classList.add('hover');
+        playHoverSound();
+    });
+    
+    link.addEventListener('mouseleave', () => {
+        if (cursor) cursor.classList.remove('hover');
+    });
+});
+
 // Close banner functionality
 document.querySelectorAll('.db-banner-close').forEach(closeBtn => {
     closeBtn.addEventListener('click', function() {

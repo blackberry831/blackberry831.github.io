@@ -231,7 +231,7 @@ nav {
 
 /* Main Content */
 main {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 20px auto;
     padding: 0 20px;
     flex: 1;
@@ -559,36 +559,66 @@ main {
     }
 }
 
-/* Takedowns Section */
+/* Takedowns Section - IMPROVED */
 .takedowns-container {
     margin: 20px 0;
+    width: 100%;
 }
 
 .takedowns-list {
     min-height: 400px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
 .site-item {
-    padding: 15px;
-    margin: 10px 0;
+    padding: 20px;
     border: 1px solid #003300;
     background-color: rgba(0, 255, 0, 0.05);
     cursor: pointer;
     transition: all 0.3s;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
 }
 
 .site-item:hover {
     border-color: #00ff00;
     background-color: rgba(0, 255, 0, 0.1);
-    transform: translateX(5px);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 255, 0, 0.2);
 }
 
 .site-item::before {
     content: '⫸';
-    margin-right: 10px;
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
     color: #00ff00;
+    font-size: 1.2rem;
+}
+
+.site-domain {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #00ff00;
+}
+
+.site-date {
+    font-size: 0.9rem;
+    color: #00cc00;
+    margin-bottom: 5px;
+}
+
+.site-method {
+    font-size: 0.8rem;
+    color: #ffff00;
+    font-style: italic;
 }
 
 .pagination {
@@ -621,6 +651,29 @@ main {
 #page-info {
     color: #00cc00;
     font-weight: bold;
+}
+
+/* Takedown Links in Modal */
+.takedown-links {
+    margin-top: 20px;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.takedown-link {
+    padding: 10px 15px;
+    background-color: rgba(0, 255, 0, 0.1);
+    color: #00ff00;
+    text-decoration: none;
+    border: 1px solid #00ff00;
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.takedown-link:hover {
+    background-color: #00ff00;
+    color: #0a0a0a;
 }
 
 /* Profiles Redirect */
@@ -762,6 +815,10 @@ footer {
     .about-content {
         grid-template-columns: 1fr;
     }
+    
+    .takedowns-list {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
 }
 
 @media (max-width: 768px) {
@@ -818,5 +875,13 @@ footer {
     .pagination {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    .takedowns-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .takedown-links {
+        flex-direction: column;
     }
 }

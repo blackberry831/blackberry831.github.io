@@ -43,7 +43,7 @@ body {
     }
 }
 
-/* Custom Cursor */
+/* Fixed Custom Cursor */
 .custom-cursor {
     position: fixed;
     width: 20px;
@@ -54,10 +54,11 @@ body {
     z-index: 9999;
     transition: transform 0.1s;
     mix-blend-mode: difference;
+    transform: translate(-50%, -50%);
 }
 
 .custom-cursor.hover {
-    transform: scale(1.5);
+    transform: translate(-50%, -50%) scale(1.5);
     background-color: rgba(255, 255, 255, 0.2);
 }
 
@@ -71,6 +72,7 @@ body {
     z-index: 9998;
     opacity: 0.7;
     transition: all 0.1s;
+    transform: translate(-50%, -50%);
 }
 
 /* Loading Screen */
@@ -254,29 +256,34 @@ main {
     display: block;
 }
 
-/* Hall of Shame Grid */
+/* Improved Hall of Shame Grid - CARDS LAYOUT */
 .shame-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
     margin: 30px 0;
 }
 
 .criminal-card {
     background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
     border: 1px solid #333;
-    border-radius: 10px;
-    padding: 20px;
+    border-radius: 15px;
+    padding: 25px;
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
 .criminal-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
     border-color: #ffffff;
-    box-shadow: 0 10px 25px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
 }
 
 .criminal-card::before {
@@ -295,12 +302,18 @@ main {
 }
 
 .criminal-pic {
-    width: 120px;
-    height: 120px;
-    border-radius: 10px;
+    width: 140px;
+    height: 140px;
+    border-radius: 15px;
     overflow: hidden;
-    margin: 0 auto 15px;
-    border: 2px solid #333;
+    margin: 0 auto 20px;
+    border: 3px solid #333;
+    transition: all 0.3s;
+}
+
+.criminal-card:hover .criminal-pic {
+    border-color: #ffffff;
+    transform: scale(1.05);
 }
 
 .criminal-pic img {
@@ -310,35 +323,36 @@ main {
 }
 
 .criminal-name {
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     font-weight: bold;
-    margin-bottom: 5px;
-    text-align: center;
+    margin-bottom: 8px;
     color: #ffffff;
 }
 
 .criminal-alias {
     color: #ff4444;
     font-style: italic;
-    margin-bottom: 10px;
-    text-align: center;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
 }
 
 .criminal-crimes {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: #cccccc;
-    margin-bottom: 15px;
-    text-align: center;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    flex-grow: 1;
 }
 
 .criminal-status {
     display: inline-block;
-    padding: 5px 10px;
-    border-radius: 15px;
-    font-size: 0.8rem;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.9rem;
     font-weight: bold;
     text-align: center;
     width: 100%;
+    transition: all 0.3s;
 }
 
 .status-wanted {
@@ -356,6 +370,10 @@ main {
     color: #000000;
 }
 
+.criminal-card:hover .criminal-status {
+    transform: scale(1.05);
+}
+
 /* Search Bar */
 .search-bar {
     display: flex;
@@ -371,6 +389,7 @@ main {
     border: 1px solid #333;
     color: #ffffff;
     font-size: 1rem;
+    border-radius: 5px;
 }
 
 #search-input::placeholder {
@@ -384,6 +403,7 @@ main {
     border: 1px solid #333;
     cursor: pointer;
     transition: all 0.3s;
+    border-radius: 5px;
 }
 
 #search-btn:hover {
@@ -408,6 +428,7 @@ main {
     cursor: pointer;
     transition: all 0.3s;
     font-size: 1rem;
+    border-radius: 5px;
 }
 
 .page-btn:hover:not(:disabled) {
@@ -429,15 +450,16 @@ main {
 /* Criminal Modal */
 .criminal-header {
     display: flex;
-    gap: 20px;
+    gap: 25px;
     margin-bottom: 30px;
     align-items: center;
 }
 
 .criminal-header .criminal-pic {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     margin: 0;
+    border-radius: 10px;
 }
 
 .criminal-info h2 {
@@ -448,16 +470,17 @@ main {
 
 #modal-alias {
     color: #ff4444;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-style: italic;
     margin-bottom: 10px;
 }
 
 #modal-status {
     display: inline-block;
-    padding: 8px 15px;
+    padding: 10px 20px;
     border-radius: 20px;
     font-weight: bold;
+    font-size: 0.9rem;
 }
 
 .detail-section {
@@ -470,6 +493,8 @@ main {
     color: #ffffff;
     margin-bottom: 15px;
     font-size: 1.3rem;
+    border-left: 4px solid #ffffff;
+    padding-left: 10px;
 }
 
 .detail-grid {
@@ -479,13 +504,22 @@ main {
 }
 
 .detail-item {
-    padding: 10px;
+    padding: 12px;
     background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
+    border-radius: 8px;
+    border-left: 3px solid #333;
+    transition: all 0.3s;
+}
+
+.detail-item:hover {
+    border-left-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .detail-item strong {
     color: #ffffff;
+    display: block;
+    margin-bottom: 5px;
 }
 
 .evidence-links {
@@ -495,18 +529,20 @@ main {
 }
 
 .evidence-link {
-    padding: 10px 15px;
+    padding: 12px 15px;
     background-color: rgba(255, 255, 255, 0.1);
     border: 1px solid #333;
     color: #ffffff;
     text-decoration: none;
     transition: all 0.3s;
     border-radius: 5px;
+    text-align: center;
 }
 
 .evidence-link:hover {
     background-color: #ffffff;
     color: #0a0a0a;
+    transform: translateX(5px);
 }
 
 /* About Section */
@@ -519,6 +555,7 @@ main {
     padding: 25px;
     border: 1px solid #333;
     background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
 }
 
 .mission-statement h3 {
@@ -536,10 +573,16 @@ main {
 
 .stat-item {
     text-align: center;
-    padding: 20px;
+    padding: 25px;
     background-color: rgba(255, 255, 255, 0.05);
     border: 1px solid #333;
     border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    border-color: #ffffff;
 }
 
 .stat-number {
@@ -548,6 +591,7 @@ main {
     font-weight: bold;
     color: #ffffff;
     margin-bottom: 5px;
+    text-shadow: 0 0 10px #ffffff;
 }
 
 .stat-label {
@@ -572,12 +616,14 @@ main {
     font-size: 1.2rem;
     font-weight: bold;
     transition: all 0.3s;
+    border-radius: 8px;
 }
 
 .redirect-btn:hover {
     background-color: #ffffff;
     color: #0a0a0a;
     box-shadow: 0 0 20px #ffffff;
+    transform: translateY(-3px);
 }
 
 /* Footer */
@@ -620,6 +666,7 @@ footer {
     font-size: 0.7rem;
     cursor: pointer;
     transition: all 0.3s;
+    border-radius: 3px;
 }
 
 .disclaimer-btn:hover {
@@ -660,6 +707,7 @@ footer {
     box-shadow: 0 0 30px rgba(255, 255, 255, 0.2);
     position: relative;
     animation: slideIn 0.3s;
+    border-radius: 10px;
 }
 
 @keyframes slideIn {
@@ -674,6 +722,8 @@ footer {
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s;
+    background: none;
+    border: none;
 }
 
 .modal-close:hover {
@@ -693,18 +743,28 @@ footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 10px;
+    padding: 12px;
     background-color: #1a1a1a;
     border: 1px solid #333;
     color: #ffffff;
     cursor: pointer;
     z-index: 1000;
     transition: all 0.3s;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
 }
 
 .music-btn:hover {
     background-color: #ffffff;
     color: #0a0a0a;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
 }
 
 /* Responsive Design */
@@ -750,5 +810,30 @@ footer {
     .pagination {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .shame-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .criminal-card {
+        padding: 20px;
+        min-height: 350px;
+    }
+    
+    .criminal-pic {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .modal-content {
+        padding: 20px;
+        margin: 5% auto;
     }
 }

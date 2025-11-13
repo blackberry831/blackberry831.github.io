@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blackberry831 | Hacker Portfolio</title>
+    <title>HALL OF SHAME | Digital Justice</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-content">
-            <div class="loading-text">INITIALIZING SYSTEM</div>
+            <div class="loading-text">INITIALIZING HALL OF SHAME</div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
@@ -18,208 +18,80 @@
         </div>
     </div>
 
+    <!-- Snow Effect -->
+    <div id="snow"></div>
+
     <!-- Custom Cursor -->
     <div class="custom-cursor"></div>
     <div class="cursor-trail"></div>
     
-    <canvas id="matrix" class="matrix-bg"></canvas>
-    
     <header>
         <div class="header-content">
-            <h1 class="glitch">BLACKBERRY831</h1>
+            <h1 class="glitch">HALL OF SHAME</h1>
             <nav>
-                <div class="nav-item active" data-target="home">Home</div>
+                <div class="nav-item active" data-target="shame">Wanted List</div>
                 <div class="nav-item" data-target="about">About</div>
-                <div class="nav-item" data-target="takedowns">Takedowns</div>
-                <div class="nav-item" data-target="profiles">Profiles</div>
+                <div class="nav-item" data-target="profiles">Operatives</div>
             </nav>
         </div>
     </header>
     
     <main>
-        <section id="home" class="content active-content">
-            <div class="home-content">
-                <div class="welcome-section">
-                    <h2 class="welcome-title">Welcome to BlackBerry</h2>
-                    <div class="status-section">
-                        <h3>Network Status</h3>
-                        <div class="status-grid">
-                            <div class="status-item offline">
-                                <span class="status-dot"></span>
-                                <span class="status-name">BotNet</span>
-                                <span class="status-text">OFFLINE</span>
-                            </div>
-                            <div class="status-item online">
-                                <span class="status-dot"></span>
-                                <span class="status-name">Database Server</span>
-                                <span class="status-text">ONLINE</span>
-                            </div>
-                            <div class="status-item online">
-                                <span class="status-dot"></span>
-                                <span class="status-name">Private Messenger</span>
-                                <span class="status-text">ONLINE</span>
-                            </div>
-                            <div class="status-item offline">
-                                <span class="status-dot"></span>
-                                <span class="status-name">Private Node #1</span>
-                                <span class="status-text">OFFLINE</span>
-                            </div>
-                            <div class="status-item offline">
-                                <span class="status-dot"></span>
-                                <span class="status-name">Private Node #2</span>
-                                <span class="status-text">OFFLINE</span>
-                            </div>
-                            <div class="status-item online">
-                                <span class="status-dot"></span>
-                                <span class="status-name">Private Network</span>
-                                <span class="status-text">Unstable</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mission-statement">
-                        <p>89.54% Stable Connection</p>
-                        <p class="sub-mission">Eliminating malicious actors since 2020</p>
-                    </div>
-                </div>
+        <!-- Hall of Shame Section -->
+        <section id="shame" class="content active-content">
+            <h2>WANTED DIGITAL CRIMINALS</h2>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search criminals...">
+                <button id="search-btn">Search</button>
+            </div>
+            <div class="shame-grid">
+                <!-- Criminals will be populated by JavaScript -->
+            </div>
+            <div class="pagination">
+                <button id="prev-page" class="page-btn">Previous</button>
+                <span id="page-info">Page 1 of 4</span>
+                <button id="next-page" class="page-btn">Next</button>
             </div>
         </section>
-        
+
+        <!-- About Section -->
         <section id="about" class="content">
-            <h2>ABOUT US</h2>
+            <h2>ABOUT HALL OF SHAME</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>We are <strong>Asha</strong> - A group of cybercriminals</p>
-                    <p>We previously moderated multiple underground platforms including <span class="url">breachforums.info</span>, <span class="url">breached.is</span>, <span class="url">breached.sh</span>, <span class="url">breach-forums.live</span> and many others.</p>
+                    <p>The Hall of Shame is a digital justice platform dedicated to exposing cybercriminals, scammers, and malicious actors operating in the underground.</p>
+                    <p>We gather intelligence from multiple sources including breach data, law enforcement reports, and community submissions to create comprehensive profiles of digital criminals.</p>
                     
-                    <div class="former-staff">
-                        <h3>FORMER ADMINISTRATION TEAMS</h3>
-                        <div class="staff-grid">
-                            <!-- BreachForums Staff -->
-                            <div class="staff-category">
-                                <h4>BreachForums Administrators</h4>
-                                <ul>
-                                    <li class="staff-member" data-name="Baphomet">Baphomet</li>
-                                    <li class="staff-member" data-name="ShinyHunters">ShinyHunters</li>
-                                    <li class="staff-member" data-name="Pompompurin">Pompompurin</li>
-                                    <li class="staff-member" data-name="N/A">N/A</li>
-                                    <li class="staff-member" data-name="Hollow">Hollow</li>
-                                    <li class="staff-member" data-name="Manitora">Manitora</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="staff-category">
-                                <h4>BreachForums Moderators</h4>
-                                <ul>
-                                    <li class="staff-member" data-name="Loki">Loki</li>
-                                    <li class="staff-member" data-name="888">888</li>
-                                    <li class="staff-member" data-name="Tanaka">Tanaka</li>
-                                    <li class="staff-member" data-name="Paw">Paw</li>
-                                    <li class="staff-member" data-name="Dedale">Dedale</li>
-                                    <li class="staff-member" data-name="Moderator">Moderator</li>
-                                    <li class="staff-member" data-name="Pine">Pine</li>
-                                    <li class="staff-member" data-name="Koko">Koko</li>
-                                </ul>
-                            </div>
-                            
-                            <!-- RaidForums Staff -->
-                            <div class="staff-category">
-                                <h4>RaidForums Administrators</h4>
-                                <ul>
-                                    <li class="staff-member" data-name="Omnipotent">Omnipotent</li>
-                                    <li class="staff-member" data-name="Pompompurin">Pompompurin</li>
-                                    <li class="staff-member" data-name="Jaw">Jaw</li>
-                                    <li class="staff-member" data-name="Moot">Moot</li>
-                                    <li class="staff-member" data-name="ShinyHunters">ShinyHunters</li>
-                                    <li class="staff-member" data-name="N/A">N/A</li>
-                                </ul>
-                            </div>
-                            
-                            <div class="staff-category">
-                                <h4>RaidForums Moderators</h4>
-                                <ul>
-                                    <li class="staff-member" data-name="Sem">Sem</li>
-                                    <li class="staff-member" data-name="Burpingjimmy_Bot">Burpingjimmy_Bot</li>
-                                    <li class="staff-member" data-name="Thu">Thu</li>
-                                    <li class="staff-member" data-name="Boootted">Boootted</li>
-                                    <li class="staff-member" data-name="Pacino">Pacino</li>
-                                    <li class="staff-member" data-name="Asset">Asset</li>
-                                    <li class="staff-member" data-name="Noxy">Noxy</li>
-                                    <li class="staff-member" data-name="Unspoken">Unspoken</li>
-                                    <li class="staff-member" data-name="September">September</li>
-                                    <li class="staff-member" data-name="Raidflacs">Raidflacs</li>
-                                    <li class="staff-member" data-name="Pine">Pine</li>
-                                    <li class="staff-member" data-name="Loki">Loki</li>
-                                    <li class="staff-member" data-name="666">888</li>
-                                </ul>
-                            </div>
-                        </div>
-                        
-                        <div class="staff-note">
-                            <p>All listed members were verified staff during platform operation periods.</p>
-                        </div>
+                    <div class="mission-statement">
+                        <h3>OUR MISSION</h3>
+                        <p>To bring transparency and accountability to the digital underground by exposing those who harm innocent people through cybercrime.</p>
+                        <p>We operate on principles of digital justice and information freedom.</p>
                     </div>
 
-                    <p>Our current mission is to eliminate all BreachForums-related clones and individuals impersonating former staff members of BreachForums and RaidForums.</p>
-                    <p>We maintain no presence on social media platforms, operating through our own application with no publicly available source code.</p>
-                    <p>We operate under multiple aliases across different breaches, none of which we will disclose for obvious security reasons.</p>
-                </div>
-                
-                <div class="about-sidebar">
-                    <div class="network-map">
-                        <h3>GLOBAL NETWORK MAP</h3>
-                        <div class="map-container">
-                            <div class="map-node main-node" data-node="main">
-                                <span>MAIN SERVER</span>
-                            </div>
-                            <div class="map-node" data-node="node1">
-                                <span>NODE #1</span>
-                            </div>
-                            <div class="map-node" data-node="node2">
-                                <span>NODE #2</span>
-                            </div>
-                            <div class="map-node" data-node="node3">
-                                <span>NODE #3</span>
-                            </div>
-                            <div class="map-node" data-node="node4">
-                                <span>NODE #4</span>
-                            </div>
-                            <div class="map-connections">
-                                <div class="connection conn-1"></div>
-                                <div class="connection conn-2"></div>
-                                <div class="connection conn-3"></div>
-                                <div class="connection conn-4"></div>
-                            </div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <span class="stat-number">247</span>
+                            <span class="stat-label">Exposed Criminals</span>
                         </div>
-                        <div class="map-status">
-                            <div class="status-indicator online">
-                                <span class="status-dot"></span>
-                                <span>OPERATIONAL SECURITY ACTIVE</span>
-                            </div>
+                        <div class="stat-item">
+                            <span class="stat-number">89</span>
+                            <span class="stat-label">Arrests Facilitated</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">1.2M</span>
+                            <span class="stat-label">Stolen Funds Recovered</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="takedowns" class="content">
-            <h2>SITES WE'VE TAKEN DOWN</h2>
-            <div class="takedowns-container">
-                <div class="takedowns-list">
-                    <!-- Sites will be populated by JavaScript -->
-                </div>
-                <div class="pagination">
-                    <button id="prev-page" class="page-btn">Previous</button>
-                    <span id="page-info">Page 1 of 4</span>
-                    <button id="next-page" class="page-btn">Next</button>
-                </div>
-            </div>
-        </section>
-
+        <!-- Operatives Section -->
         <section id="profiles" class="content">
             <div class="profiles-redirect">
-                <h2>PROFILES</h2>
-                <p>Access our secure profiles portal</p>
-                <a href="profiles.html" class="redirect-btn">Enter Profiles Portal</a>
+                <h2>OUR OPERATIVES</h2>
+                <p>Meet the team behind the Hall of Shame</p>
+                <a href="profiles.html" class="redirect-btn">Access Operatives Portal</a>
             </div>
         </section>
     </main>
@@ -227,10 +99,10 @@
     <footer>
         <div class="footer-content">
             <div class="footer-left">
-                <button id="disclaimer-toggle" class="disclaimer-btn">Research & Education</button>
+                <button id="disclaimer-toggle" class="disclaimer-btn">Legal Disclaimer</button>
             </div>
             <div class="footer-center">
-                <p>BLACKBERRY831 &copy; 2025 | SYSTEM STATUS: <span style="color: #00ff00;">ONLINE</span></p>
+                <p>HALL OF SHAME &copy; 2025 | SYSTEM STATUS: <span style="color: #00ff00;">ACTIVE</span></p>
             </div>
             <div class="footer-right">
                 <div class="user-info">
@@ -242,26 +114,68 @@
         </div>
     </footer>
     
-    <!-- Modals -->
-    <div id="staff-modal" class="modal">
+    <!-- Criminal Modal -->
+    <div id="criminal-modal" class="modal">
         <div class="modal-content">
             <span class="modal-close">&times;</span>
             <div class="modal-body">
-                <h2 id="modal-staff-name"></h2>
-                <div id="modal-staff-description"></div>
-            </div>
-        </div>
-    </div>
+                <div class="criminal-header">
+                    <div class="criminal-pic">
+                        <img id="modal-pic" src="" alt="">
+                    </div>
+                    <div class="criminal-info">
+                        <h2 id="modal-name"></h2>
+                        <div id="modal-alias"></div>
+                        <div id="modal-status"></div>
+                    </div>
+                </div>
+                
+                <div class="criminal-details">
+                    <div class="detail-section">
+                        <h3>Personal Information</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <strong>Real Name:</strong> <span id="modal-realname"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Location:</strong> <span id="modal-location"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Age:</strong> <span id="modal-age"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Nationality:</strong> <span id="modal-nationality"></span>
+                            </div>
+                        </div>
+                    </div>
 
-    <div id="takedown-modal" class="modal">
-        <div class="modal-content">
-            <span class="modal-close">&times;</span>
-            <div class="modal-body">
-                <h2 id="modal-takedown-name"></h2>
-                <div id="modal-takedown-details"></div>
-                <div class="takedown-links">
-                    <a id="leaked-link" href="#" target="_blank" class="takedown-link">View Leaked Credentials</a>
-                    <a id="news-link" href="#" target="_blank" class="takedown-link">Read News Article</a>
+                    <div class="detail-section">
+                        <h3>Digital Footprint</h3>
+                        <div class="detail-grid">
+                            <div class="detail-item">
+                                <strong>Email:</strong> <span id="modal-email"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>IP Addresses:</strong> <span id="modal-ips"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Phone:</strong> <span id="modal-phone"></span>
+                            </div>
+                            <div class="detail-item">
+                                <strong>Social Media:</strong> <span id="modal-social"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Criminal Activity</h3>
+                        <div id="modal-crimes"></div>
+                    </div>
+
+                    <div class="detail-section">
+                        <h3>Evidence & Links</h3>
+                        <div class="evidence-links" id="modal-evidence"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -271,11 +185,18 @@
         <div class="modal-content">
             <span class="modal-close">&times;</span>
             <div class="modal-body">
-                <h2>Research & Education Purposes</h2>
-                <p>This website and its content are for educational and research purposes only. We do not condone, promote, or engage in any illegal activities.</p>
+                <h2>Legal Disclaimer</h2>
+                <p>This platform is for educational and research purposes only. All information is gathered from publicly available sources and breach data.</p>
+                <p>We do not condone harassment or illegal activities. This platform aims to promote cybersecurity awareness.</p>
             </div>
         </div>
     </div>
+
+    <!-- Background Music -->
+    <audio id="bg-music" loop>
+        <source src="https://www.youtube.com/embed/5qap5aO4i9A" type="video/mpeg">
+    </audio>
+    <button id="music-toggle" class="music-btn">🔇</button>
     
     <script src="script.js"></script>
 </body>

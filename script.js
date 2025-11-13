@@ -1,3 +1,159 @@
+// Criminal Data
+const criminalsData = [
+    {
+        id: 1,
+        name: "Alexei Petrov",
+        alias: "CyberGhost",
+        realName: "Alexei Ivanovich Petrov",
+        age: "32",
+        location: "Moscow, Russia",
+        nationality: "Russian",
+        status: "wanted",
+        crimes: ["Ransomware Operations", "Bank Fraud", "Identity Theft"],
+        email: "cyberghost@tutanota.com",
+        phone: "+7 926 XXX XXXX",
+        ips: ["192.168.89.234", "45.67.23.189", "178.162.203.76"],
+        social: "@cyberghost_ru (Telegram)",
+        evidence: [
+            { name: "Ransomware Samples", url: "#" },
+            { name: "Forum Posts", url: "#" },
+            { name: "Bitcoin Wallet", url: "#" }
+        ],
+        image: "https://i.imgur.com/fE9JMni.png"
+    },
+    {
+        id: 2,
+        name: "Wei Zhang",
+        alias: "DarkShadow",
+        realName: "Wei Zhang",
+        age: "28",
+        location: "Shanghai, China",
+        nationality: "Chinese",
+        status: "fugitive",
+        crimes: ["Corporate Espionage", "Data Breaches", "APT Attacks"],
+        email: "darkshadow@protonmail.com",
+        phone: "+86 138 XXXX XXXX",
+        ips: ["203.34.56.78", "112.98.45.231", "61.129.76.54"],
+        social: "Unknown",
+        evidence: [
+            { name: "Corporate Data Leak", url: "#" },
+            { name: "Attack Logs", url: "#" },
+            { name: "Communication Logs", url: "#" }
+        ],
+        image: "https://i.imgur.com/8zQ9W3x.png"
+    },
+    {
+        id: 3,
+        name: "Marcus Johnson",
+        alias: "PhantomHacker",
+        realName: "Marcus Theodore Johnson",
+        age: "25",
+        location: "New York, USA",
+        nationality: "American",
+        status: "captured",
+        crimes: ["Credit Card Fraud", "Social Engineering", "Botnet Operations"],
+        email: "phantom@mail2tor.com",
+        phone: "+1 347 XXX XXXX",
+        ips: ["72.45.189.234", "98.76.54.321", "192.168.1.150"],
+        social: "@phantom_hacker (Discord)",
+        evidence: [
+            { name: "Arrest Records", url: "#" },
+            { name: "Court Documents", url: "#" },
+            { name: "Seized Equipment", url: "#" }
+        ],
+        image: "https://i.imgur.com/9aB7cW1.png"
+    },
+    {
+        id: 4,
+        name: "Carlos Rodriguez",
+        alias: "SilentByte",
+        realName: "Carlos Manuel Rodriguez",
+        age: "35",
+        location: "Barcelona, Spain",
+        nationality: "Spanish",
+        status: "wanted",
+        crimes: ["Darknet Marketplace", "Drug Trafficking", "Money Laundering"],
+        email: "silentbyte@secmail.pro",
+        phone: "+34 612 XXX XXX",
+        ips: ["87.216.45.189", "193.145.67.234", "95.213.178.91"],
+        social: "SilentByte (DarkForums)",
+        evidence: [
+            { name: "Marketplace Links", url: "#" },
+            { name: "Transaction Records", url: "#" },
+            { name: "Undercover Chat Logs", url: "#" }
+        ],
+        image: "https://i.imgur.com/2xQ9W3y.png"
+    },
+    {
+        id: 5,
+        name: "Sarah Chen",
+        alias: "ZeroDayQueen",
+        realName: "Sarah Ling Chen",
+        age: "29",
+        location: "Singapore",
+        nationality: "Singaporean",
+        status: "fugitive",
+        crimes: ["Zero-Day Exploits", "Corporate Blackmail", "Insider Trading"],
+        email: "zerodayq@tutanota.com",
+        phone: "+65 8123 XXXX",
+        ips: ["103.25.178.234", "121.78.45.189", "203.116.67.154"],
+        social: "@zero_day_q (Twitter)",
+        evidence: [
+            { name: "Exploit Code", url: "#" },
+            { name: "Blackmail Emails", url: "#" },
+            { name: "Financial Records", url: "#" }
+        ],
+        image: "https://i.imgur.com/5gRz3W2.png"
+    },
+    {
+        id: 6,
+        name: "Dmitri Volkov",
+        alias: "KremlinBot",
+        realName: "Dmitri Anatolyevich Volkov",
+        age: "41",
+        location: "St. Petersburg, Russia",
+        nationality: "Russian",
+        status: "wanted",
+        crimes: ["State-Sponsored Hacking", "Election Interference", "Propaganda"],
+        email: "kremlinbot@mail.ru",
+        phone: "+7 911 XXX XXXX",
+        ips: ["95.213.189.234", "178.176.45.167", "31.173.80.154"],
+        social: "Unknown (State Actor)",
+        evidence: [
+            { name: "APT Reports", url: "#" },
+            { name: "Government Documents", url: "#" },
+            { name: "Intelligence Briefings", url: "#" }
+        ],
+        image: "https://i.imgur.com/3vj6cW0.png"
+    }
+];
+
+// Snow Effect
+function createSnow() {
+    const snowContainer = document.getElementById('snow');
+    const snowflakes = 100;
+    
+    for (let i = 0; i < snowflakes; i++) {
+        const snowflake = document.createElement('div');
+        snowflake.className = 'snowflake';
+        
+        // Random properties
+        const size = Math.random() * 5 + 2;
+        const startPosition = Math.random() * 100;
+        const animationDuration = Math.random() * 10 + 5;
+        const opacity = Math.random() * 0.7 + 0.3;
+        
+        snowflake.style.width = `${size}px`;
+        snowflake.style.height = `${size}px`;
+        snowflake.style.left = `${startPosition}vw`;
+        snowflake.style.animationDuration = `${animationDuration}s`;
+        snowflake.style.opacity = opacity;
+        snowflake.style.animationDelay = `${Math.random() * 5}s`;
+        
+        snowContainer.appendChild(snowflake);
+    }
+}
+
 // Loading Screen with sound
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
@@ -6,6 +162,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Play loading sound
     playLoadingSound();
+    createSnow();
     
     let progress = 0;
     const interval = setInterval(() => {
@@ -64,29 +221,6 @@ document.addEventListener('mousemove', (e) => {
     });
 });
 
-// Hover effects for interactive elements
-document.querySelectorAll('.nav-item, .staff-member, .contact-link, .site-item, .page-btn, .redirect-btn, .social-link, .back-btn').forEach(item => {
-    item.addEventListener('mouseenter', () => {
-        if (cursor) cursor.classList.add('hover');
-        playHoverSound();
-    });
-    
-    item.addEventListener('mouseleave', () => {
-        if (cursor) cursor.classList.remove('hover');
-    });
-});
-
-// Click effect
-document.addEventListener('click', () => {
-    if (cursor) {
-        cursor.style.transform = 'scale(0.8)';
-        setTimeout(() => {
-            cursor.style.transform = 'scale(1)';
-        }, 100);
-    }
-    playClickSound();
-});
-
 // Navigation functionality
 document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', function() {
@@ -112,321 +246,71 @@ document.querySelectorAll('.nav-item').forEach(item => {
     });
 });
 
-// Matrix background animation - full page
-const canvas = document.getElementById('matrix');
-if (canvas) {
-    const ctx = canvas.getContext('2d');
-
-    // Set canvas to full window size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Characters for the matrix effect
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
-    const charArray = chars.split("");
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-
-    // Array of drops - one per column
-    const drops = [];
-    for (let i = 0; i < columns; i++) {
-        drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-    }
-
-    function drawMatrix() {
-        // Semi-transparent black background for trail effect
-        ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = "#00ff00";
-        ctx.font = fontSize + "px monospace";
-        
-        for (let i = 0; i < drops.length; i++) {
-            // Random character
-            const text = charArray[Math.floor(Math.random() * charArray.length)];
-            
-            // Draw the character
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            
-            // Reset drop to top when it reaches bottom with random delay
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            
-            // Move the drop down
-            drops[i]++;
-        }
-    }
-
-    // Resize canvas when window is resized
-    window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    });
-
-    // Animation loop for matrix
-    setInterval(drawMatrix, 35);
-}
-
-// Takedowns functionality - UPDATED WITH MORE DATA
-const takedownsData = [
-    { 
-        name: "breached.sh", 
-        date: "2023-05-15", 
-        method: "Server Takedown", 
-        details: "breached.is new domain. Compromised through unpatched vulnerabilities in the MyBB forum software.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "breached.is", 
-        date: "2023-04-22", 
-        method: "Server Takedown", 
-        details: "Unpaid DDoS Guard services led to service suspension. Clone site operated by unknown threat actors.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "breachforums-forums.live", 
-        date: "2023-03-10", 
-        method: "Server Takedown", 
-        details: "Clone operated by inexperienced administrator with poor operational security. Infrastructure seized through legal channels.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "breachforums.cx", 
-        date: "2023-02-28", 
-        method: "Server Seized", 
-        details: "Domain seized by international law enforcement agencies as part of Operation Secure Shield.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "breachforums.hn", 
-        date: "2023-01-15", 
-        method: "Server Takedown", 
-        details: "Confirmed FBI honeypot operation designed to gather intelligence on cybercriminal activities.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "raidforums.re", 
-        date: "2022-12-05", 
-        method: "Domain Seizure", 
-        details: "Resurrection attempt of original RaidForums platform. Takedown coordinated with hosting provider.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "leakbase.pw", 
-        date: "2022-11-18", 
-        method: "Infrastructure Compromise", 
-        details: "Competitor forum taken down through exploitation of administrative panel vulnerabilities.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "darkforums.st", 
-        date: "2022-10-30", 
-        method: "Server Takedown", 
-        details: "Illegal marketplace for stolen data and hacking tools. Server located and reported to authorities.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "hackforums.net", 
-        date: "2022-09-12", 
-        method: "Partial Takedown", 
-        details: "Specific sections promoting illegal activities were reported and removed by administrators.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "nulled.to", 
-        date: "2022-08-25", 
-        method: "Service Disruption", 
-        details: "Distributed denial of service attack combined with hosting provider complaints.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "cracked.io", 
-        date: "2022-07-14", 
-        method: "Legal Action", 
-        details: "Software piracy forum taken down through copyright infringement claims and legal pressure.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "sinfulsite.com", 
-        date: "2022-06-08", 
-        method: "Server Takedown", 
-        details: "Carding and financial fraud forum. Infrastructure identified and reported to financial institutions.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "omniforum.org", 
-        date: "2022-05-19", 
-        method: "Domain Suspension", 
-        details: "Multi-purpose cybercrime forum. Domain registrar compliance with law enforcement requests.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "blackhatworld.com", 
-        date: "2022-04-03", 
-        method: "Content Removal", 
-        details: "Specific illegal sections removed after coordinated reporting campaign.",
-        leakedLink: "#",
-        newsLink: "#"
-    },
-    { 
-        name: "exploit.in", 
-        date: "2022-03-22", 
-        method: "Server Takedown", 
-        details: "Russian-language hacking forum. Server located in Netherlands and taken offline.",
-        leakedLink: "#",
-        newsLink: "#"
-    }
-];
-
-let currentPage = 1;
-const itemsPerPage = 12;
-
-function populateTakedowns() {
-    const takedownsList = document.querySelector('.takedowns-list');
-    const pageInfo = document.getElementById('page-info');
+// Populate criminals grid
+function populateCriminals() {
+    const shameGrid = document.querySelector('.shame-grid');
+    if (!shameGrid) return;
     
-    if (!takedownsList) return;
+    shameGrid.innerHTML = '';
     
-    // Clear existing content
-    takedownsList.innerHTML = '';
-    
-    // Calculate start and end indices
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, takedownsData.length);
-    
-    // Populate current page
-    for (let i = startIndex; i < endIndex; i++) {
-        const site = takedownsData[i];
-        const siteItem = document.createElement('div');
-        siteItem.className = 'site-item';
-        siteItem.innerHTML = `
-            <div class="site-domain">${site.name}</div>
-            <div class="site-date">${site.date}</div>
-            <div class="site-method">${site.method}</div>
+    criminalsData.forEach(criminal => {
+        const criminalCard = document.createElement('div');
+        criminalCard.className = 'criminal-card';
+        criminalCard.innerHTML = `
+            <div class="criminal-pic">
+                <img src="${criminal.image}" alt="${criminal.name}">
+            </div>
+            <div class="criminal-name">${criminal.name}</div>
+            <div class="criminal-alias">"${criminal.alias}"</div>
+            <div class="criminal-crimes">${criminal.crimes.join(', ')}</div>
+            <div class="criminal-status status-${criminal.status}">
+                ${criminal.status.toUpperCase()}
+            </div>
         `;
-        siteItem.setAttribute('data-index', i);
-        takedownsList.appendChild(siteItem);
-    }
-    
-    // Update page info
-    if (pageInfo) {
-        const totalPages = Math.ceil(takedownsData.length / itemsPerPage);
-        pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-    }
-    
-    // Update button states
-    updatePaginationButtons();
-}
-
-function updatePaginationButtons() {
-    const prevBtn = document.getElementById('prev-page');
-    const nextBtn = document.getElementById('next-page');
-    const totalPages = Math.ceil(takedownsData.length / itemsPerPage);
-    
-    if (prevBtn) {
-        prevBtn.disabled = currentPage === 1;
-    }
-    
-    if (nextBtn) {
-        nextBtn.disabled = currentPage === totalPages;
-    }
-}
-
-// Pagination event listeners
-document.getElementById('prev-page')?.addEventListener('click', () => {
-    if (currentPage > 1) {
-        currentPage--;
-        populateTakedowns();
-        playNavSound();
-    }
-});
-
-document.getElementById('next-page')?.addEventListener('click', () => {
-    const totalPages = Math.ceil(takedownsData.length / itemsPerPage);
-    if (currentPage < totalPages) {
-        currentPage++;
-        populateTakedowns();
-        playNavSound();
-    }
-});
-
-// Takedown modal functionality
-const takedownModal = document.getElementById('takedown-modal');
-const takedownModalName = document.getElementById('modal-takedown-name');
-const takedownModalDetails = document.getElementById('modal-takedown-details');
-const leakedLink = document.getElementById('leaked-link');
-const newsLink = document.getElementById('news-link');
-
-// Add click event to site items
-document.addEventListener('click', function(e) {
-    if (e.target.closest('.site-item')) {
-        const siteItem = e.target.closest('.site-item');
-        const index = parseInt(siteItem.getAttribute('data-index'));
-        const site = takedownsData[index];
-        
-        if (site && takedownModal && takedownModalName && takedownModalDetails) {
-            takedownModalName.textContent = site.name;
-            takedownModalDetails.innerHTML = `
-                <div class="takedown-detail">
-                    <strong>Date:</strong> ${site.date}
-                </div>
-                <div class="takedown-detail">
-                    <strong>Method:</strong> ${site.method}
-                </div>
-                <div class="takedown-detail">
-                    <strong>Details:</strong> ${site.details}
-                </div>
-            `;
-            
-            // Set link URLs
-            if (leakedLink) leakedLink.href = site.leakedLink;
-            if (newsLink) newsLink.href = site.newsLink;
-            
-            takedownModal.style.display = 'block';
-            playModalOpenSound();
-        }
-    }
-});
-
-// Staff modal functionality
-const staffModal = document.getElementById('staff-modal');
-const staffModalName = document.getElementById('modal-staff-name');
-const staffModalDescription = document.getElementById('modal-staff-description');
-
-// Staff data
-const staffData = {
-    "Baphomet": "Security researcher and system administrator.",
-    "ShinyHunters": "ShinyHunters is a black-hat criminal hacker and extortion group that is believed to have formed in 2020 and is said to have been involved in a massively significant amount of data breaches. The group often extorts the company they've hacked, if the company does not pay the ransom the stolen information is often sold or leaked on the dark web.",
-    "Pompompurin": "Network security specialist.",
-    "Hollow": "System security analyst.",
-    "Loki": "Security protocol developer."
-};
-
-// Add click event to staff members
-document.querySelectorAll('.staff-member').forEach(item => {
-    item.addEventListener('click', function() {
-        const staffName = this.getAttribute('data-name');
-        if (staffData[staffName] && staffModal && staffModalName && staffModalDescription) {
-            staffModalName.textContent = staffName;
-            staffModalDescription.textContent = staffData[staffName];
-            staffModal.style.display = 'block';
-            playModalOpenSound();
-        }
+        criminalCard.setAttribute('data-id', criminal.id);
+        shameGrid.appendChild(criminalCard);
     });
+}
+
+// Criminal modal functionality
+const criminalModal = document.getElementById('criminal-modal');
+
+document.addEventListener('click', function(e) {
+    if (e.target.closest('.criminal-card')) {
+        const criminalCard = e.target.closest('.criminal-card');
+        const criminalId = parseInt(criminalCard.getAttribute('data-id'));
+        const criminal = criminalsData.find(c => c.id === criminalId);
+        
+        if (criminal && criminalModal) {
+            // Populate modal with criminal data
+            document.getElementById('modal-pic').src = criminal.image;
+            document.getElementById('modal-name').textContent = criminal.name;
+            document.getElementById('modal-alias').textContent = `AKA "${criminal.alias}"`;
+            document.getElementById('modal-status').textContent = criminal.status.toUpperCase();
+            document.getElementById('modal-status').className = `criminal-status status-${criminal.status}`;
+            
+            document.getElementById('modal-realname').textContent = criminal.realName;
+            document.getElementById('modal-location').textContent = criminal.location;
+            document.getElementById('modal-age').textContent = criminal.age;
+            document.getElementById('modal-nationality').textContent = criminal.nationality;
+            
+            document.getElementById('modal-email').textContent = criminal.email;
+            document.getElementById('modal-ips').textContent = criminal.ips.join(', ');
+            document.getElementById('modal-phone').textContent = criminal.phone;
+            document.getElementById('modal-social').textContent = criminal.social;
+            
+            document.getElementById('modal-crimes').innerHTML = 
+                `<ul>${criminal.crimes.map(crime => `<li>${crime}</li>`).join('')}</ul>`;
+            
+            const evidenceLinks = document.getElementById('modal-evidence');
+            evidenceLinks.innerHTML = criminal.evidence.map(evidence => 
+                `<a href="${evidence.url}" class="evidence-link" target="_blank">${evidence.name}</a>`
+            ).join('');
+            
+            criminalModal.style.display = 'block';
+            playModalOpenSound();
+        }
+    }
 });
 
 // Modal close functionality
@@ -462,6 +346,88 @@ if (disclaimerToggle && disclaimerModal) {
         disclaimerModal.style.display = 'block';
         playModalOpenSound();
     });
+}
+
+// Music functionality
+const musicToggle = document.getElementById('music-toggle');
+const bgMusic = document.getElementById('bg-music');
+let musicPlaying = false;
+
+if (musicToggle && bgMusic) {
+    musicToggle.addEventListener('click', function() {
+        if (musicPlaying) {
+            bgMusic.pause();
+            musicToggle.textContent = '🔇';
+            musicPlaying = false;
+        } else {
+            bgMusic.play().catch(e => {
+                console.log('Autoplay prevented:', e);
+                // Show play button instead
+                musicToggle.textContent = '▶️';
+            });
+            musicToggle.textContent = '🔊';
+            musicPlaying = true;
+        }
+        playClickSound();
+    });
+}
+
+// Search functionality
+const searchInput = document.getElementById('search-input');
+const searchBtn = document.getElementById('search-btn');
+
+if (searchBtn && searchInput) {
+    searchBtn.addEventListener('click', performSearch);
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            performSearch();
+        }
+    });
+}
+
+function performSearch() {
+    const searchTerm = searchInput.value.toLowerCase();
+    if (searchTerm.trim() === '') {
+        populateCriminals();
+        return;
+    }
+    
+    const filteredCriminals = criminalsData.filter(criminal => 
+        criminal.name.toLowerCase().includes(searchTerm) ||
+        criminal.alias.toLowerCase().includes(searchTerm) ||
+        criminal.crimes.some(crime => crime.toLowerCase().includes(searchTerm)) ||
+        criminal.location.toLowerCase().includes(searchTerm)
+    );
+    
+    const shameGrid = document.querySelector('.shame-grid');
+    if (shameGrid) {
+        shameGrid.innerHTML = '';
+        
+        if (filteredCriminals.length === 0) {
+            shameGrid.innerHTML = '<div class="no-results">No criminals found matching your search.</div>';
+            return;
+        }
+        
+        filteredCriminals.forEach(criminal => {
+            const criminalCard = document.createElement('div');
+            criminalCard.className = 'criminal-card';
+            criminalCard.innerHTML = `
+                <div class="criminal-pic">
+                    <img src="${criminal.image}" alt="${criminal.name}">
+                </div>
+                <div class="criminal-name">${criminal.name}</div>
+                <div class="criminal-alias">"${criminal.alias}"</div>
+                <div class="criminal-crimes">${criminal.crimes.join(', ')}</div>
+                <div class="criminal-status status-${criminal.status}">
+                    ${criminal.status.toUpperCase()}
+                </div>
+            `;
+            criminalCard.setAttribute('data-id', criminal.id);
+            shameGrid.appendChild(criminalCard);
+        });
+    }
+    
+    playSearchSound();
 }
 
 // User info detection
@@ -511,7 +477,7 @@ function detectUserInfo() {
             
             if (torStatus) {
                 torStatus.textContent = `TOR: ${isTor ? 'DETECTED' : 'NOT DETECTED'}`;
-                torStatus.style.color = isTor ? '#00ff00' : '#ff0000';
+                torStatus.style.color = isTor ? '#44ff44' : '#ff4444';
             }
         })
         .catch(error => {
@@ -525,8 +491,8 @@ window.addEventListener('load', function() {
     // Detect user info
     detectUserInfo();
     
-    // Populate takedowns
-    populateTakedowns();
+    // Populate criminals
+    populateCriminals();
 });
 
 // Sound generation functions
@@ -537,10 +503,10 @@ function playNavSound() {
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sawtooth';
-        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(150, audioContext.currentTime + 0.1);
         
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
         
         oscillator.connect(gainNode);
@@ -560,8 +526,8 @@ function playHoverSound() {
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.05);
+        oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.05);
         
         gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
@@ -583,10 +549,10 @@ function playClickSound() {
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'square';
-        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(80, audioContext.currentTime + 0.1);
         
-        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
         
         oscillator.connect(gainNode);
@@ -606,17 +572,17 @@ function playSystemReadySound() {
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.2);
+        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.3);
         
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
         
         oscillator.connect(gainNode);
         gainNode.connect(audioContext.destination);
         
         oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.2);
+        oscillator.stop(audioContext.currentTime + 0.3);
     } catch (e) {
         console.log('Audio not supported');
     }
@@ -629,8 +595,8 @@ function playLoadingSound() {
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sawtooth';
-        oscillator.frequency.setValueAtTime(100, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 1);
+        oscillator.frequency.setValueAtTime(80, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(250, audioContext.currentTime + 1);
         
         gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
@@ -652,10 +618,10 @@ function playModalOpenSound() {
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(700, audioContext.currentTime + 0.1);
         
-        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
         
         oscillator.connect(gainNode);
@@ -675,10 +641,10 @@ function playModalCloseSound() {
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(700, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(500, audioContext.currentTime + 0.1);
         
-        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
         
         oscillator.connect(gainNode);
@@ -690,3 +656,53 @@ function playModalCloseSound() {
         console.log('Audio not supported');
     }
 }
+
+function playSearchSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.2);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.2);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+// Hover effects for interactive elements
+document.addEventListener('mouseover', function(e) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn')) {
+        if (cursor) cursor.classList.add('hover');
+        playHoverSound();
+    }
+});
+
+document.addEventListener('mouseout', function(e) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn')) {
+        if (cursor) cursor.classList.remove('hover');
+    }
+});
+
+// Click effect
+document.addEventListener('click', (e) => {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn')) {
+        if (cursor) {
+            cursor.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                cursor.style.transform = 'scale(1)';
+            }, 100);
+        }
+        playClickSound();
+    }
+});

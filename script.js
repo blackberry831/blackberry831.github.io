@@ -189,7 +189,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
 });
 
-// Custom Cursor
+// Fixed Custom Cursor
 const cursor = document.querySelector('.custom-cursor');
 const cursorTrail = document.querySelector('.cursor-trail');
 let trailElements = [];
@@ -204,7 +204,7 @@ for (let i = 0; i < trailCount; i++) {
 }
 
 document.addEventListener('mousemove', (e) => {
-    // Update main cursor
+    // Update main cursor with proper centering
     if (cursor) {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
@@ -216,7 +216,7 @@ document.addEventListener('mousemove', (e) => {
             trail.style.left = e.clientX + 'px';
             trail.style.top = e.clientY + 'px';
             trail.style.opacity = 1 - (index / trailCount);
-            trail.style.transform = `scale(${1 - (index / trailCount) * 0.8})`;
+            trail.style.transform = `translate(-50%, -50%) scale(${1 - (index / trailCount) * 0.8})`;
         }, index * 30);
     });
 });
@@ -348,23 +348,21 @@ if (disclaimerToggle && disclaimerModal) {
     });
 }
 
-// Music functionality
+// Music functionality - FIXED
 const musicToggle = document.getElementById('music-toggle');
-const bgMusic = document.getElementById('bg-music');
-let musicPlaying = false;
+let musicPlaying = true;
 
-if (musicToggle && bgMusic) {
+if (musicToggle) {
     musicToggle.addEventListener('click', function() {
+        const bgMusic = document.getElementById('bg-music');
         if (musicPlaying) {
-            bgMusic.pause();
+            // Pause by navigating to about:blank
+            bgMusic.src = 'about:blank';
             musicToggle.textContent = '🔇';
             musicPlaying = false;
         } else {
-            bgMusic.play().catch(e => {
-                console.log('Autoplay prevented:', e);
-                // Show play button instead
-                musicToggle.textContent = '▶️';
-            });
+            // Resume by setting the YouTube URL back
+            bgMusic.src = 'https://www.youtube.com/embed/IWnFDMZwe4c?autoplay=1&loop=1&playlist=IWnFDMZwe4c';
             musicToggle.textContent = '🔊';
             musicPlaying = true;
         }
@@ -698,9 +696,9 @@ document.addEventListener('mouseout', function(e) {
 document.addEventListener('click', (e) => {
     if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn')) {
         if (cursor) {
-            cursor.style.transform = 'scale(0.8)';
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
             setTimeout(() => {
-                cursor.style.transform = 'scale(1)';
+                cursor.style.transform = 'translate(-50%, -50%) scale(1)';
             }, 100);
         }
         playClickSound();

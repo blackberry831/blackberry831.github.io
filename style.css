@@ -257,33 +257,36 @@ main {
 }
 
 /* Improved Hall of Shame Grid - CARDS LAYOUT */
+/* Improved Hall of Shame Grid - PROPER CARD LAYOUT */
 .shame-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
     margin: 30px 0;
+    width: 100%;
 }
 
 .criminal-card {
     background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
-    border: 1px solid #333;
+    border: 2px solid #333;
     border-radius: 15px;
     padding: 25px;
     cursor: pointer;
     transition: all 0.3s;
     position: relative;
     overflow: hidden;
-    min-height: 400px;
+    min-height: 450px;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100%;
 }
 
 .criminal-card:hover {
-    transform: translateY(-8px);
+    transform: translateY(-10px);
     border-color: #ffffff;
-    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(255, 255, 255, 0.3);
 }
 
 .criminal-card::before {
@@ -302,18 +305,19 @@ main {
 }
 
 .criminal-pic {
-    width: 140px;
-    height: 140px;
+    width: 160px;
+    height: 160px;
     border-radius: 15px;
     overflow: hidden;
-    margin: 0 auto 20px;
+    margin: 0 auto 25px;
     border: 3px solid #333;
     transition: all 0.3s;
 }
 
 .criminal-card:hover .criminal-pic {
     border-color: #ffffff;
-    transform: scale(1.05);
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
 }
 
 .criminal-pic img {
@@ -323,55 +327,186 @@ main {
 }
 
 .criminal-name {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     font-weight: bold;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
 
 .criminal-alias {
     color: #ff4444;
     font-style: italic;
-    margin-bottom: 15px;
-    font-size: 1.1rem;
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
 }
 
 .criminal-crimes {
-    font-size: 0.95rem;
+    font-size: 1rem;
     color: #cccccc;
-    margin-bottom: 20px;
-    line-height: 1.5;
+    margin-bottom: 25px;
+    line-height: 1.6;
     flex-grow: 1;
+    padding: 0 10px;
 }
 
 .criminal-status {
     display: inline-block;
-    padding: 8px 20px;
-    border-radius: 20px;
-    font-size: 0.9rem;
+    padding: 12px 25px;
+    border-radius: 25px;
+    font-size: 1rem;
     font-weight: bold;
     text-align: center;
     width: 100%;
     transition: all 0.3s;
+    letter-spacing: 1px;
 }
 
 .status-wanted {
-    background-color: #ff4444;
+    background: linear-gradient(45deg, #ff4444, #ff0000);
     color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 68, 68, 0.5);
 }
 
 .status-captured {
-    background-color: #44ff44;
+    background: linear-gradient(45deg, #44ff44, #00ff00);
     color: #000000;
+    box-shadow: 0 0 15px rgba(68, 255, 68, 0.5);
 }
 
 .status-fugitive {
-    background-color: #ffff44;
+    background: linear-gradient(45deg, #ffff44, #ffff00);
     color: #000000;
+    box-shadow: 0 0 15px rgba(255, 255, 68, 0.5);
 }
 
 .criminal-card:hover .criminal-status {
     transform: scale(1.05);
+    box-shadow: 0 0 20px currentColor;
+}
+
+/* Make main content wider */
+main {
+    max-width: 1600px;
+    margin: 20px auto;
+    padding: 0 30px;
+    flex: 1;
+}
+
+.content {
+    display: none;
+    animation: fadeIn 0.5s;
+    padding: 30px;
+    border: 2px solid #333;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    background-color: rgba(26, 26, 26, 0.9);
+    border-radius: 10px;
+}
+
+/* Wider search bar */
+.search-bar {
+    display: flex;
+    gap: 15px;
+    margin: 30px 0;
+    max-width: 600px;
+    width: 100%;
+}
+
+#search-input {
+    flex: 1;
+    padding: 15px 20px;
+    background-color: #1a1a1a;
+    border: 2px solid #333;
+    color: #ffffff;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+#search-input:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+}
+
+#search-input::placeholder {
+    color: #888;
+}
+
+#search-btn {
+    padding: 15px 25px;
+    background: linear-gradient(45deg, #333, #555);
+    color: #ffffff;
+    border: 2px solid #333;
+    cursor: pointer;
+    transition: all 0.3s;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+#search-btn:hover {
+    background: linear-gradient(45deg, #ffffff, #cccccc);
+    color: #0a0a0a;
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive improvements */
+@media (max-width: 1200px) {
+    .shame-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .shame-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .criminal-card {
+        min-height: 400px;
+        padding: 20px;
+    }
+    
+    .criminal-pic {
+        width: 140px;
+        height: 140px;
+    }
+    
+    main {
+        padding: 0 15px;
+    }
+    
+    .content {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .shame-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .criminal-card {
+        min-height: 380px;
+        padding: 15px;
+    }
+    
+    .criminal-pic {
+        width: 120px;
+        height: 120px;
+    }
+    
+    .criminal-name {
+        font-size: 1.4rem;
+    }
+    
+    .criminal-alias {
+        font-size: 1.1rem;
+    }
 }
 
 /* Search Bar */

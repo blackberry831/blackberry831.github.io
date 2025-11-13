@@ -1,4 +1,4 @@
-/* Base Styles */
+/* Base Styles - White/Black Theme */
 * {
     margin: 0;
     padding: 0;
@@ -10,7 +10,7 @@
 
 body {
     background-color: #0a0a0a;
-    color: #00ff00;
+    color: #ffffff;
     overflow-x: hidden;
     line-height: 1.6;
     min-height: 100vh;
@@ -20,12 +20,36 @@ body {
     padding: 20px;
 }
 
+/* Rain Effect */
+#rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9998;
+}
+
+.raindrop {
+    position: absolute;
+    background: linear-gradient(to bottom, transparent, #ffffff);
+    width: 2px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(100vh);
+    }
+}
+
 /* Custom Cursor */
 .custom-cursor {
     position: fixed;
     width: 20px;
     height: 20px;
-    border: 2px solid #00ff00;
+    border: 2px solid #ffffff;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
@@ -35,14 +59,14 @@ body {
 
 .custom-cursor.hover {
     transform: scale(1.5);
-    background-color: rgba(0, 255, 0, 0.2);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 
 .cursor-trail {
     position: fixed;
     width: 6px;
     height: 6px;
-    background-color: #00ff00;
+    background-color: #ffffff;
     border-radius: 50%;
     pointer-events: none;
     z-index: 9998;
@@ -79,15 +103,16 @@ body {
 .loading-text {
     font-size: 1.5rem;
     margin-bottom: 30px;
-    text-shadow: 0 0 10px #00ff00;
+    text-shadow: 0 0 10px #ffffff;
     animation: pulse 2s infinite;
+    color: #ffffff;
 }
 
 .loading-bar {
     width: 100%;
     height: 20px;
-    background-color: #003300;
-    border: 1px solid #00ff00;
+    background-color: #1a1a1a;
+    border: 1px solid #ffffff;
     margin-bottom: 20px;
     overflow: hidden;
 }
@@ -95,30 +120,19 @@ body {
 .loading-progress {
     height: 100%;
     width: 0%;
-    background-color: #00ff00;
+    background-color: #ffffff;
     transition: width 0.3s;
-    box-shadow: 0 0 10px #00ff00;
+    box-shadow: 0 0 10px #ffffff;
 }
 
 .loading-status {
     font-size: 0.9rem;
-    color: #00cc00;
+    color: #cccccc;
 }
 
 @keyframes pulse {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.7; }
-}
-
-/* Matrix Background */
-.matrix-bg {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    opacity: 0.2;
 }
 
 /* Profiles Container */
@@ -130,6 +144,25 @@ body {
     margin: 0 auto;
 }
 
+.profiles-title {
+    font-size: 3rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 15px #ffffff;
+    animation: glow 2s ease-in-out infinite alternate;
+    color: #ffffff;
+}
+
+.profiles-subtitle {
+    color: #cccccc;
+    margin-bottom: 40px;
+    font-size: 1.2rem;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 15px #ffffff; }
+    to { text-shadow: 0 0 25px #ffffff, 0 0 35px #ffffff; }
+}
+
 /* Profiles Grid - SIDE BY SIDE */
 .profiles-grid {
     display: grid;
@@ -139,26 +172,39 @@ body {
 }
 
 .profile-card {
-    background-color: rgba(10, 10, 10, 0.9);
-    border: 2px solid #00ff00;
+    background: linear-gradient(145deg, #1a1a1a, #0a0a0a);
+    border: 2px solid #333;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
     height: fit-content;
+    transition: all 0.3s;
+}
+
+.profile-card:hover {
+    transform: translateY(-5px);
+    border-color: #ffffff;
+    box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
 }
 
 .profile-pic {
     width: 150px;
     height: 150px;
     border-radius: 50%;
-    border: 3px solid #00ff00;
+    border: 3px solid #333;
     margin: 0 auto 20px;
     overflow: hidden;
     position: relative;
-    background: linear-gradient(45deg, #0a0a0a, #003300);
+    background: linear-gradient(45deg, #0a0a0a, #1a1a1a);
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s;
+}
+
+.profile-card:hover .profile-pic {
+    border-color: #ffffff;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
 .profile-pic img {
@@ -168,29 +214,18 @@ body {
     border-radius: 50%;
 }
 
-.profile-placeholder {
-    color: #00ff00;
-    font-size: 2rem;
-    font-weight: bold;
-    text-shadow: 0 0 10px #00ff00;
-}
-
 .profile-name {
     font-size: 1.8rem;
     font-weight: bold;
     margin-bottom: 15px;
-    text-shadow: 0 0 15px #00ff00;
+    text-shadow: 0 0 15px #ffffff;
     animation: glow 2s ease-in-out infinite alternate;
-}
-
-@keyframes glow {
-    from { text-shadow: 0 0 15px #00ff00; }
-    to { text-shadow: 0 0 25px #00ff00, 0 0 35px #00ff00; }
+    color: #ffffff;
 }
 
 .profile-description {
     margin-bottom: 20px;
-    color: #00cc00;
+    color: #cccccc;
     line-height: 1.6;
     font-size: 1rem;
     text-align: center;
@@ -208,26 +243,28 @@ body {
     display: flex;
     align-items: center;
     text-decoration: none;
-    color: #00ff00;
+    color: #ffffff;
     transition: all 0.3s;
-    padding: 8px 12px;
-    border: 1px solid transparent;
-    border-radius: 5px;
+    padding: 10px 15px;
+    border: 1px solid #333;
+    border-radius: 8px;
     justify-content: center;
     gap: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .social-link:hover {
-    color: #00ffff;
-    border-color: #00ff00;
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+    color: #0a0a0a;
+    border-color: #ffffff;
+    background-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
     transform: translateY(-2px);
 }
 
 .social-link img {
     width: 20px;
     height: 20px;
-    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+    filter: invert(1);
 }
 
 .social-link span {
@@ -238,13 +275,18 @@ body {
 .database-sales {
     margin-top: 20px;
     padding: 20px;
-    border: 2px solid #00ff00;
-    background-color: rgba(0, 255, 0, 0.05);
+    border: 2px solid #333;
+    background-color: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.profile-card:hover .database-sales {
+    border-color: #ffffff;
 }
 
 .database-sales h3 {
-    color: #00ff00;
+    color: #ffffff;
     margin-bottom: 15px;
     text-align: center;
     font-size: 1.3rem;
@@ -258,9 +300,9 @@ body {
 
 .db-button {
     padding: 12px;
-    border: 2px solid #00ff00;
-    background-color: rgba(0, 255, 0, 0.1);
-    color: #00ff00;
+    border: 2px solid #333;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
     cursor: pointer;
     transition: all 0.3s;
     border-radius: 8px;
@@ -269,9 +311,10 @@ body {
 }
 
 .db-button:hover {
-    background-color: #00ff00;
+    background-color: #ffffff;
     color: #0a0a0a;
-    box-shadow: 0 0 20px #00ff00;
+    border-color: #ffffff;
+    box-shadow: 0 0 20px #ffffff;
     transform: translateY(-2px);
 }
 
@@ -296,27 +339,28 @@ body {
 
 .db-banner-content {
     background-color: #0a0a0a;
-    border: 3px solid #00ff00;
+    border: 3px solid #333;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     max-width: 600px;
     width: 100%;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
-    box-shadow: 0 0 40px rgba(0, 255, 0, 0.5);
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.2);
 }
 
 .db-banner-close {
     position: absolute;
     top: 15px;
     right: 20px;
-    color: #ff0000;
+    color: #ff4444;
     font-size: 2rem;
     cursor: pointer;
     background: none;
     border: none;
     font-weight: bold;
+    transition: all 0.3s;
 }
 
 .db-banner-close:hover {
@@ -325,18 +369,21 @@ body {
 }
 
 .db-banner h4 {
-    color: #00ff00;
+    color: #ffffff;
     margin-bottom: 20px;
     font-size: 1.5rem;
     text-align: center;
 }
 
 .database-price {
-    color: #00ffff;
+    color: #ffffff;
     font-weight: bold;
     font-size: 1.4rem;
     margin: 15px 0;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 5px;
 }
 
 .database-features {
@@ -347,15 +394,15 @@ body {
 
 .database-features li {
     padding: 8px 0;
-    border-bottom: 1px dashed #003300;
-    color: #00cc00;
+    border-bottom: 1px dashed #333;
+    color: #cccccc;
     display: flex;
     align-items: center;
 }
 
 .database-features li:before {
     content: '✓';
-    color: #00ff00;
+    color: #ffffff;
     margin-right: 10px;
     font-weight: bold;
 }
@@ -365,16 +412,16 @@ body {
 }
 
 .payment-info {
-    background-color: rgba(255, 255, 0, 0.1);
-    border: 1px solid #ffff00;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid #333;
     padding: 15px;
     margin-top: 20px;
     border-radius: 5px;
-    color: #ffff00;
+    color: #ffffff;
 }
 
 .payment-info strong {
-    color: #ffff00;
+    color: #ffffff;
 }
 
 .profile-stats {
@@ -383,43 +430,74 @@ body {
     gap: 15px;
     margin-top: 20px;
     padding-top: 20px;
-    border-top: 1px solid #003300;
+    border-top: 1px solid #333;
 }
 
 .stat {
     text-align: center;
-    padding: 8px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
 }
 
 .stat-number {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #00ff00;
+    color: #ffffff;
     margin-bottom: 5px;
-    text-shadow: 0 0 10px #00ff00;
+    text-shadow: 0 0 10px #ffffff;
 }
 
 .stat-label {
     font-size: 0.7rem;
-    color: #00cc00;
+    color: #cccccc;
 }
 
 .back-btn {
     display: inline-block;
     padding: 12px 25px;
-    border: 1px solid #00ff00;
-    background-color: rgba(0, 255, 0, 0.05);
-    color: #00ff00;
+    border: 1px solid #333;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #ffffff;
     text-decoration: none;
     transition: all 0.3s;
     font-size: 1rem;
     margin-top: 20px;
+    border-radius: 8px;
 }
 
 .back-btn:hover {
-    background-color: #00ff00;
+    background-color: #ffffff;
     color: #0a0a0a;
-    box-shadow: 0 0 15px #00ff00;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px #ffffff;
+}
+
+/* Music Toggle */
+.music-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    padding: 12px;
+    background-color: #1a1a1a;
+    border: 1px solid #333;
+    color: #ffffff;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.music-btn:hover {
+    background-color: #ffffff;
+    color: #0a0a0a;
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 /* Responsive Design */
@@ -494,5 +572,9 @@ body {
     
     .profiles-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .profiles-title {
+        font-size: 2rem;
     }
 }

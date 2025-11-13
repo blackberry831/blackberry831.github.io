@@ -1,3 +1,29 @@
+// Rain Effect
+function createRain() {
+    const rainContainer = document.getElementById('rain');
+    const raindrops = 150;
+    
+    for (let i = 0; i < raindrops; i++) {
+        const raindrop = document.createElement('div');
+        raindrop.className = 'raindrop';
+        
+        // Random properties
+        const left = Math.random() * 100;
+        const animationDuration = Math.random() * 2 + 1;
+        const animationDelay = Math.random() * 5;
+        const height = Math.random() * 20 + 10;
+        const opacity = Math.random() * 0.5 + 0.3;
+        
+        raindrop.style.left = `${left}vw`;
+        raindrop.style.animationDuration = `${animationDuration}s`;
+        raindrop.style.animationDelay = `${animationDelay}s`;
+        raindrop.style.height = `${height}px`;
+        raindrop.style.opacity = opacity;
+        
+        rainContainer.appendChild(raindrop);
+    }
+}
+
 // Loading Screen for Profiles
 document.addEventListener('DOMContentLoaded', function() {
     const loadingScreen = document.getElementById('loading-screen');
@@ -25,6 +51,9 @@ document.addEventListener('DOMContentLoaded', function() {
             loadPercent.textContent = `${Math.round(progress)}%`;
         }
     }, 80);
+    
+    createRain();
+    playProfileLoadingSound();
 });
 
 // Custom Cursor for Profiles
@@ -63,7 +92,7 @@ document.addEventListener('mousemove', (e) => {
 document.querySelectorAll('.db-button').forEach(button => {
     button.addEventListener('mouseenter', () => {
         if (cursor) cursor.classList.add('hover');
-        playHoverSound();
+        playProfileHoverSound();
     });
     
     button.addEventListener('mouseleave', () => {
@@ -75,7 +104,7 @@ document.querySelectorAll('.db-button').forEach(button => {
         const banner = document.getElementById(`${dbType}-banner`);
         if (banner) {
             banner.classList.add('active');
-            playModalOpenSound();
+            playProfileModalOpenSound();
         }
     });
 });
@@ -84,7 +113,7 @@ document.querySelectorAll('.db-button').forEach(button => {
 document.querySelectorAll('.social-link').forEach(link => {
     link.addEventListener('mouseenter', () => {
         if (cursor) cursor.classList.add('hover');
-        playHoverSound();
+        playProfileHoverSound();
     });
     
     link.addEventListener('mouseleave', () => {
@@ -98,7 +127,7 @@ document.querySelectorAll('.db-banner-close').forEach(closeBtn => {
         const banner = this.closest('.db-banner');
         if (banner) {
             banner.classList.remove('active');
-            playModalCloseSound();
+            playProfileModalCloseSound();
         }
     });
 });
@@ -108,7 +137,7 @@ document.querySelectorAll('.db-banner').forEach(banner => {
     banner.addEventListener('click', function(e) {
         if (e.target === this) {
             this.classList.remove('active');
-            playModalCloseSound();
+            playProfileModalCloseSound();
         }
     });
 });
@@ -117,7 +146,7 @@ document.querySelectorAll('.db-banner').forEach(banner => {
 document.querySelectorAll('.back-btn').forEach(btn => {
     btn.addEventListener('mouseenter', () => {
         if (cursor) cursor.classList.add('hover');
-        playHoverSound();
+        playProfileHoverSound();
     });
     
     btn.addEventListener('mouseleave', () => {
@@ -125,76 +154,66 @@ document.querySelectorAll('.back-btn').forEach(btn => {
     });
     
     btn.addEventListener('click', () => {
-        playClickSound();
+        playProfileClickSound();
     });
 });
 
-// Matrix background for profiles
-const canvas = document.getElementById('matrix');
-if (canvas) {
-    const ctx = canvas.getContext('2d');
+// Music functionality
+const musicToggle = document.getElementById('music-toggle');
+const bgMusic = document.getElementById('bg-music');
+let musicPlaying = false;
 
-    // Set canvas to full window size
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    // Characters for the matrix effect
-    const chars = "01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン";
-    const charArray = chars.split("");
-    const fontSize = 14;
-    const columns = canvas.width / fontSize;
-
-    // Array of drops - one per column
-    const drops = [];
-    for (let i = 0; i < columns; i++) {
-        drops[i] = Math.floor(Math.random() * canvas.height / fontSize);
-    }
-
-    function drawMatrix() {
-        // Semi-transparent black background for trail effect
-        ctx.fillStyle = "rgba(10, 10, 10, 0.04)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = "#00ff00";
-        ctx.font = fontSize + "px monospace";
-        
-        for (let i = 0; i < drops.length; i++) {
-            // Random character
-            const text = charArray[Math.floor(Math.random() * charArray.length)];
-            
-            // Draw the character
-            ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-            
-            // Reset drop to top when it reaches bottom with random delay
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                drops[i] = 0;
-            }
-            
-            // Move the drop down
-            drops[i]++;
+if (musicToggle && bgMusic) {
+    musicToggle.addEventListener('click', function() {
+        if (musicPlaying) {
+            bgMusic.pause();
+            musicToggle.textContent = '🔇';
+            musicPlaying = false;
+        } else {
+            bgMusic.play().catch(e => {
+                console.log('Autoplay prevented:', e);
+                musicToggle.textContent = '▶️';
+            });
+            musicToggle.textContent = '🔊';
+            musicPlaying = true;
         }
-    }
-
-    // Resize canvas when window is resized
-    window.addEventListener('resize', function() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
+        playProfileClickSound();
     });
-
-    // Animation loop for matrix
-    setInterval(drawMatrix, 35);
 }
 
-// Sound generation functions
-function playHoverSound() {
+// Profile-specific sound generation functions
+function playProfileLoadingSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'triangle';
+        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 1);
+        
+        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playProfileHoverSound() {
     try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.05);
+        oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.05);
         
         gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
@@ -209,15 +228,15 @@ function playHoverSound() {
     }
 }
 
-function playClickSound() {
+function playProfileClickSound() {
     try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'square';
-        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(50, audioContext.currentTime + 0.1);
+        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(150, audioContext.currentTime + 0.1);
         
         gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
@@ -232,14 +251,37 @@ function playClickSound() {
     }
 }
 
-function playModalOpenSound() {
+function playProfileModalOpenSound() {
     try {
         const audioContext = new (window.AudioContext || window.webkitAudioContext)();
         const oscillator = audioContext.createOscillator();
         const gainNode = audioContext.createGain();
         
         oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+        oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.1);
+        
+        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+        
+        oscillator.connect(gainNode);
+        gainNode.connect(audioContext.destination);
+        
+        oscillator.start();
+        oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+        console.log('Audio not supported');
+    }
+}
+
+function playProfileModalCloseSound() {
+    try {
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioContext.createOscillator();
+        const gainNode = audioContext.createGain();
+        
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
         oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
         
         gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
@@ -255,25 +297,29 @@ function playModalOpenSound() {
     }
 }
 
-function playModalCloseSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.1);
-        
-        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (e) {
-        console.log('Audio not supported');
+// Hover effects for interactive elements
+document.addEventListener('mouseover', function(e) {
+    if (e.target.matches('.db-button, .social-link, .back-btn, .music-btn')) {
+        if (cursor) cursor.classList.add('hover');
+        playProfileHoverSound();
     }
-}
+});
+
+document.addEventListener('mouseout', function(e) {
+    if (e.target.matches('.db-button, .social-link, .back-btn, .music-btn')) {
+        if (cursor) cursor.classList.remove('hover');
+    }
+});
+
+// Click effect
+document.addEventListener('click', (e) => {
+    if (e.target.matches('.db-button, .social-link, .back-btn, .music-btn')) {
+        if (cursor) {
+            cursor.style.transform = 'scale(0.8)';
+            setTimeout(() => {
+                cursor.style.transform = 'scale(1)';
+            }, 100);
+        }
+        playProfileClickSound();
+    }
+});

@@ -151,7 +151,7 @@ header {
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
 }
 
@@ -230,21 +230,24 @@ nav {
     color: #0a0a0a;
 }
 
-/* Main Content */
+/* Main Content - WIDE LAYOUT */
 main {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 20px auto;
-    padding: 0 20px;
+    padding: 0 30px;
     flex: 1;
+    width: 100%;
 }
 
 .content {
     display: none;
     animation: fadeIn 0.5s;
-    padding: 20px;
-    border: 1px solid #333;
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
-    background-color: rgba(26, 26, 26, 0.8);
+    padding: 30px;
+    border: 2px solid #333;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
+    background-color: rgba(26, 26, 26, 0.9);
+    border-radius: 10px;
+    width: 100%;
 }
 
 @keyframes fadeIn {
@@ -256,11 +259,10 @@ main {
     display: block;
 }
 
-/* Improved Hall of Shame Grid - CARDS LAYOUT */
-/* Improved Hall of Shame Grid - PROPER CARD LAYOUT */
+/* Hall of Shame Grid - PROPER CARD LAYOUT */
 .shame-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
     gap: 30px;
     margin: 30px 0;
     width: 100%;
@@ -386,25 +388,7 @@ main {
     box-shadow: 0 0 20px currentColor;
 }
 
-/* Make main content wider */
-main {
-    max-width: 1600px;
-    margin: 20px auto;
-    padding: 0 30px;
-    flex: 1;
-}
-
-.content {
-    display: none;
-    animation: fadeIn 0.5s;
-    padding: 30px;
-    border: 2px solid #333;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15);
-    background-color: rgba(26, 26, 26, 0.9);
-    border-radius: 10px;
-}
-
-/* Wider search bar */
+/* Search Bar */
 .search-bar {
     display: flex;
     gap: 15px;
@@ -450,100 +434,6 @@ main {
     color: #0a0a0a;
     border-color: #ffffff;
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
-}
-
-/* Responsive improvements */
-@media (max-width: 1200px) {
-    .shame-grid {
-        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-        gap: 25px;
-    }
-}
-
-@media (max-width: 768px) {
-    .shame-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-    
-    .criminal-card {
-        min-height: 400px;
-        padding: 20px;
-    }
-    
-    .criminal-pic {
-        width: 140px;
-        height: 140px;
-    }
-    
-    main {
-        padding: 0 15px;
-    }
-    
-    .content {
-        padding: 20px;
-    }
-}
-
-@media (max-width: 480px) {
-    .shame-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .criminal-card {
-        min-height: 380px;
-        padding: 15px;
-    }
-    
-    .criminal-pic {
-        width: 120px;
-        height: 120px;
-    }
-    
-    .criminal-name {
-        font-size: 1.4rem;
-    }
-    
-    .criminal-alias {
-        font-size: 1.1rem;
-    }
-}
-
-/* Search Bar */
-.search-bar {
-    display: flex;
-    gap: 10px;
-    margin: 20px 0;
-    max-width: 500px;
-}
-
-#search-input {
-    flex: 1;
-    padding: 12px;
-    background-color: #1a1a1a;
-    border: 1px solid #333;
-    color: #ffffff;
-    font-size: 1rem;
-    border-radius: 5px;
-}
-
-#search-input::placeholder {
-    color: #666;
-}
-
-#search-btn {
-    padding: 12px 20px;
-    background-color: #333;
-    color: #ffffff;
-    border: 1px solid #333;
-    cursor: pointer;
-    transition: all 0.3s;
-    border-radius: 5px;
-}
-
-#search-btn:hover {
-    background-color: #ffffff;
-    color: #0a0a0a;
 }
 
 /* Pagination */
@@ -774,7 +664,7 @@ footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     flex-wrap: wrap;
 }
@@ -903,6 +793,13 @@ footer {
 }
 
 /* Responsive Design */
+@media (max-width: 1200px) {
+    .shame-grid {
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+    }
+}
+
 @media (max-width: 768px) {
     .header-content {
         flex-direction: column;
@@ -921,6 +818,25 @@ footer {
     
     .shame-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .criminal-card {
+        min-height: 400px;
+        padding: 20px;
+    }
+    
+    .criminal-pic {
+        width: 140px;
+        height: 140px;
+    }
+    
+    main {
+        padding: 0 15px;
+    }
+    
+    .content {
+        padding: 20px;
     }
     
     .criminal-header {
@@ -958,13 +874,21 @@ footer {
     }
     
     .criminal-card {
-        padding: 20px;
-        min-height: 350px;
+        min-height: 380px;
+        padding: 15px;
     }
     
     .criminal-pic {
         width: 120px;
         height: 120px;
+    }
+    
+    .criminal-name {
+        font-size: 1.4rem;
+    }
+    
+    .criminal-alias {
+        font-size: 1.1rem;
     }
     
     .modal-content {

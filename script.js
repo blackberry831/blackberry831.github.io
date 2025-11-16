@@ -1,4 +1,4 @@
-// Criminal Data
+// Criminal Data with Crime Types
 const criminalsData = [
     {
         id: 1,
@@ -6,9 +6,10 @@ const criminalsData = [
         alias: "CyberGhost",
         realName: "Alexei Ivanovich Petrov",
         age: "32",
-        location: "Moscow, Russia",
+        location: "Russia",
         nationality: "Russian",
         status: "wanted",
+        crimeType: "Ransomware",
         crimes: ["Ransomware Operations", "Bank Fraud", "Identity Theft"],
         email: "cyberghost@tutanota.com",
         phone: "+7 926 XXX XXXX",
@@ -27,9 +28,10 @@ const criminalsData = [
         alias: "DarkShadow",
         realName: "Wei Zhang",
         age: "28",
-        location: "Shanghai, China",
+        location: "China",
         nationality: "Chinese",
         status: "fugitive",
+        crimeType: "Espionage",
         crimes: ["Corporate Espionage", "Data Breaches", "APT Attacks"],
         email: "darkshadow@protonmail.com",
         phone: "+86 138 XXXX XXXX",
@@ -48,9 +50,10 @@ const criminalsData = [
         alias: "PhantomHacker",
         realName: "Marcus Theodore Johnson",
         age: "25",
-        location: "New York, USA",
+        location: "USA",
         nationality: "American",
         status: "captured",
+        crimeType: "Fraud",
         crimes: ["Credit Card Fraud", "Social Engineering", "Botnet Operations"],
         email: "phantom@mail2tor.com",
         phone: "+1 347 XXX XXXX",
@@ -69,9 +72,10 @@ const criminalsData = [
         alias: "SilentByte",
         realName: "Carlos Manuel Rodriguez",
         age: "35",
-        location: "Barcelona, Spain",
+        location: "Europe",
         nationality: "Spanish",
         status: "wanted",
+        crimeType: "Scammer",
         crimes: ["Darknet Marketplace", "Drug Trafficking", "Money Laundering"],
         email: "silentbyte@secmail.pro",
         phone: "+34 612 XXX XXX",
@@ -93,6 +97,7 @@ const criminalsData = [
         location: "Singapore",
         nationality: "Singaporean",
         status: "fugitive",
+        crimeType: "LARP",
         crimes: ["Zero-Day Exploits", "Corporate Blackmail", "Insider Trading"],
         email: "zerodayq@tutanota.com",
         phone: "+65 8123 XXXX",
@@ -111,10 +116,11 @@ const criminalsData = [
         alias: "KremlinBot",
         realName: "Dmitri Anatolyevich Volkov",
         age: "41",
-        location: "St. Petersburg, Russia",
+        location: "Russia",
         nationality: "Russian",
         status: "wanted",
-        crimes: ["State-Sponsored Hacking", "Election Interference", "Propaganda"],
+        crimeType: "Pedophile",
+        crimes: ["Child Exploitation", "Dark Web Operations", "Money Laundering"],
         email: "kremlinbot@mail.ru",
         phone: "+7 911 XXX XXXX",
         ips: ["95.213.189.234", "178.176.45.167", "31.173.80.154"],
@@ -127,6 +133,13 @@ const criminalsData = [
         image: "https://i.imgur.com/3vj6cW0.png"
     }
 ];
+
+// Filter functionality
+let currentFilters = {
+    crime: ['Ransomware', 'Pedophile', 'LARP', 'Scammer', 'Fraud', 'Espionage'],
+    status: ['wanted', 'fugitive', 'captured'],
+    location: ['Russia', 'China', 'USA', 'Europe']
+};
 
 // Snow Effect
 function createSnow() {
@@ -246,14 +259,101 @@ document.querySelectorAll('.nav-item').forEach(item => {
     });
 });
 
-// Populate criminals grid
+// Filter functionality
+function initializeFilters() {
+    // Set up filter checkboxes
+    document.querySelectorAll('.filter-option input').forEach(checkbox => {
+        checkbox.addEventListener('change', handleFilterChange);
+    });
+
+    // Set up filter buttons
+    document.getElementById('apply-filters').addEventListener('click', applyFilters);
+    document.getElementById('reset-filters').addEventListener('click', resetFilters);
+    
+    // Set up sort dropdown
+    document.getElementById('sort-by').addEventListener('change', handleSortChange);
+}
+
+function handleFilterChange(e) {
+    const checkbox = e.target;
+    const filterType = checkbox.name;
+    const value = checkbox.value;
+    
+    if (checkbox.checked) {
+        if (!currentFilters[filterType].includes(value)) {
+            currentFilters[filterType].push(value);
+        }
+    } else {
+        currentFilters[filterType] = currentFilters[filterType].filter(item => item !== value);
+    }
+}
+
+function applyFilters() {
+    populateCriminals();
+    playClickSound();
+}
+
+function resetFilters() {
+    // Reset all checkboxes
+    document.querySelectorAll('.filter-option input').forEach(checkbox => {
+        checkbox.checked = true;
+    });
+    
+    // Reset filter object
+    currentFilters = {
+        crime: ['Ransomware', 'Pedophile', 'LARP', 'Scammer', 'Fraud', 'Espionage'],
+        status: ['wanted', 'fugitive', 'captured'],
+        location: ['Russia', 'China', 'USA', 'Europe']
+    };
+    
+    populateCriminals();
+    playClickSound();
+}
+
+function handleSortChange(e) {
+    const sortBy = e.target.value;
+    sortCriminals(sortBy);
+    populateCriminals();
+}
+
+function sortCriminals(sortBy) {
+    switch(sortBy) {
+        case 'name':
+            criminalsData.sort((a, b) => a.name.localeCompare(b.name));
+            break;
+        case 'status':
+            criminalsData.sort((a, b) => a.status.localeCompare(b.status));
+            break;
+        case 'location':
+            criminalsData.sort((a, b) => a.location.localeCompare(b.location));
+            break;
+    }
+}
+
+// Populate criminals grid with filtering
 function populateCriminals() {
     const shameGrid = document.querySelector('.shame-grid');
+    const resultsCount = document.getElementById('results-count');
     if (!shameGrid) return;
+    
+    // Filter criminals based on current filters
+    const filteredCriminals = criminalsData.filter(criminal => {
+        const crimeMatch = currentFilters.crime.includes(criminal.crimeType);
+        const statusMatch = currentFilters.status.includes(criminal.status);
+        const locationMatch = currentFilters.location.includes(criminal.location);
+        
+        return crimeMatch && statusMatch && locationMatch;
+    });
     
     shameGrid.innerHTML = '';
     
-    criminalsData.forEach(criminal => {
+    if (filteredCriminals.length === 0) {
+        shameGrid.innerHTML = '<div class="no-results">No criminals found matching your filters.</div>';
+        resultsCount.textContent = 'Showing 0 criminals';
+        return;
+    }
+    
+    filteredCriminals.forEach(criminal => {
         const criminalCard = document.createElement('div');
         criminalCard.className = 'criminal-card';
         criminalCard.innerHTML = `
@@ -263,6 +363,7 @@ function populateCriminals() {
             <div class="criminal-name">${criminal.name}</div>
             <div class="criminal-alias">"${criminal.alias}"</div>
             <div class="criminal-crimes">${criminal.crimes.join(', ')}</div>
+            <div class="crime-type">${criminal.crimeType}</div>
             <div class="criminal-status status-${criminal.status}">
                 ${criminal.status.toUpperCase()}
             </div>
@@ -270,6 +371,8 @@ function populateCriminals() {
         criminalCard.setAttribute('data-id', criminal.id);
         shameGrid.appendChild(criminalCard);
     });
+    
+    resultsCount.textContent = `Showing ${filteredCriminals.length} criminals`;
 }
 
 // Criminal modal functionality
@@ -362,7 +465,7 @@ if (musicToggle) {
             musicPlaying = false;
         } else {
             // Resume by setting the YouTube URL back
-            bgMusic.src = 'https://www.youtube.com/embed/IWnFDMZwe4c?autoplay=1&loop=1&playlist=IWnFDMZwe4c';
+            bgMusic.src = 'https://www.youtube.com/embed/_ALPYlwYzGU?autoplay=1&loop=1&playlist=_ALPYlwYzGU';
             musicToggle.textContent = '🔊';
             musicPlaying = true;
         }
@@ -394,15 +497,19 @@ function performSearch() {
         criminal.name.toLowerCase().includes(searchTerm) ||
         criminal.alias.toLowerCase().includes(searchTerm) ||
         criminal.crimes.some(crime => crime.toLowerCase().includes(searchTerm)) ||
-        criminal.location.toLowerCase().includes(searchTerm)
+        criminal.location.toLowerCase().includes(searchTerm) ||
+        criminal.crimeType.toLowerCase().includes(searchTerm)
     );
     
     const shameGrid = document.querySelector('.shame-grid');
+    const resultsCount = document.getElementById('results-count');
+    
     if (shameGrid) {
         shameGrid.innerHTML = '';
         
         if (filteredCriminals.length === 0) {
             shameGrid.innerHTML = '<div class="no-results">No criminals found matching your search.</div>';
+            resultsCount.textContent = 'Showing 0 criminals';
             return;
         }
         
@@ -416,6 +523,7 @@ function performSearch() {
                 <div class="criminal-name">${criminal.name}</div>
                 <div class="criminal-alias">"${criminal.alias}"</div>
                 <div class="criminal-crimes">${criminal.crimes.join(', ')}</div>
+                <div class="crime-type">${criminal.crimeType}</div>
                 <div class="criminal-status status-${criminal.status}">
                     ${criminal.status.toUpperCase()}
                 </div>
@@ -423,6 +531,8 @@ function performSearch() {
             criminalCard.setAttribute('data-id', criminal.id);
             shameGrid.appendChild(criminalCard);
         });
+        
+        resultsCount.textContent = `Showing ${filteredCriminals.length} criminals`;
     }
     
     playSearchSound();
@@ -491,6 +601,9 @@ window.addEventListener('load', function() {
     
     // Populate criminals
     populateCriminals();
+    
+    // Initialize filters
+    initializeFilters();
 });
 
 // Sound generation functions
@@ -680,21 +793,21 @@ function playSearchSound() {
 
 // Hover effects for interactive elements
 document.addEventListener('mouseover', function(e) {
-    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn')) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select')) {
         if (cursor) cursor.classList.add('hover');
         playHoverSound();
     }
 });
 
 document.addEventListener('mouseout', function(e) {
-    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn')) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select')) {
         if (cursor) cursor.classList.remove('hover');
     }
 });
 
 // Click effect
 document.addEventListener('click', (e) => {
-    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn')) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select')) {
         if (cursor) {
             cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
             setTimeout(() => {
@@ -704,3 +817,35 @@ document.addEventListener('click', (e) => {
         playClickSound();
     }
 });
+
+// Add crime type styling
+const crimeTypeStyles = `
+    .crime-type {
+        color: #ffff44;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background-color: rgba(255, 255, 68, 0.1);
+        padding: 5px 10px;
+        border-radius: 15px;
+        display: inline-block;
+    }
+    
+    .no-results {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 60px 20px;
+        color: #cccccc;
+        font-size: 1.2rem;
+        background-color: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        border: 2px solid #333;
+    }
+`;
+
+// Add the styles to the document
+const styleSheet = document.createElement('style');
+styleSheet.textContent = crimeTypeStyles;
+document.head.appendChild(styleSheet);

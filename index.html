@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HALL OF SHAME</title>
+    <title>HALL OF SHAME | Digital Justice</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -40,17 +40,126 @@
         <!-- Hall of Shame Section -->
         <section id="shame" class="content active-content">
             <h2>WANTED DIGITAL CRIMINALS</h2>
-            <div class="search-bar">
-                <input type="text" id="search-input" placeholder="Search criminals...">
-                <button id="search-btn">Search</button>
-            </div>
-            <div class="shame-grid">
-                <!-- Criminals will be populated by JavaScript -->
-            </div>
-            <div class="pagination">
-                <button id="prev-page" class="page-btn">Previous</button>
-                <span id="page-info">Page 1 of 1</span>
-                <button id="next-page" class="page-btn">Next</button>
+            
+            <div class="shame-layout">
+                <!-- Filter Sidebar -->
+                <div class="filter-sidebar">
+                    <h3>FILTER CRIMINALS</h3>
+                    <div class="filter-group">
+                        <h4>By Crime Type</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="crime" value="Ransomware" checked>
+                                <span class="checkmark"></span>
+                                Ransomware
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="crime" value="Pedophile" checked>
+                                <span class="checkmark"></span>
+                                Pedophiles
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="crime" value="LARP" checked>
+                                <span class="checkmark"></span>
+                                LARPs
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="crime" value="Scammer" checked>
+                                <span class="checkmark"></span>
+                                Scammers
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="crime" value="Fraud" checked>
+                                <span class="checkmark"></span>
+                                Fraud
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="crime" value="Espionage" checked>
+                                <span class="checkmark"></span>
+                                Espionage
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>By Status</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="status" value="wanted" checked>
+                                <span class="checkmark"></span>
+                                Wanted
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="status" value="fugitive" checked>
+                                <span class="checkmark"></span>
+                                Fugitive
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="status" value="captured" checked>
+                                <span class="checkmark"></span>
+                                Captured
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <h4>By Location</h4>
+                        <div class="filter-options">
+                            <label class="filter-option">
+                                <input type="checkbox" name="location" value="Russia" checked>
+                                <span class="checkmark"></span>
+                                Russia
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="location" value="China" checked>
+                                <span class="checkmark"></span>
+                                China
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="location" value="USA" checked>
+                                <span class="checkmark"></span>
+                                USA
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="location" value="Europe" checked>
+                                <span class="checkmark"></span>
+                                Europe
+                            </label>
+                        </div>
+                    </div>
+
+                    <button id="reset-filters" class="filter-btn">Reset Filters</button>
+                    <button id="apply-filters" class="filter-btn primary">Apply Filters</button>
+                </div>
+
+                <!-- Main Content Area -->
+                <div class="main-content">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search criminals by name, alias, or crime...">
+                        <button id="search-btn">Search</button>
+                    </div>
+                    
+                    <div class="results-info">
+                        <span id="results-count">Showing 6 criminals</span>
+                        <div class="sort-options">
+                            <select id="sort-by">
+                                <option value="name">Sort by Name</option>
+                                <option value="status">Sort by Status</option>
+                                <option value="location">Sort by Location</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="shame-grid">
+                        <!-- Criminals will be populated by JavaScript -->
+                    </div>
+                    
+                    <div class="pagination">
+                        <button id="prev-page" class="page-btn">Previous</button>
+                        <span id="page-info">Page 1 of 1</span>
+                        <button id="next-page" class="page-btn">Next</button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -61,7 +170,7 @@
                 <div class="about-text">
                     <p>The Hall of Shame is a website dedicated to exposing cybercriminals, scammers, LARPs.</p>
                     </div>
-
+                
                     <div class="stats">
                         <div class="stat-item">
                             <span class="stat-number">247</span>
@@ -186,8 +295,8 @@
         </div>
     </div>
 
-    <!-- Background Music -->
-    <iframe id="bg-music" width="0" height="0" src="https://www.youtube.com/watch?v=_ALPYlwYzGU&list=RDUpBqMSV8U8Y&index=4" frameborder="0" allow="autoplay"></iframe>
+    <!-- Background Music - FIXED YOUTUBE EMBED -->
+    <iframe id="bg-music" width="0" height="0" src="https://www.youtube.com/embed/_ALPYlwYzGU?autoplay=1&loop=1&playlist=_ALPYlwYzGU" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     <button id="music-toggle" class="music-btn">🔇</button>
     
     <script src="script.js"></script>

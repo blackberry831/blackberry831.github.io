@@ -88,6 +88,16 @@
                                 <span class="checkmark"></span>
                                 Darknet
                             </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="tags" value="Extortion">
+                                <span class="checkmark"></span>
+                                Extortion
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="tags" value="Child Exploitation">
+                                <span class="checkmark"></span>
+                                Child Exploitation
+                            </label>
                         </div>
                     </div>
 
@@ -134,6 +144,16 @@
                                 <input type="checkbox" name="location" value="Europe" checked>
                                 <span class="checkmark"></span>
                                 Europe
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="location" value="Canada" checked>
+                                <span class="checkmark"></span>
+                                Canada
+                            </label>
+                            <label class="filter-option">
+                                <input type="checkbox" name="location" value="Singapore" checked>
+                                <span class="checkmark"></span>
+                                Singapore
                             </label>
                         </div>
                     </div>
@@ -243,54 +263,75 @@
                     </div>
                 </div>
                 
-                <div class="criminal-details">
-                    <div class="detail-section">
-                        <h3>Personal Information</h3>
-                        <div class="detail-grid">
-                            <div class="detail-item">
-                                <strong>Real Name:</strong> <span id="modal-realname"></span>
-                            </div>
-                            <div class="detail-item">
-                                <strong>Location:</strong> <span id="modal-location"></span>
-                            </div>
-                            <div class="detail-item">
-                                <strong>Age:</strong> <span id="modal-age"></span>
-                            </div>
-                            <div class="detail-item">
-                                <strong>Nationality:</strong> <span id="modal-nationality"></span>
-                            </div>
+                <!-- Description Section -->
+                <div class="modal-section-header">Description</div>
+                <div class="criminal-description" id="modal-description"></div>
+                
+                <!-- Aliases Section -->
+                <div class="modal-section-header">Known Aliases</div>
+                <div class="aliases-section" id="modal-aliases"></div>
+                
+                <!-- Groups Section -->
+                <div class="modal-section-header">Associated Groups</div>
+                <div class="groups-section" id="modal-groups"></div>
+                
+                <!-- Personal Information -->
+                <div class="modal-section-header">Personal Information</div>
+                <div class="extended-personal-info">
+                    <div class="personal-info-grid">
+                        <div class="personal-info-item">
+                            <strong>Full Name:</strong> <span id="modal-realname"></span>
                         </div>
-                    </div>
-
-                    <div class="detail-section">
-                        <h3>Digital Footprint</h3>
-                        <div class="detail-grid">
-                            <div class="detail-item">
-                                <strong>Email:</strong> <span id="modal-email"></span>
-                            </div>
-                            <div class="detail-item">
-                                <strong>IP Addresses:</strong> <span id="modal-ips"></span>
-                            </div>
-                            <div class="detail-item">
-                                <strong>Phone:</strong> <span id="modal-phone"></span>
-                            </div>
-                            <div class="detail-item">
-                                <strong>Social Media:</strong> <span id="modal-social"></span>
-                            </div>
+                        <div class="personal-info-item">
+                            <strong>Date of Birth:</strong> <span id="modal-dob"></span>
                         </div>
-                    </div>
-
-                    <div class="detail-section">
-                        <h3>Criminal Activity</h3>
-                        <div id="modal-crimes"></div>
-                        <div id="modal-tags" class="crime-tags"></div>
-                    </div>
-
-                    <div class="detail-section">
-                        <h3>Evidence & Links</h3>
-                        <div class="evidence-links" id="modal-evidence"></div>
+                        <div class="personal-info-item">
+                            <strong>Location:</strong> <span id="modal-location"></span>
+                        </div>
+                        <div class="personal-info-item">
+                            <strong>Age:</strong> <span id="modal-age"></span>
+                        </div>
+                        <div class="personal-info-item">
+                            <strong>Nationality:</strong> <span id="modal-nationality"></span>
+                        </div>
+                        <div class="personal-info-item">
+                            <strong>Address:</strong> <span id="modal-address"></span>
+                        </div>
+                        <div class="personal-info-item">
+                            <strong>Phone:</strong> <span id="modal-phone"></span>
+                        </div>
+                        <div class="personal-info-item">
+                            <strong>Credit Card:</strong> <span id="modal-creditcard"></span>
+                        </div>
                     </div>
                 </div>
+                
+                <!-- Digital Footprint -->
+                <div class="modal-section-header">Digital Footprint</div>
+                <div class="detail-grid">
+                    <div class="detail-item">
+                        <strong>Email:</strong> <span id="modal-email"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>IP Addresses:</strong> <span id="modal-ips"></span>
+                    </div>
+                    <div class="detail-item">
+                        <strong>Social Media:</strong> <span id="modal-social"></span>
+                    </div>
+                </div>
+                
+                <!-- Criminal Activity -->
+                <div class="modal-section-header">Criminal Activity</div>
+                <div id="modal-crimes"></div>
+                <div class="modal-crime-tags" id="modal-tags"></div>
+                
+                <!-- Credits -->
+                <div class="modal-section-header">Investigation Credits</div>
+                <div class="credits-section" id="modal-credits"></div>
+                
+                <!-- Evidence & Links -->
+                <div class="modal-section-header">Evidence & Links</div>
+                <div class="evidence-links" id="modal-evidence"></div>
             </div>
         </div>
     </div>

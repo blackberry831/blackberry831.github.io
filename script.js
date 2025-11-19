@@ -1,4 +1,4 @@
-// Criminal Data with Crime Types
+// Criminal Data with Crime Types and Tags
 const criminalsData = [
     {
         id: 1,
@@ -10,6 +10,7 @@ const criminalsData = [
         nationality: "Russian",
         status: "wanted",
         crimeType: "Ransomware",
+        tags: ["Ransomware", "Hacker", "Financial"],
         crimes: ["Ransomware Operations", "Bank Fraud", "Identity Theft"],
         email: "cyberghost@tutanota.com",
         phone: "+7 926 XXX XXXX",
@@ -32,6 +33,7 @@ const criminalsData = [
         nationality: "Chinese",
         status: "fugitive",
         crimeType: "Espionage",
+        tags: ["Espionage", "State Actor", "Corporate"],
         crimes: ["Corporate Espionage", "Data Breaches", "APT Attacks"],
         email: "darkshadow@protonmail.com",
         phone: "+86 138 XXXX XXXX",
@@ -54,6 +56,7 @@ const criminalsData = [
         nationality: "American",
         status: "captured",
         crimeType: "Fraud",
+        tags: ["Fraud", "Scammer", "Financial"],
         crimes: ["Credit Card Fraud", "Social Engineering", "Botnet Operations"],
         email: "phantom@mail2tor.com",
         phone: "+1 347 XXX XXXX",
@@ -76,6 +79,7 @@ const criminalsData = [
         nationality: "Spanish",
         status: "wanted",
         crimeType: "Scammer",
+        tags: ["Scammer", "Darknet", "Financial"],
         crimes: ["Darknet Marketplace", "Drug Trafficking", "Money Laundering"],
         email: "silentbyte@secmail.pro",
         phone: "+34 612 XXX XXX",
@@ -98,6 +102,7 @@ const criminalsData = [
         nationality: "Singaporean",
         status: "fugitive",
         crimeType: "LARP",
+        tags: ["LARP", "Hacker", "Corporate"],
         crimes: ["Zero-Day Exploits", "Corporate Blackmail", "Insider Trading"],
         email: "zerodayq@tutanota.com",
         phone: "+65 8123 XXXX",
@@ -120,6 +125,7 @@ const criminalsData = [
         nationality: "Russian",
         status: "wanted",
         crimeType: "Pedophile",
+        tags: ["Pedophile", "State Actor", "Darknet"],
         crimes: ["Child Exploitation", "Dark Web Operations", "Money Laundering"],
         email: "kremlinbot@mail.ru",
         phone: "+7 911 XXX XXXX",
@@ -136,7 +142,7 @@ const criminalsData = [
 
 // Filter functionality
 let currentFilters = {
-    crime: ['Ransomware', 'Pedophile', 'LARP', 'Scammer', 'Fraud', 'Espionage'],
+    tags: [],
     status: ['wanted', 'fugitive', 'captured'],
     location: ['Russia', 'China', 'USA', 'Europe']
 };
@@ -296,12 +302,12 @@ function applyFilters() {
 function resetFilters() {
     // Reset all checkboxes
     document.querySelectorAll('.filter-option input').forEach(checkbox => {
-        checkbox.checked = true;
+        checkbox.checked = false;
     });
     
     // Reset filter object
     currentFilters = {
-        crime: ['Ransomware', 'Pedophile', 'LARP', 'Scammer', 'Fraud', 'Espionage'],
+        tags: [],
         status: ['wanted', 'fugitive', 'captured'],
         location: ['Russia', 'China', 'USA', 'Europe']
     };
@@ -338,11 +344,12 @@ function populateCriminals() {
     
     // Filter criminals based on current filters
     const filteredCriminals = criminalsData.filter(criminal => {
-        const crimeMatch = currentFilters.crime.includes(criminal.crimeType);
+        const tagsMatch = currentFilters.tags.length === 0 || 
+                         currentFilters.tags.some(tag => criminal.tags.includes(tag));
         const statusMatch = currentFilters.status.includes(criminal.status);
         const locationMatch = currentFilters.location.includes(criminal.location);
         
-        return crimeMatch && statusMatch && locationMatch;
+        return tagsMatch && statusMatch && locationMatch;
     });
     
     shameGrid.innerHTML = '';
@@ -356,6 +363,12 @@ function populateCriminals() {
     filteredCriminals.forEach(criminal => {
         const criminalCard = document.createElement('div');
         criminalCard.className = 'criminal-card';
+        
+        // Create tags display
+        const tagsHTML = criminal.tags.map(tag => 
+            `<span class="crime-tag">${tag}</span>`
+        ).join('');
+        
         criminalCard.innerHTML = `
             <div class="criminal-pic">
                 <img src="${criminal.image}" alt="${criminal.name}">
@@ -363,7 +376,7 @@ function populateCriminals() {
             <div class="criminal-name">${criminal.name}</div>
             <div class="criminal-alias">"${criminal.alias}"</div>
             <div class="criminal-crimes">${criminal.crimes.join(', ')}</div>
-            <div class="crime-type">${criminal.crimeType}</div>
+            <div class="crime-tags">${tagsHTML}</div>
             <div class="criminal-status status-${criminal.status}">
                 ${criminal.status.toUpperCase()}
             </div>
@@ -404,6 +417,12 @@ document.addEventListener('click', function(e) {
             
             document.getElementById('modal-crimes').innerHTML = 
                 `<ul>${criminal.crimes.map(crime => `<li>${crime}</li>`).join('')}</ul>`;
+            
+            // Populate tags in modal
+            const tagsHTML = criminal.tags.map(tag => 
+                `<span class="crime-tag">${tag}</span>`
+            ).join('');
+            document.getElementById('modal-tags').innerHTML = tagsHTML;
             
             const evidenceLinks = document.getElementById('modal-evidence');
             evidenceLinks.innerHTML = criminal.evidence.map(evidence => 
@@ -453,19 +472,30 @@ if (disclaimerToggle && disclaimerModal) {
 
 // Music functionality - FIXED
 const musicToggle = document.getElementById('music-toggle');
-let musicPlaying = true;
+let musicPlaying = false;
 
 if (musicToggle) {
+    // Request permission for audio
+    document.addEventListener('click', function() {
+        if (!musicPlaying) {
+            const bgMusic = document.getElementById('bg-music');
+            // Try to play music on first user interaction
+            bgMusic.src = bgMusic.src.replace('mute=1', 'mute=0');
+            musicPlaying = true;
+            musicToggle.textContent = '🔊';
+        }
+    }, { once: true });
+    
     musicToggle.addEventListener('click', function() {
         const bgMusic = document.getElementById('bg-music');
         if (musicPlaying) {
-            // Pause by navigating to about:blank
-            bgMusic.src = 'about:blank';
+            // Mute
+            bgMusic.src = bgMusic.src.replace('mute=0', 'mute=1');
             musicToggle.textContent = '🔇';
             musicPlaying = false;
         } else {
-            // Resume by setting the YouTube URL back
-            bgMusic.src = 'https://www.youtube.com/embed/_ALPYlwYzGU?autoplay=1&loop=1&playlist=_ALPYlwYzGU';
+            // Unmute
+            bgMusic.src = bgMusic.src.replace('mute=1', 'mute=0');
             musicToggle.textContent = '🔊';
             musicPlaying = true;
         }
@@ -498,7 +528,7 @@ function performSearch() {
         criminal.alias.toLowerCase().includes(searchTerm) ||
         criminal.crimes.some(crime => crime.toLowerCase().includes(searchTerm)) ||
         criminal.location.toLowerCase().includes(searchTerm) ||
-        criminal.crimeType.toLowerCase().includes(searchTerm)
+        criminal.tags.some(tag => tag.toLowerCase().includes(searchTerm))
     );
     
     const shameGrid = document.querySelector('.shame-grid');
@@ -516,6 +546,12 @@ function performSearch() {
         filteredCriminals.forEach(criminal => {
             const criminalCard = document.createElement('div');
             criminalCard.className = 'criminal-card';
+            
+            // Create tags display
+            const tagsHTML = criminal.tags.map(tag => 
+                `<span class="crime-tag">${tag}</span>`
+            ).join('');
+            
             criminalCard.innerHTML = `
                 <div class="criminal-pic">
                     <img src="${criminal.image}" alt="${criminal.name}">
@@ -523,7 +559,7 @@ function performSearch() {
                 <div class="criminal-name">${criminal.name}</div>
                 <div class="criminal-alias">"${criminal.alias}"</div>
                 <div class="criminal-crimes">${criminal.crimes.join(', ')}</div>
-                <div class="crime-type">${criminal.crimeType}</div>
+                <div class="crime-tags">${tagsHTML}</div>
                 <div class="criminal-status status-${criminal.status}">
                     ${criminal.status.toUpperCase()}
                 </div>
@@ -818,19 +854,23 @@ document.addEventListener('click', (e) => {
     }
 });
 
-// Add crime type styling
+// Add crime type and tags styling
 const crimeTypeStyles = `
-    .crime-type {
-        color: #ffff44;
-        font-size: 0.9rem;
+    .crime-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
         margin-bottom: 15px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background-color: rgba(255, 255, 68, 0.1);
-        padding: 5px 10px;
-        border-radius: 15px;
-        display: inline-block;
+        justify-content: center;
+    }
+    
+    .crime-tag {
+        background-color: rgba(255, 255, 68, 0.2);
+        color: #ffff44;
+        padding: 4px 10px;
+        border-radius: 12px;
+        font-size: 0.8rem;
+        border: 1px solid #ffff44;
     }
     
     .no-results {

@@ -147,6 +147,9 @@ let currentFilters = {
     location: ['Russia', 'China', 'USA', 'Europe']
 };
 
+// YouTube Player
+let youtubePlayer;
+
 // Snow Effect
 function createSnow() {
     const snowContainer = document.getElementById('snow');
@@ -470,34 +473,50 @@ if (disclaimerToggle && disclaimerModal) {
     });
 }
 
-// Music functionality - FIXED
+// YouTube Music functionality
 const musicToggle = document.getElementById('music-toggle');
 let musicPlaying = false;
+let youtubePlayerReady = false;
+
+// Load YouTube IFrame API
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+// YouTube player setup
+function onYouTubeIframeAPIReady() {
+    youtubePlayer = new YT.Player('bg-music', {
+        events: {
+            'onReady': onPlayerReady,
+            'onStateChange': onPlayerStateChange
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    youtubePlayerReady = true;
+    musicToggle.textContent = '🔇';
+}
+
+function onPlayerStateChange(event) {
+    if (event.data === YT.PlayerState.PLAYING) {
+        musicPlaying = true;
+        musicToggle.textContent = '🔊';
+    } else if (event.data === YT.PlayerState.PAUSED) {
+        musicPlaying = false;
+        musicToggle.textContent = '🔇';
+    }
+}
 
 if (musicToggle) {
-    // Request permission for audio
-    document.addEventListener('click', function() {
-        if (!musicPlaying) {
-            const bgMusic = document.getElementById('bg-music');
-            // Try to play music on first user interaction
-            bgMusic.src = bgMusic.src.replace('mute=1', 'mute=0');
-            musicPlaying = true;
-            musicToggle.textContent = '🔊';
-        }
-    }, { once: true });
-    
     musicToggle.addEventListener('click', function() {
-        const bgMusic = document.getElementById('bg-music');
+        if (!youtubePlayerReady) return;
+        
         if (musicPlaying) {
-            // Mute
-            bgMusic.src = bgMusic.src.replace('mute=0', 'mute=1');
-            musicToggle.textContent = '🔇';
-            musicPlaying = false;
+            youtubePlayer.pauseVideo();
         } else {
-            // Unmute
-            bgMusic.src = bgMusic.src.replace('mute=1', 'mute=0');
-            musicToggle.textContent = '🔊';
-            musicPlaying = true;
+            youtubePlayer.playVideo();
         }
         playClickSound();
     });
@@ -642,189 +661,54 @@ window.addEventListener('load', function() {
     initializeFilters();
 });
 
-// Sound generation functions
+// SIMPLE SOUND FUNCTIONS - Using HTML5 Audio instead of Web Audio API
 function playNavSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sawtooth';
-        oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(150, audioContext.currentTime + 0.1);
-        
-        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    // Simple beep sound using HTML5 Audio
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.1;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 function playHoverSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.05);
-        
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.05);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.05;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 function playClickSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'square';
-        oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(80, audioContext.currentTime + 0.1);
-        
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.2;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 function playSystemReadySound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(150, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(400, audioContext.currentTime + 0.3);
-        
-        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.3);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.3;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 function playLoadingSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sawtooth';
-        oscillator.frequency.setValueAtTime(80, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(250, audioContext.currentTime + 1);
-        
-        gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 1);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.1;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 function playModalOpenSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(500, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(700, audioContext.currentTime + 0.1);
-        
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.2;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 function playModalCloseSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(700, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(500, audioContext.currentTime + 0.1);
-        
-        gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.1);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.2;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 function playSearchSound() {
-    try {
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const oscillator = audioContext.createOscillator();
-        const gainNode = audioContext.createGain();
-        
-        oscillator.type = 'triangle';
-        oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
-        oscillator.frequency.exponentialRampToValueAtTime(300, audioContext.currentTime + 0.2);
-        
-        gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-        
-        oscillator.connect(gainNode);
-        gainNode.connect(audioContext.destination);
-        
-        oscillator.start();
-        oscillator.stop(audioContext.currentTime + 0.2);
-    } catch (e) {
-        console.log('Audio not supported');
-    }
+    const audio = new Audio("data:audio/wav;base64,UklGRigAAABXQVZFZm10IBAAAAABAAEARKwAAIhYAQACABAAZGF0YQQAAAAAAA==");
+    audio.volume = 0.2;
+    audio.play().catch(e => console.log('Sound play failed'));
 }
 
 // Hover effects for interactive elements

@@ -306,8 +306,11 @@
         </div>
     </div>
 
-    <!-- Background Music - FIXED YOUTUBE EMBED -->
-    <iframe id="bg-music" width="0" height="0" src="https://www.youtube.com/embed/IWnFDMZwe4c?autoplay=1&loop=1&playlist=IWnFDMZwe4c&mute=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+    <!-- Background Music - HTML5 AUDIO -->
+    <audio id="bg-music" loop>
+        <source src="https://www.soundjay.com/misc/sounds/fail-wailing-bass-trombone-01.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
     <button id="music-toggle" class="music-btn">🔇</button>
     
     <script src="script.js"></script>

@@ -44,6 +44,20 @@ body {
     }
 }
 
+/* Security Warning */
+.security-warning {
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 2px solid #ff4444;
+    color: #ff4444;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    max-width: 800px;
+    width: 100%;
+}
+
 /* Custom Cursor */
 .custom-cursor {
     position: fixed;
@@ -372,6 +386,17 @@ body {
     color: #ffffff;
     margin-bottom: 20px;
     font-size: 1.5rem;
+    text-align: center;
+}
+
+.warning-notice {
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    font-size: 0.9rem;
     text-align: center;
 }
 

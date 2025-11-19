@@ -1,27 +1,89 @@
-// Criminal Data with Crime Types and Tags
+// Enhanced Criminal Data with detailed information
 const criminalsData = [
     {
         id: 1,
-        name: "Alexei Petrov",
-        alias: "CyberGhost",
-        realName: "Alexei Ivanovich Petrov",
-        age: "32",
-        location: "Russia",
-        nationality: "Russian",
+        name: "Adam 'Woken' Hamid",
+        alias: "Woken",
+        realName: "Adam Hamid",
+        age: "19 (20 soon)",
+        location: "Canada",
+        nationality: "Canadian",
         status: "wanted",
-        crimeType: "Ransomware",
-        tags: ["Ransomware", "Hacker", "Financial"],
-        crimes: ["Ransomware Operations", "Bank Fraud", "Identity Theft"],
-        email: "cyberghost@tutanota.com",
-        phone: "+7 926 XXX XXXX",
-        ips: ["192.168.89.234", "45.67.23.189", "178.162.203.76"],
-        social: "@cyberghost_ru (Telegram)",
-        evidence: [
-            { name: "Ransomware Samples", url: "#" },
-            { name: "Forum Posts", url: "#" },
-            { name: "Bitcoin Wallet", url: "#" }
+        crimeType: "Extortion",
+        tags: ["Extortion", "Pedophile", "Child Exploitation", "LARP", "Scammer"],
+        crimes: [
+            "Multiple extortion attempts",
+            "Child pornography distribution", 
+            "Online harassment campaigns",
+            "Identity theft operations",
+            "Financial fraud schemes"
         ],
-        image: "https://i.imgur.com/fE9JMni.png"
+        description: "A stereotypical comkid who escalated from cringe content creation to serious criminal activities including extortion and child exploitation. Known for operating multiple aliases across various platforms.",
+        email: "hauliced@gmail.com",
+        phone: "+1 (604) ***-**16",
+        ips: ["212.221.129.129", "154.5.74.196"],
+        social: "@hatredtowardseveryone (TikTok), @bebehwoken (Discord)",
+        evidence: [
+            { name: "Extortion Chat Logs", url: "#" },
+            { name: "Financial Records", url: "#" },
+            { name: "Social Media Archive", url: "#" },
+            { name: "IP Log Analysis", url: "#" }
+        ],
+        image: "https://i.imgur.com/fE9JMni.png",
+        // Enhanced data
+        aliases: [
+            { name: "Woken", type: "Primary" },
+            { name: "Body", type: "Rep/OS" },
+            { name: "Temp", type: "Rep/OS" },
+            { name: "Slitted", type: "Rep/OS" },
+            { name: "Hauliced", type: "Main" },
+            { name: "Evil", type: "Rep/OS" },
+            { name: "Step", type: "Rep/OS" },
+            { name: "Loop", type: "Alternate" },
+            { name: "Haunteds", type: "Alternate" },
+            { name: "Aeter", type: "Music" },
+            { name: "bebehwoken", type: "Discord" },
+            { name: "workingonit", type: "Alternate" },
+            { name: "ykme4mysiientaim", type: "Alternate" },
+            { name: "bulletdbt", type: "Alternate" },
+            { name: "realwoken", type: "Alternate" },
+            { name: "uhlurk", type: "Alternate" },
+            { name: "crywoken", type: "Discord" },
+            { name: "blamedblame", type: "Alternate" },
+            { name: "hatredtowardseveryone", type: "TikTok" },
+            { name: "stopclickin", type: "TikTok" },
+            { name: "imyslit", type: "Instagram" },
+            { name: "wsu", type: "Alternate" },
+            { name: "wokenv", type: "Discord" }
+        ],
+        groups: [
+            "ST (slit town)",
+            "646",
+            "Incur", 
+            "MYB",
+            "67",
+            "MVK",
+            "764",
+            "SH",
+            "147",
+            "1414",
+            "333",
+            "626",
+            "SKP",
+            "1378",
+            "CVTS"
+        ],
+        address: "481 Springer Avenue, Burnaby, British Columbia, V5B0B3",
+        dob: "01/06/2006",
+        zodiac: "Capricorn",
+        creditCard: "45*******5076 (Exp: 06/28)",
+        credits: [
+            { name: "Lace", role: "OSINT Investigation", color: "green" },
+            { name: "Surgeon", role: "OSINT Assistance", color: "green" },
+            { name: "Paranoid", role: "Helping Hand", color: "yellow" },
+            { name: "Tobayas", role: "ASCII Art", color: "primary" },
+            { name: "December", role: "Formatting", color: "primary" }
+        ]
     },
     {
         id: 2,
@@ -35,6 +97,7 @@ const criminalsData = [
         crimeType: "Espionage",
         tags: ["Espionage", "State Actor", "Corporate"],
         crimes: ["Corporate Espionage", "Data Breaches", "APT Attacks"],
+        description: "Suspected state-sponsored actor involved in corporate espionage and advanced persistent threat campaigns targeting international corporations.",
         email: "darkshadow@protonmail.com",
         phone: "+86 138 XXXX XXXX",
         ips: ["203.34.56.78", "112.98.45.231", "61.129.76.54"],
@@ -44,7 +107,25 @@ const criminalsData = [
             { name: "Attack Logs", url: "#" },
             { name: "Communication Logs", url: "#" }
         ],
-        image: "https://i.imgur.com/8zQ9W3x.png"
+        image: "https://i.imgur.com/8zQ9W3x.png",
+        aliases: [
+            { name: "DarkShadow", type: "Primary" },
+            { name: "ShadowWalker", type: "Alternate" },
+            { name: "DigitalGhost", type: "Operational" }
+        ],
+        groups: [
+            "APT41",
+            "BlackTech",
+            "Emissary Panda"
+        ],
+        address: "Classified",
+        dob: "Unknown",
+        zodiac: "Unknown",
+        creditCard: "Unknown",
+        credits: [
+            { name: "CyberSec Team", role: "Threat Analysis", color: "green" },
+            { name: "Intel Group", role: "Intelligence", color: "yellow" }
+        ]
     },
     {
         id: 3,
@@ -58,6 +139,7 @@ const criminalsData = [
         crimeType: "Fraud",
         tags: ["Fraud", "Scammer", "Financial"],
         crimes: ["Credit Card Fraud", "Social Engineering", "Botnet Operations"],
+        description: "Former IT student turned cybercriminal specializing in financial fraud and social engineering attacks.",
         email: "phantom@mail2tor.com",
         phone: "+1 347 XXX XXXX",
         ips: ["72.45.189.234", "98.76.54.321", "192.168.1.150"],
@@ -67,76 +149,24 @@ const criminalsData = [
             { name: "Court Documents", url: "#" },
             { name: "Seized Equipment", url: "#" }
         ],
-        image: "https://i.imgur.com/9aB7cW1.png"
-    },
-    {
-        id: 4,
-        name: "Carlos Rodriguez",
-        alias: "SilentByte",
-        realName: "Carlos Manuel Rodriguez",
-        age: "35",
-        location: "Europe",
-        nationality: "Spanish",
-        status: "wanted",
-        crimeType: "Scammer",
-        tags: ["Scammer", "Darknet", "Financial"],
-        crimes: ["Darknet Marketplace", "Drug Trafficking", "Money Laundering"],
-        email: "silentbyte@secmail.pro",
-        phone: "+34 612 XXX XXX",
-        ips: ["87.216.45.189", "193.145.67.234", "95.213.178.91"],
-        social: "SilentByte (DarkForums)",
-        evidence: [
-            { name: "Marketplace Links", url: "#" },
-            { name: "Transaction Records", url: "#" },
-            { name: "Undercover Chat Logs", url: "#" }
+        image: "https://i.imgur.com/9aB7cW1.png",
+        aliases: [
+            { name: "PhantomHacker", type: "Primary" },
+            { name: "TechWizard", type: "Forum" },
+            { name: "DigitalBandit", type: "IRC" }
         ],
-        image: "https://i.imgur.com/2xQ9W3y.png"
-    },
-    {
-        id: 5,
-        name: "Sarah Chen",
-        alias: "ZeroDayQueen",
-        realName: "Sarah Ling Chen",
-        age: "29",
-        location: "Singapore",
-        nationality: "Singaporean",
-        status: "fugitive",
-        crimeType: "LARP",
-        tags: ["LARP", "Hacker", "Corporate"],
-        crimes: ["Zero-Day Exploits", "Corporate Blackmail", "Insider Trading"],
-        email: "zerodayq@tutanota.com",
-        phone: "+65 8123 XXXX",
-        ips: ["103.25.178.234", "121.78.45.189", "203.116.67.154"],
-        social: "@zero_day_q (Twitter)",
-        evidence: [
-            { name: "Exploit Code", url: "#" },
-            { name: "Blackmail Emails", url: "#" },
-            { name: "Financial Records", url: "#" }
+        groups: [
+            "GhostSquad",
+            "DigitalMafia"
         ],
-        image: "https://i.imgur.com/5gRz3W2.png"
-    },
-    {
-        id: 6,
-        name: "Dmitri Volkov",
-        alias: "KremlinBot",
-        realName: "Dmitri Anatolyevich Volkov",
-        age: "41",
-        location: "Russia",
-        nationality: "Russian",
-        status: "wanted",
-        crimeType: "Pedophile",
-        tags: ["Pedophile", "State Actor", "Darknet"],
-        crimes: ["Child Exploitation", "Dark Web Operations", "Money Laundering"],
-        email: "kremlinbot@mail.ru",
-        phone: "+7 911 XXX XXXX",
-        ips: ["95.213.189.234", "178.176.45.167", "31.173.80.154"],
-        social: "Unknown (State Actor)",
-        evidence: [
-            { name: "APT Reports", url: "#" },
-            { name: "Government Documents", url: "#" },
-            { name: "Intelligence Briefings", url: "#" }
-        ],
-        image: "https://i.imgur.com/3vj6cW0.png"
+        address: "Federal Correctional Institution",
+        dob: "03/15/1998",
+        zodiac: "Pisces",
+        creditCard: "N/A (Incarcerated)",
+        credits: [
+            { name: "FBI Cyber", role: "Investigation", color: "green" },
+            { name: "Local PD", role: "Arrest", color: "yellow" }
+        ]
     }
 ];
 
@@ -146,9 +176,6 @@ let currentFilters = {
     status: ['wanted', 'fugitive', 'captured'],
     location: ['Russia', 'China', 'USA', 'Europe']
 };
-
-// YouTube Player
-let youtubePlayer;
 
 // Snow Effect
 function createSnow() {
@@ -391,6 +418,115 @@ function populateCriminals() {
     resultsCount.textContent = `Showing ${filteredCriminals.length} criminals`;
 }
 
+// Enhanced modal population function
+function populateCriminalModal(criminal) {
+    // Basic info
+    document.getElementById('modal-pic').src = criminal.image;
+    document.getElementById('modal-name').textContent = criminal.name;
+    document.getElementById('modal-alias').textContent = `AKA "${criminal.alias}"`;
+    document.getElementById('modal-status').textContent = criminal.status.toUpperCase();
+    document.getElementById('modal-status').className = `criminal-status status-${criminal.status}`;
+    
+    // Description
+    document.getElementById('modal-description').textContent = criminal.description || "No description available.";
+    
+    // Enhanced aliases section
+    const aliasesPreview = document.getElementById('aliases-preview');
+    const allAliases = document.getElementById('all-aliases');
+    
+    aliasesPreview.innerHTML = '';
+    allAliases.innerHTML = '';
+    
+    // Show first 5 aliases in preview
+    criminal.aliases.slice(0, 5).forEach(alias => {
+        const aliasTag = document.createElement('span');
+        aliasTag.className = 'alias-tag';
+        aliasTag.textContent = alias.name;
+        aliasesPreview.appendChild(aliasTag);
+    });
+    
+    // Show all aliases in expandable section
+    criminal.aliases.forEach(alias => {
+        const aliasItem = document.createElement('div');
+        aliasItem.className = 'alias-item';
+        aliasItem.innerHTML = `
+            <strong>${alias.name}</strong>
+            <div class="alias-type">${alias.type}</div>
+        `;
+        allAliases.appendChild(aliasItem);
+    });
+    
+    // Groups
+    const groupsSection = document.getElementById('modal-groups');
+    groupsSection.innerHTML = '';
+    criminal.groups.forEach(group => {
+        const groupTag = document.createElement('span');
+        groupTag.className = 'group-tag';
+        groupTag.textContent = group;
+        groupsSection.appendChild(groupTag);
+    });
+    
+    // Personal information
+    document.getElementById('modal-realname').textContent = criminal.realName;
+    document.getElementById('modal-dob').textContent = criminal.dob;
+    document.getElementById('modal-location').textContent = criminal.location;
+    document.getElementById('modal-age').textContent = criminal.age;
+    document.getElementById('modal-nationality').textContent = criminal.nationality;
+    document.getElementById('modal-address').textContent = criminal.address;
+    document.getElementById('modal-phone').textContent = criminal.phone;
+    document.getElementById('modal-creditcard').textContent = criminal.creditCard;
+    
+    // Digital footprint
+    document.getElementById('modal-email').textContent = criminal.email;
+    document.getElementById('modal-ips').textContent = criminal.ips.join(', ');
+    document.getElementById('modal-social').textContent = criminal.social;
+    
+    // Criminal activity
+    document.getElementById('modal-crimes').innerHTML = 
+        `<ul>${criminal.crimes.map(crime => `<li>${crime}</li>`).join('')}</ul>`;
+    
+    // Tags
+    const tagsHTML = criminal.tags.map(tag => 
+        `<span class="crime-tag">${tag}</span>`
+    ).join('');
+    document.getElementById('modal-tags').innerHTML = tagsHTML;
+    
+    // Credits
+    const creditsSection = document.getElementById('modal-credits');
+    creditsSection.innerHTML = '';
+    criminal.credits.forEach(credit => {
+        const creditItem = document.createElement('div');
+        creditItem.className = `credit-item ${credit.color || ''}`;
+        creditItem.innerHTML = `
+            <strong>${credit.name}</strong>
+            <div>${credit.role}</div>
+        `;
+        creditsSection.appendChild(creditItem);
+    });
+    
+    // Evidence
+    const evidenceLinks = document.getElementById('modal-evidence');
+    evidenceLinks.innerHTML = criminal.evidence.map(evidence => 
+        `<a href="${evidence.url}" class="evidence-link" target="_blank">${evidence.name}</a>`
+    ).join('');
+}
+
+// Expand aliases functionality
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('expand-aliases-btn')) {
+        const allAliases = document.getElementById('all-aliases');
+        const button = e.target;
+        
+        if (allAliases.style.display === 'none') {
+            allAliases.style.display = 'grid';
+            button.textContent = 'Hide Aliases';
+        } else {
+            allAliases.style.display = 'none';
+            button.textContent = 'Show All Aliases';
+        }
+    }
+});
+
 // Criminal modal functionality
 const criminalModal = document.getElementById('criminal-modal');
 
@@ -401,37 +537,7 @@ document.addEventListener('click', function(e) {
         const criminal = criminalsData.find(c => c.id === criminalId);
         
         if (criminal && criminalModal) {
-            // Populate modal with criminal data
-            document.getElementById('modal-pic').src = criminal.image;
-            document.getElementById('modal-name').textContent = criminal.name;
-            document.getElementById('modal-alias').textContent = `AKA "${criminal.alias}"`;
-            document.getElementById('modal-status').textContent = criminal.status.toUpperCase();
-            document.getElementById('modal-status').className = `criminal-status status-${criminal.status}`;
-            
-            document.getElementById('modal-realname').textContent = criminal.realName;
-            document.getElementById('modal-location').textContent = criminal.location;
-            document.getElementById('modal-age').textContent = criminal.age;
-            document.getElementById('modal-nationality').textContent = criminal.nationality;
-            
-            document.getElementById('modal-email').textContent = criminal.email;
-            document.getElementById('modal-ips').textContent = criminal.ips.join(', ');
-            document.getElementById('modal-phone').textContent = criminal.phone;
-            document.getElementById('modal-social').textContent = criminal.social;
-            
-            document.getElementById('modal-crimes').innerHTML = 
-                `<ul>${criminal.crimes.map(crime => `<li>${crime}</li>`).join('')}</ul>`;
-            
-            // Populate tags in modal
-            const tagsHTML = criminal.tags.map(tag => 
-                `<span class="crime-tag">${tag}</span>`
-            ).join('');
-            document.getElementById('modal-tags').innerHTML = tagsHTML;
-            
-            const evidenceLinks = document.getElementById('modal-evidence');
-            evidenceLinks.innerHTML = criminal.evidence.map(evidence => 
-                `<a href="${evidence.url}" class="evidence-link" target="_blank">${evidence.name}</a>`
-            ).join('');
-            
+            populateCriminalModal(criminal);
             criminalModal.style.display = 'block';
             playModalOpenSound();
         }
@@ -473,50 +579,29 @@ if (disclaimerToggle && disclaimerModal) {
     });
 }
 
-// YouTube Music functionality
+// Spotify music functionality
 const musicToggle = document.getElementById('music-toggle');
 let musicPlaying = false;
-let youtubePlayerReady = false;
-
-// Load YouTube IFrame API
-const tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-const firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-// YouTube player setup
-function onYouTubeIframeAPIReady() {
-    youtubePlayer = new YT.Player('bg-music', {
-        events: {
-            'onReady': onPlayerReady,
-            'onStateChange': onPlayerStateChange
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    youtubePlayerReady = true;
-    musicToggle.textContent = '🔇';
-}
-
-function onPlayerStateChange(event) {
-    if (event.data === YT.PlayerState.PLAYING) {
-        musicPlaying = true;
-        musicToggle.textContent = '🔊';
-    } else if (event.data === YT.PlayerState.PAUSED) {
-        musicPlaying = false;
-        musicToggle.textContent = '🔇';
-    }
-}
 
 if (musicToggle) {
     musicToggle.addEventListener('click', function() {
-        if (!youtubePlayerReady) return;
+        // Since Spotify embed doesn't support direct control like YouTube,
+        // we'll toggle the visibility and handle autoplay differently
+        const bgMusic = document.getElementById('bg-music');
         
         if (musicPlaying) {
-            youtubePlayer.pauseVideo();
+            // Pause by removing the src and re-adding it
+            const currentSrc = bgMusic.src;
+            bgMusic.src = '';
+            setTimeout(() => {
+                bgMusic.src = currentSrc;
+            }, 100);
+            musicToggle.textContent = '🔇';
+            musicPlaying = false;
         } else {
-            youtubePlayer.playVideo();
+            // Play by ensuring the iframe is loaded
+            musicToggle.textContent = '🔊';
+            musicPlaying = true;
         }
         playClickSound();
     });
@@ -713,21 +798,21 @@ function playSearchSound() {
 
 // Hover effects for interactive elements
 document.addEventListener('mouseover', function(e) {
-    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select')) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select, .expand-aliases-btn')) {
         if (cursor) cursor.classList.add('hover');
         playHoverSound();
     }
 });
 
 document.addEventListener('mouseout', function(e) {
-    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select')) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select, .expand-aliases-btn')) {
         if (cursor) cursor.classList.remove('hover');
     }
 });
 
 // Click effect
 document.addEventListener('click', (e) => {
-    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select')) {
+    if (e.target.matches('.nav-item, .criminal-card, .page-btn, .redirect-btn, .evidence-link, .music-btn, .disclaimer-btn, #search-btn, .filter-btn, .filter-option, .sort-options select, .expand-aliases-btn')) {
         if (cursor) {
             cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
             setTimeout(() => {

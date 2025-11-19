@@ -46,16 +46,39 @@ body {
 
 /* Security Warning */
 .security-warning {
-    background-color: rgba(255, 0, 0, 0.1);
+    background-color: rgba(255, 0, 0, 0.2);
     border: 2px solid #ff4444;
     color: #ff4444;
-    padding: 15px;
-    margin: 20px 0;
-    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0 30px 0;
+    border-radius: 10px;
     text-align: center;
     font-weight: bold;
-    max-width: 800px;
+    max-width: 1200px;
     width: 100%;
+    line-height: 1.8;
+    font-size: 1rem;
+    box-shadow: 0 0 20px rgba(255, 68, 68, 0.3);
+}
+
+/* Database Warning Styles */
+.database-warning {
+    background-color: rgba(255, 0, 0, 0.2);
+    border: 1px solid #ff4444;
+    color: #ff4444;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-align: center;
+    line-height: 1.6;
+}
+
+.database-warning.critical {
+    background-color: rgba(255, 0, 0, 0.3);
+    border: 2px solid #ff0000;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
 }
 
 /* Custom Cursor */
@@ -389,17 +412,6 @@ body {
     text-align: center;
 }
 
-.warning-notice {
-    background-color: rgba(255, 0, 0, 0.2);
-    border: 1px solid #ff4444;
-    color: #ff4444;
-    padding: 10px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
 .database-price {
     color: #ffffff;
     font-weight: bold;
@@ -579,6 +591,12 @@ body {
     .stat-number {
         font-size: 1.3rem;
     }
+    
+    .security-warning {
+        padding: 15px;
+        font-size: 0.9rem;
+        margin: 15px 0 25px 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -601,5 +619,10 @@ body {
     
     .profiles-title {
         font-size: 2rem;
+    }
+    
+    .security-warning {
+        padding: 12px;
+        font-size: 0.8rem;
     }
 }

@@ -531,6 +531,23 @@ main {
     font-weight: bold;
 }
 
+.crime-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.crime-tag {
+    background-color: rgba(255, 255, 68, 0.2);
+    color: #ffff44;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    border: 1px solid #ffff44;
+}
+
 .criminal-crimes {
     font-size: 1rem;
     color: #cccccc;

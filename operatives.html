@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operatives - Asha's Database Index</title>
+    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/en/9/93/BreachForums_logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,11 +20,14 @@
     </div>
 
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="header-container">
             <div class="logo">
-                <span class="logo-icon">🗂️</span>
-                <h1>Asha's Database Index</h1>
+                <img src="https://upload.wikimedia.org/wikipedia/en/9/93/BreachForums_logo.png" alt="Logo" class="logo-img">
+                <h1 class="logo-title">
+                    <span class="title-main">Asha's</span>
+                    <span class="title-sub">Database Index</span>
+                </h1>
             </div>
             <nav>
                 <a href="index.html" class="nav-link">Database Index</a>
@@ -90,14 +94,71 @@
                     <div class="operative-contact">
                         <h4>Contact Information</h4>
                         <div class="contact-links">
-                            <a href="https://t.me/AshaBreached" class="contact-link telegram">
-                                <span class="icon">📱</span>
-                                <span>@AshaBreached</span>
-                            </a>
                             <a href="mailto:ashabreached@protonmail.com" class="contact-link email">
                                 <span class="icon">✉️</span>
                                 <span>ashabreached@protonmail.com</span>
                             </a>
+                        </div>
+                        
+                        <div class="pgp-section">
+                            <button class="expand-btn pgp-btn" data-target="pgp-content">
+                                <span class="expand-icon">▶</span>
+                                <span>PGP Public Key</span>
+                            </button>
+                            <div class="expandable-content" id="pgp-content">
+                                <pre class="pgp-key">-----BEGIN PGP PUBLIC KEY BLOCK-----
+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
+kdl0CsrZI+l8qeeT3DgrrD9Q6YQ=
+=4UTg
+-----END PGP PUBLIC KEY BLOCK-----</pre>
+                                <button class="copy-btn" onclick="copyPGP()">📋 Copy PGP Key</button>
+                            </div>
                         </div>
                     </div>
 
@@ -115,9 +176,10 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
         <div class="footer-content">
             <p>&copy; 2025 Asha's Database Index. All rights reserved.</p>
+            <button id="disclaimer-btn" class="disclaimer-btn">Educational & Research Purpose Only</button>
             <div class="footer-links">
                 <a href="index.html">Database Index</a>
             </div>
@@ -128,5 +190,17 @@
     <iframe id="bg-music" style="display:none;" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&playlist=jfKfPfyJRdk&controls=0" allow="autoplay" frameborder="0"></iframe>
 
     <script src="script.js"></script>
+    <script>
+        function copyPGP() {
+            const pgpKey = document.querySelector('.pgp-key').textContent;
+            navigator.clipboard.writeText(pgpKey).then(() => {
+                const btn = event.target;
+                btn.textContent = '✓ Copied!';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy PGP Key';
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>

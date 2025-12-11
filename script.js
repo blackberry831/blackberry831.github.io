@@ -289,7 +289,7 @@ function initializeLoading() {
     
     let progress = 0;
     const interval = setInterval(() => {
-        progress += Math.random() * 20;
+        progress += Math.random() * 25 + 10; // Faster loading
         if (progress >= 100) {
             progress = 100;
             clearInterval(interval);
@@ -297,6 +297,10 @@ function initializeLoading() {
             setTimeout(() => {
                 if (loadingScreen) {
                     loadingScreen.classList.add('hidden');
+                    // Remove from DOM after animation
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                    }, 500);
                 }
             }, 300);
         }
@@ -304,7 +308,17 @@ function initializeLoading() {
         if (loadingProgress) {
             loadingProgress.style.width = `${progress}%`;
         }
-    }, 100);
+    }, 80); // Faster intervals
+    
+    // Failsafe: force hide after 3 seconds
+    setTimeout(() => {
+        if (loadingScreen) {
+            loadingScreen.classList.add('hidden');
+            setTimeout(() => {
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }
+    }, 3000);
 }
 
 // Populate database grid

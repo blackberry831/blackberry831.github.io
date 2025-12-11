@@ -3,322 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPERATIVES | Hall of Shame</title>
-    <link rel="stylesheet" href="profile-style.css">
+    <title>Operatives - Asha's Database Index</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-content">
-            <div class="loading-text">ACCESSING OPERATIVES DATABASE</div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading Operatives...</div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
-            <div class="loading-status">STATUS: <span id="load-percent">0%</span></div>
         </div>
     </div>
 
-    <!-- Rain Effect -->
-    <div id="rain"></div>
-
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="cursor-trail"></div>
-    
-    <div class="profiles-container">
-        <h1 class="profiles-title">OPERATIVES</h1>
-        <p class="profiles-subtitle">The team behind the Hall of Shame</p>
-        
-        <!-- Security Warning -->
-        <div class="security-warning">
-            ⚠️ WARNING: Even though these people are part of our team, 
-            this does NOT guarantee their trustworthiness. Always have extreme caution 
-            and verify information before buying. Be smart about who you pay also take any evidence, 
-            use escrow services, and never trust blindly. These are anonymous people 
-            that we never met. Ash is the only one as of now that can be trusted but of course that's just our opinion, trust NO ONE completely.
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">🗂️</span>
+                <h1>Asha's Database Index</h1>
+            </div>
+            <nav>
+                <a href="index.html" class="nav-link">Database Index</a>
+                <a href="operatives.html" class="nav-link active">Operatives</a>
+            </nav>
         </div>
-        
-        <div class="profiles-grid">
-            <!-- Operative 1: Nullified -->
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="https://i.imgur.com/fE9JMni.png" alt="Nullified">
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        <div class="container">
+            <div class="operatives-header">
+                <h2>Operatives</h2>
+                <p>Meet the team behind the database index</p>
+            </div>
+
+            <!-- Warning Banner -->
+            <div class="warning-banner">
+                <span class="warning-icon">⚠️</span>
+                <div class="warning-text">
+                    <strong>Security Notice:</strong> Always verify information and use escrow services when conducting transactions. 
+                    Exercise extreme caution and never trust blindly. These are anonymous individuals.
                 </div>
-                <div class="profile-name">Nullified</div>
-                <div class="profile-description">
-                    Administrator of BreachForums LARP Forums
-                    <br>Operational since 2020 | Specializing in OSINT
-                </div>
-                
-                <div class="social-links">
-                    <a href="https://t.me/AshaBreached" class="social-link">
-                        <img src="https://i.imgur.com/RtXlP9H.png" alt="Telegram">
-                        <span>@AshaBreached</span>
-                    </a>
-                    <a href="mailto:ashabreached@protonmail.com" class="social-link">
-                        <img src="https://i.imgur.com/KYei0vG.png" alt="Email">
-                        <span>ashabreached@protonmail.com</span>
-                    </a>
-                </div>
-                
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-number">0</div>
-                        <div class="stat-label">Cases Solved</div>
+            </div>
+
+            <!-- Operatives Grid -->
+            <div class="operatives-grid">
+                <!-- Ash Profile -->
+                <div class="operative-card">
+                    <div class="operative-header">
+                        <div class="operative-avatar">
+                            <img src="https://i.imgur.com/KBZPL8b.jpeg" alt="Ash">
+                        </div>
+                        <div class="operative-info">
+                            <h3>Ash (Asha)</h3>
+                            <p class="operative-role">Database Specialist</p>
+                            <div class="operative-badges">
+                                <span class="badge">OSINT</span>
+                                <span class="badge">Database Breacher</span>
+                                <span class="badge">Forum Moderator</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">0</div>
-                        <div class="stat-label">Years</div>
+
+                    <div class="operative-bio">
+                        <p>Database Breacher and BreachForums LARP Forum Moderator. Former Member of DEADSEC. Operating since 2022 with extensive experience in database acquisition and OSINT operations.</p>
                     </div>
-                    <div class="stat">
-                        <div class="stat-number">0%</div>
-                        <div class="stat-label">Success Rate</div>
+
+                    <div class="operative-stats">
+                        <div class="stat">
+                            <div class="stat-number">28+</div>
+                            <div class="stat-label">Profiles Created</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">5+</div>
+                            <div class="stat-label">Years Active</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Accuracy</div>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="database-sales">
-                    <h3>DATABASE SALES</h3>
-                    <div class="db-buttons">
-                        <button class="db-button" data-db="breached">breachforums.vc Database</button>
+
+                    <div class="operative-contact">
+                        <h4>Contact Information</h4>
+                        <div class="contact-links">
+                            <a href="https://t.me/AshaBreached" class="contact-link telegram">
+                                <span class="icon">📱</span>
+                                <span>@AshaBreached</span>
+                            </a>
+                            <a href="mailto:ashabreached@protonmail.com" class="contact-link email">
+                                <span class="icon">✉️</span>
+                                <span>ashabreached@protonmail.com</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="operative-services">
+                        <h4>Services</h4>
+                        <p class="services-note">Contact for database inquiries and OSINT services.</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Operative 2: apayan16 -->
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="https://i.imgur.com/P6UZEQC.jpeg" alt="apayan16">
-                </div>
-                <div class="profile-name">apayan16</div>
-                <div class="profile-description">
-                    A fed.
-                    <br>Former FBI Weapons of Mass Destruction Directorate
-                    <br>Operating since 2019
-                </div>
-                
-                <div class="social-links">
-                    <a href="https://t.me/AshaBreached" class="social-link">
-                        <img src="https://i.imgur.com/RtXlP9H.png" alt="Telegram">
-                        <span>@AshaBreached</span>
-                    </a>
-                    <a href="mailto:ashabreached@protonmail.com" class="social-link">
-                        <img src="https://i.imgur.com/KYei0vG.png" alt="Email">
-                        <span>ashabreached@protonmail.com</span>
-                    </a>
-                </div>
-                
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-number">32+</div>
-                        <div class="stat-label">Networks Secured</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">7+</div>
-                        <div class="stat-label">Years</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">98%</div>
-                        <div class="stat-label">Success Rate</div>
-                    </div>
-                </div>
-                
-                <div class="database-sales">
-                    <h3>DATABASE SALES</h3>
-                    <div class="db-buttons">
-                        <button class="db-button" data-db="breachforums">breach-forums.live Database</button>
-                        <button class="db-button" data-db="breachforums2">breachforums.cx Database</button>
-                        <button class="db-button" data-db="breachforums3">breachforums.info Database</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Operative 3: Ash -->
-            <div class="profile-card">
-                <div class="profile-pic">
-                    <img src="https://i.imgur.com/KBZPL8b.jpeg" alt="Ash">
-                </div>
-                <div class="profile-name">Ash(Asha)</div>
-                <div class="profile-description">
-                    Database Breacher, BreachForums LARP Forum Moderator
-                    <br>Former Member of DEADSEC
-                    <br>Operating since 2022
-                </div>
-                
-                <div class="social-links">
-                    <a href="https://t.me/AshaBreached" class="social-link">
-                        <img src="https://i.imgur.com/RtXlP9H.png" alt="Telegram">
-                        <span>@AshaBreached</span>
-                    </a>
-                    <a href="mailto:ashabreached@protonmail.com" class="social-link">
-                        <img src="https://i.imgur.com/KYei0vG.png" alt="Email">
-                        <span>ashabreached@protonmail.com</span>
-                    </a>
-                </div>
-                
-                <div class="profile-stats">
-                    <div class="stat">
-                        <div class="stat-number">28+</div>
-                        <div class="stat-label">Profiles Created</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">5+</div>
-                        <div class="stat-label">Years</div>
-                    </div>
-                    <div class="stat">
-                        <div class="stat-number">100%</div>
-                        <div class="stat-label">Accuracy</div>
-                    </div>
-                </div>
-                
-                <div class="database-sales">
-                    <h3>DATABASE SALES</h3>
-                    <div class="db-buttons">
-                        <button class="db-button" data-db="breachedsh">breached.sh Database</button>
-                    </div>
-                </div>
+            <div class="back-section">
+                <a href="index.html" class="back-btn">← Back to Database Index</a>
             </div>
         </div>
-        
-        <a href="index.html" class="back-btn">← Back to Hall of Shame</a>
-    </div>
+    </main>
 
-    <!-- Service Banners -->
-    <div class="db-banner" id="breached-banner">
-        <div class="db-banner-content">
-            <button class="db-banner-close">&times;</button>
-            <h4>breachforums.vc Database</h4>
-            
-            <!-- WARNING FOR .VC DATABASE -->
-            <div class="database-warning critical">
-                ⚠️ WARNING: READ THIS BEFORE PURCHASING. 
-                There is NO EVIDENCE that Nullified actually possesses this database. 
-                
-                The site owner notes: 
-                "This requires confirmation there is no proof that this database exists and no proof of abreach that ever occurred 
-                or that the seller has access to it and has the files. Also he claims that he has the clean databases of breachforums.st 
-                and .hn these are also not verified." PURCHASE AT EXTREME RISK.
-            </div>
-            
-            <div class="database-price">Price: ? USD</div>
-            <ul class="database-features">
-                <li>Alleged breachforums.vc user data</li>
-                <li>Claimed email addresses and passwords</li>
-                <li>Supposed user registration dates</li>
-                <li>Alleged private messages</li>
-                <li>Claimed IP addresses</li>
-                <li>Claimed Mod CP logged IP addresses</li>
-                <li>CDN Access</li>
-                <li>UNVERIFIED database schema</li>
-            </ul>
-            <div class="payment-info">
-                <strong>Status:</strong> UNVERIFIED - HIGH RISK<br>
-                <strong>Evidence:</strong> NO PROOF PROVIDED<br>
-                <strong>Verification:</strong> NONE PROVIDED<br>
-                <strong>Warning:</strong> POTENTIAL SCAM
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 Asha's Database Index. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="index.html">Database Index</a>
             </div>
         </div>
-    </div>
-
-    <div class="db-banner" id="breachforums-banner">
-        <div class="db-banner-content">
-            <button class="db-banner-close">&times;</button>
-            <h4>breach-forums.live Database</h4>
-            <div class="database-price">Price: ? USD</div>
-            <ul class="database-features">
-                <li>breach-forums.live user database</li>
-                <li>Usernames & Password</li>
-                <li>Forum activity and post history</li>
-                <li>PMs & Posts and forum Threads</li>
-                <li>IPs, Mod CP IPs, Admin CP IPs</li>
-                <li>User emails, administrator & moderator emails</li>
-                <li>BreachForums Theme</li>
-            </ul>
-            <div class="payment-info">
-                <strong>Delivery Time:</strong> Immediate after payment<br>
-                <strong>Format:</strong> Multiple formats available<br>
-                <strong>Includes:</strong> Full database with metadata<br>
-                <strong>Support:</strong> 7-day technical support included
-            </div>
-        </div>
-    </div>
-
-    <div class="db-banner" id="breachforums2-banner">
-        <div class="db-banner-content">
-            <button class="db-banner-close">&times;</button>
-            <h4>breachforums.cx Database</h4>
-            <div class="database-price">Price: ? USD</div>
-            <ul class="database-features">
-                <li>breachforums.cx user data</li>
-                <li>Emails and passwords</li>
-                <li>Usernames</li>
-                <li>IP Addresses</li>
-            </ul>
-            <div class="payment-info">
-                <strong>Delivery Time:</strong> 12-24 hours<br>
-                <strong>Format:</strong> Custom format upon request<br>
-                <strong>Includes:</strong> Complete data export<br>
-                <strong>Verification:</strong> Proof of access provided
-            </div>
-        </div>
-    </div>
-
-    <div class="db-banner" id="breachforums3-banner">
-        <div class="db-banner-content">
-            <button class="db-banner-close">&times;</button>
-            <h4>breachforums.info Database</h4>
-            <div class="database-warning">
-                ⚠️ WARNING: This database contains unverified data that may not be legit. 
-                Purchase at your own risk.
-            </div>
-            <div class="database-price">Price: ? USD</div>
-            <ul class="database-features">
-                <li>Alleged breachforums.info user data</li>
-                <li>Unverified emails and passwords</li>
-                <li>Mod CP IPs</li>
-                <li>PMs of Mods & Admins and Members</li>
-                <li>Unconfirmed IP address of Members</li>
-                <li>Questionable moderator action logs</li>
-            </ul>
-            <div class="payment-info">
-                <strong>Status:</strong> UNVERIFIED - RISKY PURCHASE<br>
-                <strong>Delivery Time:</strong> Immediate<br>
-                <strong>Format:</strong> Raw data files<br>
-                <strong>Warning:</strong> No refunds - data may be fabricated
-            </div>
-        </div>
-    </div>
-
-    <div class="db-banner" id="breachedsh-banner">
-        <div class="db-banner-content">
-            <button class="db-banner-close">&times;</button>
-            <h4>breached.sh Database</h4>
-            <div class="database-price">Price: ? USD</div>
-            <ul class="database-features">
-                <li>breached.sh user database</li>
-                <li>Emails & Passwords</li>
-                <li>Mod CP IPs, Admin CP IPs, Member IPs</li>
-                <li>PMs</li>
-                <li>Access to 2-4 RDP machines</li>
-                <li>Access to aaPanel(CDN & mybb Files) Password & Username</li>
-                <li>Shoutbox Messeges</li>
-                <li>All databases from the Official Section.</li>
-                <li>Admin CP Password & Username and PIN(yes koko i just guessed you pin be emberessed)</li>
-                <li>Telegram & Session Messenges with koko & SEPTEMBER and other Staff</li>
-                <li>BreachForums Theme & Premium Plugins</li>
-                <li>Mod & Admin CP action logs</li>
-            </ul>
-            <div class="payment-info">
-                <strong>Delivery Time:</strong> After the bitcoin chain delivers the money(may take 10 minutes or more.)<br>
-                <strong>Format:</strong> Database dump<br>
-                <strong>Verification:</strong> Sample data are not provided because this person is retarded and doesn't know how to make some.
-            </div>
-        </div>
-    </div>
+    </footer>
 
     <!-- Background Music -->
-    <iframe id="bg-music" width="0" height="0" src="https://www.youtube.com/watch?v=UpBqMSV8U8Y&list=RDecRZTFgjh0E&index=2&pp=8AUBoAcB" frameborder="0" allow="autoplay"></iframe>
-    <button id="music-toggle" class="music-btn">🔇</button>
+    <iframe id="bg-music" style="display:none;" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&playlist=jfKfPfyJRdk&controls=0" allow="autoplay" frameborder="0"></iframe>
 
-    <script src="profile-script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

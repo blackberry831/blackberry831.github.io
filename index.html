@@ -3,347 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HALL OF SHAME | Digital Justice</title>
+    <title>Asha's Database Index</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Loading Screen -->
     <div id="loading-screen">
         <div class="loading-content">
-            <div class="loading-text">INITIALIZING HALL OF SHAME</div>
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading Database Index...</div>
             <div class="loading-bar">
                 <div class="loading-progress"></div>
             </div>
-            <div class="loading-status">LOADING: <span id="load-percent">0%</span></div>
         </div>
     </div>
 
-    <!-- Snow Effect -->
-    <div id="snow"></div>
-
-    <!-- Custom Cursor -->
-    <div class="custom-cursor"></div>
-    <div class="cursor-trail"></div>
-    
+    <!-- Header -->
     <header>
-        <div class="header-content">
-            <h1 class="glitch">HALL OF SHAME</h1>
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">🗂️</span>
+                <h1>Asha's Database Index</h1>
+            </div>
             <nav>
-                <div class="nav-item active" data-target="shame">Wanted List</div>
-                <div class="nav-item" data-target="about">About</div>
-                <div class="nav-item" data-target="profiles">Operatives</div>
+                <a href="index.html" class="nav-link active">Database Index</a>
+                <a href="operatives.html" class="nav-link">Operatives</a>
             </nav>
         </div>
     </header>
-    
+
+    <!-- Main Content -->
     <main>
-        <!-- Hall of Shame Section -->
-        <section id="shame" class="content active-content">
-            <h2>WANTED DIGITAL CRIMINALS</h2>
-            
-            <div class="shame-layout">
-                <!-- Filter Sidebar -->
-                <div class="filter-sidebar">
-                    <h3>FILTER CRIMINALS</h3>
-                    <div class="filter-group">
-                        <h4>By Crime Tags</h4>
-                        <div class="filter-options">
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Ransomware">
-                                <span class="checkmark"></span>
-                                Ransomware
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Pedophile">
-                                <span class="checkmark"></span>
-                                Pedophiles
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="LARP">
-                                <span class="checkmark"></span>
-                                LARPs
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Scammer">
-                                <span class="checkmark"></span>
-                                Scammers
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Fraud">
-                                <span class="checkmark"></span>
-                                Fraud
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Espionage">
-                                <span class="checkmark"></span>
-                                Espionage
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Hacker">
-                                <span class="checkmark"></span>
-                                Hacker
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Darknet">
-                                <span class="checkmark"></span>
-                                Darknet
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Extortion">
-                                <span class="checkmark"></span>
-                                Extortion
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="tags" value="Child Exploitation">
-                                <span class="checkmark"></span>
-                                Child Exploitation
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>By Status</h4>
-                        <div class="filter-options">
-                            <label class="filter-option">
-                                <input type="checkbox" name="status" value="wanted" checked>
-                                <span class="checkmark"></span>
-                                Wanted
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="status" value="fugitive" checked>
-                                <span class="checkmark"></span>
-                                Fugitive
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="status" value="captured" checked>
-                                <span class="checkmark"></span>
-                                Captured
-                            </label>
-                        </div>
-                    </div>
-
-                    <div class="filter-group">
-                        <h4>By Location</h4>
-                        <div class="filter-options">
-                            <label class="filter-option">
-                                <input type="checkbox" name="location" value="Russia" checked>
-                                <span class="checkmark"></span>
-                                Russia
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="location" value="China" checked>
-                                <span class="checkmark"></span>
-                                China
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="location" value="USA" checked>
-                                <span class="checkmark"></span>
-                                USA
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="location" value="Europe" checked>
-                                <span class="checkmark"></span>
-                                Europe
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="location" value="Canada" checked>
-                                <span class="checkmark"></span>
-                                Canada
-                            </label>
-                            <label class="filter-option">
-                                <input type="checkbox" name="location" value="Singapore" checked>
-                                <span class="checkmark"></span>
-                                Singapore
-                            </label>
-                        </div>
-                    </div>
-
-                    <button id="reset-filters" class="filter-btn">Reset Filters</button>
-                    <button id="apply-filters" class="filter-btn primary">Apply Filters</button>
+        <div class="container">
+            <!-- Search & Filter Section -->
+            <div class="search-section">
+                <div class="search-header">
+                    <h2>Database Collection</h2>
+                    <p class="db-count">Total Databases: <span id="total-count">0</span></p>
                 </div>
-
-                <!-- Main Content Area -->
-                <div class="main-content">
-                    <div class="search-bar">
-                        <input type="text" id="search-input" placeholder="Search criminals by name, alias, or crime...">
-                        <button id="search-btn">Search</button>
-                    </div>
-                    
-                    <div class="results-info">
-                        <span id="results-count">Showing 6 criminals</span>
-                        <div class="sort-options">
-                            <select id="sort-by">
-                                <option value="name">Sort by Name</option>
-                                <option value="status">Sort by Status</option>
-                                <option value="location">Sort by Location</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="shame-grid">
-                        <!-- Criminals will be populated by JavaScript -->
-                    </div>
-                    
-                    <div class="pagination">
-                        <button id="prev-page" class="page-btn">Previous</button>
-                        <span id="page-info">Page 1 of 1</span>
-                        <button id="next-page" class="page-btn">Next</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- About Section -->
-        <section id="about" class="content">
-            <h2>ABOUT HALL OF SHAME</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>The Hall of Shame is a website dedicated to exposing cybercriminals, scammers, LARPs.</p>
-                    </div>
                 
-                    <div class="stats">
-                        <div class="stat-item">
-                            <span class="stat-number">247</span>
-                            <span class="stat-label">Exposed Criminals</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">89</span>
-                            <span class="stat-label">Arrests Facilitated</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number">1.2M</span>
-                            <span class="stat-label">Stolen Funds Recovered</span>
-                        </div>
-                    </div>
+                <div class="search-bar">
+                    <input type="text" id="search-input" placeholder="Search databases by name...">
+                    <button id="search-btn">
+                        <span>🔍</span>
+                    </button>
                 </div>
             </div>
-        </section>
 
-        <!-- Operatives Section -->
-        <section id="profiles" class="content">
-            <div class="profiles-redirect">
-                <h2>OUR OPERATIVES</h2>
-                <p>Meet the team behind the Hall of Shame</p>
-                <a href="profiles.html" class="redirect-btn">Access Operatives Portal</a>
+            <!-- Database Grid -->
+            <div class="database-grid" id="database-grid">
+                <!-- Databases will be populated by JavaScript -->
             </div>
-        </section>
+
+            <!-- No Results -->
+            <div class="no-results" id="no-results" style="display: none;">
+                <div class="no-results-icon">📭</div>
+                <h3>No databases found</h3>
+                <p>Try adjusting your search query</p>
+            </div>
+        </div>
     </main>
-    
+
+    <!-- Footer -->
     <footer>
         <div class="footer-content">
-            <div class="footer-left">
-                <button id="disclaimer-toggle" class="disclaimer-btn">Legal Disclaimer</button>
-            </div>
-            <div class="footer-center">
-                <p>HALL OF SHAME &copy; 2025 | SYSTEM STATUS: <span style="color: #00ff00;">ACTIVE</span></p>
-            </div>
-            <div class="footer-right">
-                <div class="user-info">
-                    <span id="user-ip">IP: Detecting...</span>
-                    <span id="user-agent">OS: Detecting...</span>
-                    <span id="tor-status">TOR: Detecting...</span>
-                </div>
+            <p>&copy; 2025 Asha's Database Index. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="operatives.html">Operatives</a>
             </div>
         </div>
     </footer>
-    
-<!-- Criminal Modal -->
-<div id="criminal-modal" class="modal">
-    <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <div class="modal-body">
-            <div class="criminal-header">
-                <div class="criminal-pic">
-                    <img id="modal-pic" src="" alt="">
+
+    <!-- Database Details Modal -->
+    <div id="database-modal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <h2 id="modal-title"></h2>
+                <div class="modal-meta">
+                    <span class="meta-item"><strong>Type:</strong> <span id="modal-type"></span></span>
+                    <span class="meta-item"><strong>Date:</strong> <span id="modal-date"></span></span>
+                    <span class="meta-item"><strong>Size:</strong> <span id="modal-size"></span></span>
                 </div>
-                <div class="criminal-info">
-                    <h2 id="modal-name"></h2>
-                    <div id="modal-alias"></div>
-                    <div id="modal-status"></div>
+                <div class="modal-description" id="modal-description"></div>
+                <div class="modal-features">
+                    <h3>Database Contents:</h3>
+                    <ul id="modal-features"></ul>
                 </div>
+                <div class="modal-tags" id="modal-tags"></div>
             </div>
-            
-            <!-- Description Section -->
-            <div class="modal-section-header">Description</div>
-            <div class="criminal-description" id="modal-description"></div>
-            
-            <!-- Aliases Section -->
-            <div class="modal-section-header">Known Aliases</div>
-            <div class="aliases-section" id="modal-aliases">
-                <div class="aliases-preview" id="aliases-preview"></div>
-                <button class="expand-aliases-btn">Show All Aliases</button>
-                <div class="all-aliases" id="all-aliases" style="display: none;"></div>
-            </div>
-            
-            <!-- Groups Section -->
-            <div class="modal-section-header">Associated Groups</div>
-            <div class="groups-section" id="modal-groups"></div>
-            
-            <!-- Personal Information -->
-            <div class="modal-section-header">Personal Information</div>
-            <div class="extended-personal-info">
-                <div class="personal-info-grid">
-                    <div class="personal-info-item">
-                        <strong>Full Name:</strong> <span id="modal-realname"></span>
-                    </div>
-                    <div class="personal-info-item">
-                        <strong>Date of Birth:</strong> <span id="modal-dob"></span>
-                    </div>
-                    <div class="personal-info-item">
-                        <strong>Location:</strong> <span id="modal-location"></span>
-                    </div>
-                    <div class="personal-info-item">
-                        <strong>Age:</strong> <span id="modal-age"></span>
-                    </div>
-                    <div class="personal-info-item">
-                        <strong>Nationality:</strong> <span id="modal-nationality"></span>
-                    </div>
-                    <div class="personal-info-item">
-                        <strong>Address:</strong> <span id="modal-address"></span>
-                    </div>
-                    <div class="personal-info-item">
-                        <strong>Phone:</strong> <span id="modal-phone"></span>
-                    </div>
-                    <div class="personal-info-item">
-                        <strong>Credit Card:</strong> <span id="modal-creditcard"></span>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Digital Footprint -->
-            <div class="modal-section-header">Digital Footprint</div>
-            <div class="detail-grid">
-                <div class="detail-item">
-                    <strong>Email:</strong> <span id="modal-email"></span>
-                </div>
-                <div class="detail-item">
-                    <strong>IP Addresses:</strong> <span id="modal-ips"></span>
-                </div>
-                <div class="detail-item">
-                    <strong>Social Media:</strong> <span id="modal-social"></span>
-                </div>
-            </div>
-            
-            <!-- Criminal Activity -->
-            <div class="modal-section-header">Criminal Activity</div>
-            <div id="modal-crimes"></div>
-            <div class="modal-crime-tags" id="modal-tags"></div>
-            
-            <!-- Credits -->
-            <div class="modal-section-header">Investigation Credits</div>
-            <div class="credits-section" id="modal-credits"></div>
-            
-            <!-- Evidence & Links -->
-            <div class="modal-section-header">Evidence & Links</div>
-            <div class="evidence-links" id="modal-evidence"></div>
         </div>
     </div>
-</div>
 
-<!-- Background Music - SPOTIFY -->
-<iframe id="bg-music" width="0" height="0" src="https://open.spotify.com/track/3s44Qv8x974tm0ueLexMWN?si=274c3eb1618a466c" frameborder="0" allow="autoplay"></iframe>
-<button id="music-toggle" class="music-btn">🔇</button>
-    
+    <!-- Background Music -->
+    <iframe id="bg-music" style="display:none;" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&playlist=jfKfPfyJRdk&controls=0" allow="autoplay" frameborder="0"></iframe>
+
     <script src="script.js"></script>
 </body>
 </html>

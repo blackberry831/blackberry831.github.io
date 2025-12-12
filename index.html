@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asha's Database Index</title>
-    <link rel="icon" type="image/png" href="https://upload.wikimedia.org/wikipedia/en/9/93/BreachForums_logo.png">
+    <link rel="icon" type="image/png" href="https://i.imgur.com/PE8LTLb.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -88,49 +88,57 @@
         </div>
     </footer>
 
-    <!-- Database Details Modal -->
-    <div id="database-modal" class="modal">
-        <div class="modal-overlay"></div>
-        <div class="modal-content">
-            <button class="modal-close">&times;</button>
-            <div class="modal-image-container">
-                <!-- Image will be inserted here -->
+<!-- Database Details Modal -->
+<div id="database-modal" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+        <button class="modal-close">&times;</button>
+        <div class="modal-image-container">
+            <img src="https://i.imgur.com/fE9JMni.png" alt="Database Preview" onerror="this.src='https://i.imgur.com/fE9JMni.png'">
+        </div>
+        <div class="modal-body">
+            <h2 id="modal-title">Database Title</h2>
+            <div class="modal-meta">
+                <span class="meta-item"><strong>Type:</strong> <span id="modal-type">Forum Database</span></span>
+                <span class="meta-item"><strong>Date:</strong> <span id="modal-date">2024</span></span>
+                <span class="meta-item"><strong>Size:</strong> <span id="modal-size">~2.5GB</span></span>
             </div>
-            <div class="modal-body">
-                <h2 id="modal-title"></h2>
-                <div class="modal-meta">
-                    <span class="meta-item"><strong>Type:</strong> <span id="modal-type"></span></span>
-                    <span class="meta-item"><strong>Date:</strong> <span id="modal-date"></span></span>
-                    <span class="meta-item"><strong>Size:</strong> <span id="modal-size"></span></span>
-                </div>
-                <div class="modal-description" id="modal-description"></div>
-                
+            <div class="modal-description" id="modal-description">
+                Database description will appear here.
+            </div>
+            
+            <div class="modal-features">
+                <h3>📁 Database Contents</h3>
+                <ul id="modal-features">
+                    <li>Loading features...</li>
+                </ul>
+            </div>
+            
+            <!-- Sample Section -->
+            <div class="sample-section">
                 <div class="expandable-section">
-                    <button class="expand-btn" data-target="features-content">
-                        <span>📁 Database Contents</span>
+                    <button class="expand-btn" data-target="sample-content">
+                        <span>📋 Sample Data Preview</span>
                         <span class="expand-icon">▶</span>
                     </button>
-                    <div class="expandable-content" id="features-content">
-                        <div class="modal-features">
-                            <ul id="modal-features"></ul>
+                    <div class="expandable-content" id="sample-content">
+                        <div class="sample-preview blurred" id="sample-preview">
+                            <pre id="modal-sample">Loading sample data...</pre>
                         </div>
+                        <button class="unblur-btn" id="unblur-btn">Click to view sample</button>
                     </div>
                 </div>
-                
-                <!-- Sample Section -->
-                <div class="sample-section">
-                    <!-- Sample content will be inserted here -->
-                </div>
-                
-                <!-- Download Section -->
-                <div class="download-section">
-                    <!-- Download content will be inserted here -->
-                </div>
-                
-                <div class="modal-tags" id="modal-tags"></div>
             </div>
+            
+            <!-- Download Section -->
+            <div class="download-section">
+                <!-- Download content will be inserted here -->
+            </div>
+            
+            <div class="modal-tags" id="modal-tags"></div>
         </div>
     </div>
+</div>
 
     <!-- Education Modal -->
     <div id="education-modal" class="modal education-modal">

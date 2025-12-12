@@ -192,83 +192,10 @@ Response time: Usually within 24-48 hours
         tags: ["Custom", "Free"]
     }
 ];
-        description: "Alleged breachforums.vc database. WARNING: No evidence provided that this database exists or that the seller has access to it. Purchase at extreme risk. UNVERIFIED.",
-        features: [
-            "Alleged user data (UNVERIFIED)",
-            "Claimed email addresses and passwords",
-            "Supposed user registration dates",
-            "Alleged private messages",
-            "Claimed IP addresses",
-            "Claimed Mod CP logged IPs",
-            "CDN Access (UNVERIFIED)",
-            "Database schema (UNVERIFIED)"
-        ],
-        tags: ["Forum", "UNVERIFIED", "HIGH RISK", "NO PROOF"]
-    },
-    {
-        id: 6,
-        name: "Custom Database Request",
-        type: "Custom",
-        icon: "🎯",
-        date: "On Request",
-        size: "Varies",
-        description: "Contact for custom database acquisition requests, OSINT services, or specific data requirements.",
-        features: [
-            "Custom database searches",
-            "OSINT investigations",
-            "Data breach verification",
-            "Specific forum targeting",
-            "Private inquiries handled"
-        ],
-        tags: ["Custom", "OSINT", "Request"]
-    }
-];
 
 // Global variables
 let filteredDatabases = [...databases];
 let currentFilter = 'all';
-
-// Sound effects using Web Audio API
-const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-
-function playSound(type) {
-    const oscillator = audioContext.createOscillator();
-    const gainNode = audioContext.createGain();
-    
-    oscillator.connect(gainNode);
-    gainNode.connect(audioContext.destination);
-    
-    switch(type) {
-        case 'click':
-            oscillator.frequency.value = 800;
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.1);
-            break;
-        case 'hover':
-            oscillator.frequency.value = 600;
-            gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.05);
-            break;
-        case 'modal':
-            oscillator.frequency.value = 1000;
-            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.2);
-            break;
-        case 'expand':
-            oscillator.frequency.value = 700;
-            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.15);
-            break;
-    }
-}
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -279,46 +206,33 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilters();
     initializeScrollBehavior();
     initializeDisclaimerModal();
-    addSoundEffects();
 });
 
-// Loading screen
+// Loading screen - FIXED VERSION
 function initializeLoading() {
     const loadingScreen = document.getElementById('loading-screen');
-    const loadingProgress = document.querySelector('.loading-progress');
     
-    let progress = 0;
-    const interval = setInterval(() => {
-        progress += Math.random() * 25 + 10; // Faster loading
-        if (progress >= 100) {
-            progress = 100;
-            clearInterval(interval);
+    if (loadingScreen) {
+        // Hide loading screen immediately since page is already loaded
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
             
+            // Remove from DOM after animation
             setTimeout(() => {
-                if (loadingScreen) {
-                    loadingScreen.classList.add('hidden');
-                    // Remove from DOM after animation
-                    setTimeout(() => {
-                        loadingScreen.style.display = 'none';
-                    }, 500);
-                }
-            }, 300);
-        }
-        
-        if (loadingProgress) {
-            loadingProgress.style.width = `${progress}%`;
-        }
-    }, 80); // Faster intervals
+                loadingScreen.style.display = 'none';
+            }, 500);
+        }, 300); // Short delay to show loading animation briefly
+    }
     
-    // Failsafe: force hide after 3 seconds
+    // Failsafe: force hide after 2 seconds max
     setTimeout(() => {
-        if (loadingScreen) {
+        if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
             loadingScreen.classList.add('hidden');
             setTimeout(() => {
                 loadingScreen.style.display = 'none';
             }, 500);
         }
-    }, 3000);
+    }, 2000);
 }
 
 // Populate database grid
@@ -376,7 +290,6 @@ function createDatabaseCard(db) {
     `;
     
     card.addEventListener('click', () => {
-        playSound('click');
         openModal(db);
     });
     
@@ -390,12 +303,10 @@ function initializeSearch() {
     
     if (searchBtn && searchInput) {
         searchBtn.addEventListener('click', () => {
-            playSound('click');
             performSearch();
         });
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
-                playSound('click');
                 performSearch();
             }
         });
@@ -411,7 +322,6 @@ function initializeFilters() {
     
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function() {
-            playSound('click');
             filterButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
@@ -424,7 +334,7 @@ function initializeFilters() {
 // Perform search - automatically filters by name and price
 function performSearch() {
     const searchInput = document.getElementById('search-input');
-    const searchTerm = searchInput.value.toLowerCase().trim();
+    const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
     
     filteredDatabases = databases.filter(db => {
         const matchesSearch = searchTerm === '' || db.name.toLowerCase().includes(searchTerm);
@@ -447,14 +357,12 @@ function initializeModal() {
     
     closeBtns.forEach(btn => {
         btn.addEventListener('click', function() {
-            playSound('click');
             closeModal();
         });
     });
     
     overlays.forEach(overlay => {
         overlay.addEventListener('click', function() {
-            playSound('click');
             closeModal();
         });
     });
@@ -463,11 +371,9 @@ function initializeModal() {
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             if (modal && modal.classList.contains('active')) {
-                playSound('click');
                 closeModal();
             }
             if (disclaimerModal && disclaimerModal.classList.contains('active')) {
-                playSound('click');
                 disclaimerModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
@@ -477,7 +383,6 @@ function initializeModal() {
     // Expandable sections
     document.addEventListener('click', function(e) {
         if (e.target.closest('.expand-btn')) {
-            playSound('expand');
             const btn = e.target.closest('.expand-btn');
             const targetId = btn.getAttribute('data-target');
             const content = document.getElementById(targetId);
@@ -488,10 +393,11 @@ function initializeModal() {
         
         // Unblur button
         if (e.target.id === 'unblur-btn') {
-            playSound('click');
             const preview = document.getElementById('sample-preview');
-            preview.classList.remove('blurred');
-            e.target.classList.add('hidden');
+            if (preview) {
+                preview.classList.remove('blurred');
+                e.target.classList.add('hidden');
+            }
         }
     });
 }
@@ -501,34 +407,45 @@ function openModal(db) {
     const modal = document.getElementById('database-modal');
     if (!modal) return;
     
-    playSound('modal');
-    
     // Populate modal content
-    document.getElementById('modal-image').src = db.image;
-    document.getElementById('modal-title').textContent = db.name;
-    document.getElementById('modal-type').textContent = db.type;
-    document.getElementById('modal-date').textContent = db.date;
-    document.getElementById('modal-size').textContent = db.size;
-    document.getElementById('modal-description').textContent = db.description;
+    const modalImage = document.getElementById('modal-image');
+    if (modalImage) modalImage.src = db.image;
+    
+    const modalTitle = document.getElementById('modal-title');
+    if (modalTitle) modalTitle.textContent = db.name;
+    
+    const modalType = document.getElementById('modal-type');
+    if (modalType) modalType.textContent = db.type;
+    
+    const modalDate = document.getElementById('modal-date');
+    if (modalDate) modalDate.textContent = db.date;
+    
+    const modalSize = document.getElementById('modal-size');
+    if (modalSize) modalSize.textContent = db.size;
+    
+    const modalDescription = document.getElementById('modal-description');
+    if (modalDescription) modalDescription.textContent = db.description;
     
     // Populate features list
     const featuresList = document.getElementById('modal-features');
-    featuresList.innerHTML = '';
-    db.features.forEach(feature => {
-        const li = document.createElement('li');
-        li.textContent = feature;
-        featuresList.appendChild(li);
-    });
+    if (featuresList) {
+        featuresList.innerHTML = '';
+        db.features.forEach(feature => {
+            const li = document.createElement('li');
+            li.textContent = feature;
+            featuresList.appendChild(li);
+        });
+    }
     
     // Populate sample data
     const samplePre = document.getElementById('modal-sample');
-    samplePre.textContent = db.sample;
+    if (samplePre) samplePre.textContent = db.sample;
     
     // Reset sample blur
     const samplePreview = document.getElementById('sample-preview');
     const unblurBtn = document.getElementById('unblur-btn');
-    samplePreview.classList.add('blurred');
-    unblurBtn.classList.remove('hidden');
+    if (samplePreview) samplePreview.classList.add('blurred');
+    if (unblurBtn) unblurBtn.classList.remove('hidden');
     
     // Reset expandable sections
     document.querySelectorAll('.expandable-content').forEach(content => {
@@ -540,21 +457,23 @@ function openModal(db) {
     
     // Populate tags
     const modalTags = document.getElementById('modal-tags');
-    modalTags.innerHTML = '';
-    
-    // Add price tag
-    const priceTag = document.createElement('span');
-    priceTag.className = db.price === 'Free' ? 'tag free' : 'tag for-sale';
-    priceTag.textContent = db.price;
-    modalTags.appendChild(priceTag);
-    
-    // Add other tags
-    db.tags.forEach(tag => {
-        const tagElement = document.createElement('span');
-        tagElement.className = 'tag';
-        tagElement.textContent = tag;
-        modalTags.appendChild(tagElement);
-    });
+    if (modalTags) {
+        modalTags.innerHTML = '';
+        
+        // Add price tag
+        const priceTag = document.createElement('span');
+        priceTag.className = db.price === 'Free' ? 'tag free' : 'tag for-sale';
+        priceTag.textContent = db.price;
+        modalTags.appendChild(priceTag);
+        
+        // Add other tags
+        db.tags.forEach(tag => {
+            const tagElement = document.createElement('span');
+            tagElement.className = 'tag';
+            tagElement.textContent = tag;
+            modalTags.appendChild(tagElement);
+        });
+    }
     
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -580,12 +499,12 @@ function initializeScrollBehavior() {
         
         if (scrollTop > lastScrollTop && scrollTop > 100) {
             // Scrolling down
-            header.classList.add('hidden');
-            footer.classList.add('hidden');
+            if (header) header.classList.add('hidden');
+            if (footer) footer.classList.add('hidden');
         } else {
             // Scrolling up
-            header.classList.remove('hidden');
-            footer.classList.remove('hidden');
+            if (header) header.classList.remove('hidden');
+            if (footer) footer.classList.remove('hidden');
         }
         
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
@@ -599,7 +518,6 @@ function initializeDisclaimerModal() {
     
     if (disclaimerBtn && disclaimerModal) {
         disclaimerBtn.addEventListener('click', function() {
-            playSound('modal');
             disclaimerModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
@@ -609,7 +527,6 @@ function initializeDisclaimerModal() {
         
         if (closeBtn) {
             closeBtn.addEventListener('click', function() {
-                playSound('click');
                 disclaimerModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
@@ -617,48 +534,9 @@ function initializeDisclaimerModal() {
         
         if (overlay) {
             overlay.addEventListener('click', function() {
-                playSound('click');
                 disclaimerModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
         }
     }
 }
-
-// Add sound effects to interactive elements
-function addSoundEffects() {
-    // Hover sounds
-    document.addEventListener('mouseover', function(e) {
-        if (e.target.matches('.database-card, .nav-link, .filter-btn, button, a')) {
-            playSound('hover');
-        }
-    });
-    
-    // Click sounds
-    document.addEventListener('click', function(e) {
-        if (e.target.matches('.nav-link, .filter-btn, button:not(.expand-btn), a')) {
-            playSound('click');
-        }
-    });
-}
-
-// Auto-play YouTube music on page load (after user interaction)
-window.addEventListener('load', function() {
-    const bgMusic = document.getElementById('bg-music');
-    
-    // Try to play music after first user interaction
-    const playMusic = () => {
-        if (bgMusic) {
-            bgMusic.src = "https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&loop=1&playlist=jfKfPfyJRdk&controls=0&mute=0";
-        }
-        // Remove listeners after first interaction
-        document.removeEventListener('click', playMusic);
-        document.removeEventListener('keydown', playMusic);
-        document.removeEventListener('scroll', playMusic);
-    };
-    
-    // Add listeners for user interaction
-    document.addEventListener('click', playMusic, { once: true });
-    document.addEventListener('keydown', playMusic, { once: true });
-    document.addEventListener('scroll', playMusic, { once: true });
-});

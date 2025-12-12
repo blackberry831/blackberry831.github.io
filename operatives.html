@@ -185,18 +185,19 @@ kdl0CsrZI+l8qeeT3DgrrD9Q6YQ=
             </div>
         </div>
     </footer>
-    <script src="script.js"></script>
-    <script>
-        function copyPGP() {
-            const pgpKey = document.querySelector('.pgp-key').textContent;
-            navigator.clipboard.writeText(pgpKey).then(() => {
-                const btn = event.target;
-                btn.textContent = '✓ Copied!';
-                setTimeout(() => {
-                    btn.textContent = '📋 Copy PGP Key';
-                }, 2000);
-            });
-        }
-    </script>
+<script src="script.js"></script>
+<script>
+    // Only include this in operatives.html
+    function copyPGP() {
+        const pgpKey = document.querySelector('.pgp-key').textContent;
+        navigator.clipboard.writeText(pgpKey).then(() => {
+            const btn = event.target;
+            btn.textContent = '✓ Copied!';
+            setTimeout(() => {
+                btn.textContent = '📋 Copy PGP Key';
+            }, 2000);
+        });
+    }
+</script>
 </body>
 </html>

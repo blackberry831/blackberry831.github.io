@@ -63,17 +63,20 @@
                         </div>
                         <div class="operative-info">
                             <h3>Ash (Asha)</h3>
-                            <p class="operative-role">Database Specialist</p>
+                            <p class="operative-role">Database Specialist & OSINT Operator</p>
                             <div class="operative-badges">
-                                <span class="badge">OSINT</span>
+                                <span class="badge">OSINT Expert</span>
                                 <span class="badge">Database Breacher</span>
                                 <span class="badge">Forum Moderator</span>
+                                <span class="badge">Security Analyst</span>
                             </div>
                         </div>
                     </div>
 
                     <div class="operative-bio">
-                        <p>Database Breacher and BreachForums LARP Forum Moderator. Former Member of DEADSEC. Operating since 2022 with extensive experience in database acquisition and OSINT operations.</p>
+                        <p>Database Breacher and BreachForums LARP Forum Moderator. Former Member of DEADSEC. Operating since 2022 with extensive experience in database acquisition, OSINT operations, and cybersecurity research.</p>
+                        
+                        <p>Specializes in forum database extraction, credential analysis, and breach pattern identification. Provides verified database access with accuracy and reliability.</p>
                     </div>
 
                     <div class="operative-stats">
@@ -92,18 +95,18 @@
                     </div>
 
                     <div class="operative-contact">
-                        <h4>Contact Information</h4>
+                        <h4>📨 Contact Information</h4>
                         <div class="contact-links">
                             <a href="mailto:ashabreached@protonmail.com" class="contact-link email">
                                 <span class="icon">✉️</span>
-                                <span>ashabreached@protonmail.com</span>
+                                <span class="contact-text">ashabreached@protonmail.com</span>
                             </a>
                         </div>
                         
                         <div class="pgp-section">
                             <button class="expand-btn pgp-btn" data-target="pgp-content">
                                 <span class="expand-icon">▶</span>
-                                <span>PGP Public Key</span>
+                                <span>🔐 PGP Public Key</span>
                             </button>
                             <div class="expandable-content" id="pgp-content">
                                 <pre class="pgp-key">-----BEGIN PGP PUBLIC KEY BLOCK-----
@@ -163,8 +166,31 @@ kdl0CsrZI+l8qeeT3DgrrD9Q6YQ=
                     </div>
 
                     <div class="operative-services">
-                        <h4>Services</h4>
-                        <p class="services-note">Contact for database inquiries and OSINT services.</p>
+                        <h4>🛠️ Services Offered</h4>
+                        <ul class="services-list">
+                            <li>✅ Database acquisition and verification</li>
+                            <li>✅ OSINT investigations and research</li>
+                            <li>✅ Forum database extraction</li>
+                            <li>✅ Credential analysis and validation</li>
+                            <li>✅ Custom database requests</li>
+                            <li>✅ Security consultation</li>
+                        </ul>
+                        <p class="services-note">Contact for inquiries and custom database requests. Response time: 24-48 hours.</p>
+                    </div>
+
+                    <div class="operative-verification">
+                        <h4>🔍 Verification Status</h4>
+                        <div class="verification-badges">
+                            <span class="verification-badge verified">
+                                <span class="badge-icon">✅</span> Verified Operator
+                            </span>
+                            <span class="verification-badge trusted">
+                                <span class="badge-icon">🤝</span> Trusted Vendor
+                            </span>
+                            <span class="verification-badge active">
+                                <span class="badge-icon">⚡</span> Currently Active
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,19 +211,124 @@ kdl0CsrZI+l8qeeT3DgrrD9Q6YQ=
             </div>
         </div>
     </footer>
-<script src="script.js"></script>
-<script>
-    // Only include this in operatives.html
-    function copyPGP() {
-        const pgpKey = document.querySelector('.pgp-key').textContent;
-        navigator.clipboard.writeText(pgpKey).then(() => {
-            const btn = event.target;
-            btn.textContent = '✓ Copied!';
-            setTimeout(() => {
-                btn.textContent = '📋 Copy PGP Key';
-            }, 2000);
+
+    <!-- Education Modal -->
+    <div id="education-modal" class="modal education-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="education-content">
+                <div class="education-icon">🔬</div>
+                <h2>Research & Educational Purposes Only</h2>
+                <div class="education-text">
+                    <p><strong>Important Notice:</strong> This database index is provided for <strong>research and educational purposes only</strong>.</p>
+                    
+                    <p>All information contained within this website is intended for:</p>
+                    <ul>
+                        <li>Cybersecurity research and education</li>
+                        <li>Academic study and analysis</li>
+                        <li>Security professionals analyzing breach patterns</li>
+                        <li>Educational institutions teaching cybersecurity</li>
+                    </ul>
+                    
+                    <p><strong>⚠️ Important Warnings:</strong></p>
+                    <ul>
+                        <li>Never use this information for illegal activities</li>
+                        <li>Always respect privacy laws and regulations</li>
+                        <li>Use infected files only in secure, isolated environments</li>
+                        <li>Report vulnerabilities responsibly</li>
+                        <li>Protect user privacy at all times</li>
+                    </ul>
+                    
+                    <p>By using this service, you agree to use all information responsibly and ethically.</p>
+                </div>
+                <button class="education-btn" id="education-accept-btn">✅ I Understand & Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Disclaimer Modal -->
+    <div id="disclaimer-modal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content disclaimer-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <h2>Legal Disclaimer</h2>
+                <div class="disclaimer-text">
+                    <p><strong>⚠️ IMPORTANT LEGAL NOTICE ⚠️</strong></p>
+                    
+                    <p>This website ("Asha's Database Index") is provided for <strong>educational and research purposes only</strong>. The information contained herein is intended solely for:</p>
+                    
+                    <ul>
+                        <li>Cybersecurity professionals conducting authorized security audits</li>
+                        <li>Academic researchers studying data breach patterns</li>
+                        <li>Educational institutions teaching cybersecurity defense</li>
+                        <li>Security analysts investigating threat landscapes</li>
+                    </ul>
+                    
+                    <p><strong>PROHIBITED USES:</strong></p>
+                    <ul>
+                        <li>❌ Accessing or using any information for illegal purposes</li>
+                        <li>❌ Violating any individual's privacy rights</li>
+                        <li>❌ Engaging in unauthorized access to computer systems</li>
+                        <li>❌ Using information for harassment, stalking, or doxxing</li>
+                        <li>❌ Selling or distributing information without authorization</li>
+                    </ul>
+                    
+                    <p><strong>LEGAL COMPLIANCE:</strong></p>
+                    <p>Users must comply with all applicable laws including:</p>
+                    <ul>
+                        <li>Computer Fraud and Abuse Act (CFAA)</li>
+                        <li>General Data Protection Regulation (GDPR)</li>
+                        <li>California Consumer Privacy Act (CCPA)</li>
+                        <li>Other relevant data protection and privacy laws</li>
+                    </ul>
+                    
+                    <p><strong>NO WARRANTY:</strong> All information is provided "as is" without warranty of any kind. Use at your own risk.</p>
+                    
+                    <p><strong>RESPONSIBLE DISCLOSURE:</strong> If you discover vulnerabilities, please report them responsibly to the affected parties.</p>
+                    
+                    <p>By using this service, you acknowledge that you will use all information ethically and legally, and assume full responsibility for your actions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLoading();
+            initializeScrollBehavior();
+            initializeDisclaimerModal();
+            initializeEducationModal();
+            
+            // Initialize expandable sections
+            document.querySelectorAll('.expand-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const targetId = this.getAttribute('data-target');
+                    const content = document.getElementById(targetId);
+                    
+                    if (content) {
+                        this.classList.toggle('active');
+                        content.classList.toggle('active');
+                    }
+                });
+            });
         });
-    }
-</script>
+
+        function copyPGP() {
+            const pgpKey = document.querySelector('.pgp-key').textContent;
+            navigator.clipboard.writeText(pgpKey).then(() => {
+                const btn = event.target;
+                btn.textContent = '✓ Copied!';
+                btn.style.background = 'linear-gradient(135deg, var(--accent-green), #059669)';
+                setTimeout(() => {
+                    btn.textContent = '📋 Copy PGP Key';
+                    btn.style.background = 'linear-gradient(135deg, var(--accent-purple), var(--accent-purple-dark))';
+                }, 2000);
+            });
+        }
+    </script>
 </body>
 </html>

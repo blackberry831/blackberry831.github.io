@@ -20,11 +20,15 @@
     </div>
 
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="header-container">
             <div class="logo">
-                <span class="logo-icon">🗂️</span>
-                <h1>Asha's Database Index</h1>
+                <!-- Icon here - Replace with your image URL -->
+                <img src="https://i.imgur.com/PE8LTLb.png" alt="Logo" class="logo-img">
+                <h1 class="logo-title">
+                    <span class="title-main">Asha's</span>
+                    <span class="title-sub">Database Index</span>
+                </h1>
             </div>
             <nav>
                 <a href="index.html" class="nav-link active">Database Index</a>
@@ -43,11 +47,19 @@
                     <p class="db-count">Total Databases: <span id="total-count">0</span></p>
                 </div>
                 
-                <div class="search-bar">
-                    <input type="text" id="search-input" placeholder="Search databases by name...">
-                    <button id="search-btn">
-                        <span>🔍</span>
-                    </button>
+                <div class="search-controls">
+                    <div class="search-bar">
+                        <input type="text" id="search-input" placeholder="Search databases by name, description, or tags...">
+                        <button id="search-btn">
+                            <span>🔍</span>
+                        </button>
+                    </div>
+                    
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">All</button>
+                        <button class="filter-btn" data-filter="free">Free</button>
+                        <button class="filter-btn" data-filter="paid">Paid</button>
+                    </div>
                 </div>
             </div>
 
@@ -66,9 +78,10 @@
     </main>
 
     <!-- Footer -->
-    <footer>
+    <footer id="footer">
         <div class="footer-content">
             <p>&copy; 2025 Asha's Database Index. All rights reserved.</p>
+            <button id="disclaimer-btn" class="disclaimer-btn">Disclaimer</button>
             <div class="footer-links">
                 <a href="operatives.html">Operatives</a>
             </div>
@@ -80,6 +93,9 @@
         <div class="modal-overlay"></div>
         <div class="modal-content">
             <button class="modal-close">&times;</button>
+            <div class="modal-image-container">
+                <!-- Image will be inserted here -->
+            </div>
             <div class="modal-body">
                 <h2 id="modal-title"></h2>
                 <div class="modal-meta">
@@ -88,14 +104,116 @@
                     <span class="meta-item"><strong>Size:</strong> <span id="modal-size"></span></span>
                 </div>
                 <div class="modal-description" id="modal-description"></div>
-                <div class="modal-features">
-                    <h3>Database Contents:</h3>
-                    <ul id="modal-features"></ul>
+                
+                <div class="expandable-section">
+                    <button class="expand-btn" data-target="features-content">
+                        <span>📁 Database Contents</span>
+                        <span class="expand-icon">▶</span>
+                    </button>
+                    <div class="expandable-content" id="features-content">
+                        <div class="modal-features">
+                            <ul id="modal-features"></ul>
+                        </div>
+                    </div>
                 </div>
+                
+                <!-- Sample Section -->
+                <div class="sample-section">
+                    <!-- Sample content will be inserted here -->
+                </div>
+                
+                <!-- Download Section -->
+                <div class="download-section">
+                    <!-- Download content will be inserted here -->
+                </div>
+                
                 <div class="modal-tags" id="modal-tags"></div>
             </div>
         </div>
     </div>
+
+    <!-- Education Modal -->
+    <div id="education-modal" class="modal education-modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <button class="modal-close">&times;</button>
+            <div class="education-content">
+                <div class="education-icon">🔬</div>
+                <h2>Research & Educational Purposes Only</h2>
+                <div class="education-text">
+                    <p><strong>Important Notice:</strong> This database index is provided for <strong>research and educational purposes only</strong>.</p>
+                    
+                    <p>All information contained within this website is intended for:</p>
+                    <ul>
+                        <li>Cybersecurity research and education</li>
+                        <li>Academic study and analysis</li>
+                        <li>Security professionals analyzing breach patterns</li>
+                        <li>Educational institutions teaching cybersecurity</li>
+                    </ul>
+                    
+                    <p><strong>⚠️ Important Warnings:</strong></p>
+                    <ul>
+                        <li>Never use this information for illegal activities</li>
+                        <li>Always respect privacy laws and regulations</li>
+                        <li>Use infected files only in secure, isolated environments</li>
+                        <li>Report vulnerabilities responsibly</li>
+                        <li>Protect user privacy at all times</li>
+                    </ul>
+                    
+                    <p>By using this service, you agree to use all information responsibly and ethically.</p>
+                </div>
+                <button class="education-btn">I Understand & Accept</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Disclaimer Modal -->
+    <div id="disclaimer-modal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content disclaimer-content">
+            <button class="modal-close">&times;</button>
+            <div class="modal-body">
+                <h2>Legal Disclaimer</h2>
+                <div class="disclaimer-text">
+                    <p><strong>⚠️ IMPORTANT LEGAL NOTICE ⚠️</strong></p>
+                    
+                    <p>This website ("Asha's Database Index") is provided for <strong>educational and research purposes only</strong>. The information contained herein is intended solely for:</p>
+                    
+                    <ul>
+                        <li>Cybersecurity professionals conducting authorized security audits</li>
+                        <li>Academic researchers studying data breach patterns</li>
+                        <li>Educational institutions teaching cybersecurity defense</li>
+                        <li>Security analysts investigating threat landscapes</li>
+                    </ul>
+                    
+                    <p><strong>PROHIBITED USES:</strong></p>
+                    <ul>
+                        <li>❌ Accessing or using any information for illegal purposes</li>
+                        <li>❌ Violating any individual's privacy rights</li>
+                        <li>❌ Engaging in unauthorized access to computer systems</li>
+                        <li>❌ Using information for harassment, stalking, or doxxing</li>
+                        <li>❌ Selling or distributing information without authorization</li>
+                    </ul>
+                    
+                    <p><strong>LEGAL COMPLIANCE:</strong></p>
+                    <p>Users must comply with all applicable laws including:</p>
+                    <ul>
+                        <li>Computer Fraud and Abuse Act (CFAA)</li>
+                        <li>General Data Protection Regulation (GDPR)</li>
+                        <li>California Consumer Privacy Act (CCPA)</li>
+                        <li>Other relevant data protection and privacy laws</li>
+                    </ul>
+                    
+                    <p><strong>NO WARRANTY:</strong> All information is provided "as is" without warranty of any kind. Use at your own risk.</p>
+                    
+                    <p><strong>RESPONSIBLE DISCLOSURE:</strong> If you discover vulnerabilities, please report them responsibly to the affected parties.</p>
+                    
+                    <p>By using this service, you acknowledge that you will use all information ethically and legally, and assume full responsibility for your actions.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

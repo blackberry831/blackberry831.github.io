@@ -33,7 +33,8 @@ Total Records: 52,847 users
 Admin Accounts: 12
 Moderator Accounts: 47
 Premium Members: 3,421`,
-        tags: ["Official BF Database", "Verified"]
+        tags: ["Official", "Verified"],
+        infected: false
     },
     {
         id: 2,
@@ -63,7 +64,8 @@ Premium Members: 3,421`,
 Total Users: 38,492
 Total Posts: 1,284,592
 Total Private Messages: 524,183`,
-        tags: ["Official BF Database", "Verified"]
+        tags: ["Official", "Verified"],
+        infected: false
     },
     {
         id: 3,
@@ -92,7 +94,8 @@ Total Accounts: 25,814
 Active Users: 18,293
 Suspended: 4,521
 Banned: 3,000`,
-        tags: ["Official BF Database"]
+        tags: ["Official", "Unverified"],
+        infected: false
     },
     {
         id: 4,
@@ -122,7 +125,8 @@ admin_c,adminc@forum.info,192.168.5.10,2024-03-22
 
 Note: This database has not been verified and may contain
 fabricated or incomplete information. Purchase at your own risk.`,
-        tags: ["Official BF Database", "Possibly Infected"]
+        tags: ["Unverified", "Infected"],
+        infected: true
     },
     {
         id: 5,
@@ -156,7 +160,8 @@ CRITICAL WARNING:
 RECOMMENDATION: DO NOT PURCHASE
 This database is highly likely to be fraudulent.
 No legitimate seller would refuse to provide any evidence.`,
-        tags: ["UNVERIFIED", "HIGH RISK", "Possibly Infected"]
+        tags: ["Unverified", "No Proof"],
+        infected: true
     },
     {
         id: 6,
@@ -189,13 +194,91 @@ Contact: ashabreached@protonmail.com
 PGP Key available on Operatives page
 Response time: Usually within 24-48 hours
 `,
-        tags: ["Custom", "Free"]
+        tags: ["Custom", "OSINT"],
+        infected: false
     }
 ];
 
 // Global variables
 let filteredDatabases = [...databases];
 let currentFilter = 'all';
+let downloadTimers = {};
+
+// Sound effects using Web Audio API
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+
+function playSound(type) {
+    if (!audioContext || audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
+    
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    
+    switch(type) {
+        case 'click':
+            oscillator.frequency.value = 800;
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.1);
+            break;
+        case 'hover':
+            oscillator.frequency.value = 600;
+            gainNode.gain.setValueAtTime(0.05, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.05);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.05);
+            break;
+        case 'modal':
+            oscillator.frequency.value = 400;
+            oscillator.frequency.exponentialRampToValueAtTime(1000, audioContext.currentTime + 0.2);
+            gainNode.gain.setValueAtTime(0.15, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.2);
+            break;
+        case 'expand':
+            oscillator.frequency.value = 300;
+            oscillator.frequency.exponentialRampToValueAtTime(700, audioContext.currentTime + 0.15);
+            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.15);
+            break;
+        case 'download':
+            oscillator.frequency.value = 1000;
+            oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.3);
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+            break;
+        case 'warning':
+            oscillator.frequency.value = 200;
+            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.5);
+            break;
+    }
+}
+
+// Tag icons mapping
+const tagIcons = {
+    "Official": "🏛️",
+    "Verified": "✅",
+    "Unverified": "❓",
+    "Infected": "🦠",
+    "Custom": "🎯",
+    "OSINT": "🔍",
+    "For Sale": "💰",
+    "Free": "🆓",
+    "No Proof": "🚫"
+};
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -206,25 +289,38 @@ document.addEventListener('DOMContentLoaded', function() {
     initializeFilters();
     initializeScrollBehavior();
     initializeDisclaimerModal();
+    initializeEducationModal();
+    addSoundEffects();
 });
 
-// Loading screen - FIXED VERSION
+// Loading screen - Improved with actual loading
 function initializeLoading() {
     const loadingScreen = document.getElementById('loading-screen');
+    const loadingProgress = document.querySelector('.loading-progress');
     
-    if (loadingScreen) {
-        // Hide loading screen immediately since page is already loaded
-        setTimeout(() => {
-            loadingScreen.classList.add('hidden');
+    if (!loadingScreen || !loadingProgress) return;
+    
+    let progress = 0;
+    const interval = setInterval(() => {
+        progress += 1 + Math.random() * 3; // Simulate actual loading
+        if (progress >= 100) {
+            progress = 100;
+            clearInterval(interval);
             
-            // Remove from DOM after animation
+            loadingProgress.style.width = `${progress}%`;
+            
             setTimeout(() => {
-                loadingScreen.style.display = 'none';
-            }, 500);
-        }, 300); // Short delay to show loading animation briefly
-    }
+                loadingScreen.classList.add('hidden');
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 500);
+            }, 300);
+        }
+        
+        loadingProgress.style.width = `${progress}%`;
+    }, 20);
     
-    // Failsafe: force hide after 2 seconds max
+    // Failsafe: force hide after 5 seconds
     setTimeout(() => {
         if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
             loadingScreen.classList.add('hidden');
@@ -232,7 +328,7 @@ function initializeLoading() {
                 loadingScreen.style.display = 'none';
             }, 500);
         }
-    }, 2000);
+    }, 5000);
 }
 
 // Populate database grid
@@ -267,10 +363,14 @@ function createDatabaseCard(db) {
     card.setAttribute('data-id', db.id);
     
     const priceTag = db.price === 'Free' ? 
-        '<span class="tag free">Free</span>' : 
-        '<span class="tag for-sale">For Sale</span>';
+        '<span class="tag free"><span class="tag-icon">💰</span> Free</span>' : 
+        '<span class="tag for-sale"><span class="tag-icon">🤑</span> For Sale</span>';
     
-    const tagsHTML = db.tags.map(tag => `<span class="tag">${tag}</span>`).join('');
+    const tagsHTML = db.tags.map(tag => {
+        const icon = tagIcons[tag] || '🏷️';
+        const className = tag.toLowerCase().replace(/\s+/g, '-');
+        return `<span class="tag ${className}"><span class="tag-icon">${icon}</span> ${tag}</span>`;
+    }).join('');
     
     card.innerHTML = `
         <div class="database-header">
@@ -289,8 +389,13 @@ function createDatabaseCard(db) {
         <div class="database-tags">${tagsHTML}</div>
     `;
     
-    card.addEventListener('click', () => {
+    card.addEventListener('click', (e) => {
+        playSound('click');
         openModal(db);
+    });
+    
+    card.addEventListener('mouseenter', () => {
+        playSound('hover');
     });
     
     return card;
@@ -303,10 +408,12 @@ function initializeSearch() {
     
     if (searchBtn && searchInput) {
         searchBtn.addEventListener('click', () => {
+            playSound('click');
             performSearch();
         });
         searchInput.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
+                playSound('click');
                 performSearch();
             }
         });
@@ -322,6 +429,7 @@ function initializeFilters() {
     
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function() {
+            playSound('click');
             filterButtons.forEach(b => b.classList.remove('active'));
             this.classList.add('active');
             
@@ -331,13 +439,17 @@ function initializeFilters() {
     });
 }
 
-// Perform search - automatically filters by name and price
+// Perform search
 function performSearch() {
     const searchInput = document.getElementById('search-input');
     const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
     
     filteredDatabases = databases.filter(db => {
-        const matchesSearch = searchTerm === '' || db.name.toLowerCase().includes(searchTerm);
+        const matchesSearch = searchTerm === '' || 
+            db.name.toLowerCase().includes(searchTerm) ||
+            db.description.toLowerCase().includes(searchTerm) ||
+            db.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+        
         const matchesFilter = currentFilter === 'all' || 
             (currentFilter === 'free' && db.price === 'Free') ||
             (currentFilter === 'paid' && db.price === 'For Sale');
@@ -352,17 +464,20 @@ function performSearch() {
 function initializeModal() {
     const modal = document.getElementById('database-modal');
     const disclaimerModal = document.getElementById('disclaimer-modal');
+    const educationModal = document.getElementById('education-modal');
     const closeBtns = document.querySelectorAll('.modal-close');
     const overlays = document.querySelectorAll('.modal-overlay');
     
     closeBtns.forEach(btn => {
         btn.addEventListener('click', function() {
+            playSound('click');
             closeModal();
         });
     });
     
     overlays.forEach(overlay => {
         overlay.addEventListener('click', function() {
+            playSound('click');
             closeModal();
         });
     });
@@ -370,6 +485,7 @@ function initializeModal() {
     // Close on ESC key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
+            playSound('click');
             if (modal && modal.classList.contains('active')) {
                 closeModal();
             }
@@ -377,26 +493,9 @@ function initializeModal() {
                 disclaimerModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             }
-        }
-    });
-    
-    // Expandable sections
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.expand-btn')) {
-            const btn = e.target.closest('.expand-btn');
-            const targetId = btn.getAttribute('data-target');
-            const content = document.getElementById(targetId);
-            
-            btn.classList.toggle('active');
-            content.classList.toggle('active');
-        }
-        
-        // Unblur button
-        if (e.target.id === 'unblur-btn') {
-            const preview = document.getElementById('sample-preview');
-            if (preview) {
-                preview.classList.remove('blurred');
-                e.target.classList.add('hidden');
+            if (educationModal && educationModal.classList.contains('active')) {
+                educationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
             }
         }
     });
@@ -407,76 +506,227 @@ function openModal(db) {
     const modal = document.getElementById('database-modal');
     if (!modal) return;
     
+    playSound('modal');
+    
+    // Clear existing download timer for this database
+    if (downloadTimers[db.id]) {
+        clearInterval(downloadTimers[db.id].interval);
+        delete downloadTimers[db.id];
+    }
+    
     // Populate modal content
-    const modalImage = document.getElementById('modal-image');
-    if (modalImage) modalImage.src = db.image;
+    const modalImageContainer = document.querySelector('.modal-image-container');
+    if (modalImageContainer) {
+        modalImageContainer.innerHTML = `<img src="${db.image}" alt="${db.name}" onerror="this.src='https://i.imgur.com/fE9JMni.png'">`;
+    }
     
-    const modalTitle = document.getElementById('modal-title');
-    if (modalTitle) modalTitle.textContent = db.name;
-    
-    const modalType = document.getElementById('modal-type');
-    if (modalType) modalType.textContent = db.type;
-    
-    const modalDate = document.getElementById('modal-date');
-    if (modalDate) modalDate.textContent = db.date;
-    
-    const modalSize = document.getElementById('modal-size');
-    if (modalSize) modalSize.textContent = db.size;
-    
-    const modalDescription = document.getElementById('modal-description');
-    if (modalDescription) modalDescription.textContent = db.description;
+    document.getElementById('modal-title').textContent = db.name;
+    document.getElementById('modal-type').textContent = db.type;
+    document.getElementById('modal-date').textContent = db.date;
+    document.getElementById('modal-size').textContent = db.size;
+    document.getElementById('modal-description').textContent = db.description;
     
     // Populate features list
     const featuresList = document.getElementById('modal-features');
-    if (featuresList) {
-        featuresList.innerHTML = '';
-        db.features.forEach(feature => {
-            const li = document.createElement('li');
-            li.textContent = feature;
-            featuresList.appendChild(li);
-        });
+    featuresList.innerHTML = '';
+    db.features.forEach(feature => {
+        const li = document.createElement('li');
+        li.textContent = feature;
+        featuresList.appendChild(li);
+    });
+    
+    // Create sample content with expandable sections
+    const sampleSection = document.querySelector('.sample-section');
+    if (sampleSection) {
+        sampleSection.innerHTML = `
+            <div class="expandable-section">
+                <button class="expand-btn" data-target="sample-content">
+                    <span>📋 Sample Data Preview</span>
+                    <span class="expand-icon">▶</span>
+                </button>
+                <div class="expandable-content" id="sample-content">
+                    <div class="sample-preview blurred" id="sample-preview" onclick="toggleSampleBlur()">
+                        <pre id="modal-sample">${db.sample.substring(0, 300)}...</pre>
+                    </div>
+                    <button class="unblur-btn" id="unblur-btn" onclick="toggleSampleBlur()">
+                        Click to ${db.sample.includes('WARNING') ? 'view warning' : 'unblur sample'}
+                    </button>
+                </div>
+            </div>
+        `;
     }
     
-    // Populate sample data
-    const samplePre = document.getElementById('modal-sample');
-    if (samplePre) samplePre.textContent = db.sample;
+    // Create download section
+    const downloadSection = document.querySelector('.download-section');
+    if (downloadSection) {
+        const isInfected = db.infected;
+        const downloadBtnHTML = isInfected ? 
+            `<button class="download-btn warning" onclick="startDownloadTimer(${db.id}, true)" id="download-btn-${db.id}">
+                <span class="warning-icon">⚠️</span> Download Infected File (10s Cooldown)
+            </button>` :
+            `<button class="download-btn" onclick="startDownloadTimer(${db.id}, false)" id="download-btn-${db.id}">
+                ⬇️ Download Database
+            </button>`;
+        
+        downloadSection.innerHTML = `
+            <div class="download-header">
+                <h3>🔽 Database Download</h3>
+            </div>
+            ${downloadBtnHTML}
+            <div class="download-timer" id="timer-${db.id}" style="display: none;">
+                Download available in: <span id="countdown-${db.id}">10</span> seconds
+            </div>
+            ${isInfected ? `
+            <div class="download-warning">
+                <span class="warning-icon">⚠️</span>
+                <strong>WARNING:</strong> This file may contain malware or infected content. 
+                Download at your own risk. Always use in a secure environment.
+            </div>` : ''}
+        `;
+    }
     
-    // Reset sample blur
-    const samplePreview = document.getElementById('sample-preview');
-    const unblurBtn = document.getElementById('unblur-btn');
-    if (samplePreview) samplePreview.classList.add('blurred');
-    if (unblurBtn) unblurBtn.classList.remove('hidden');
-    
-    // Reset expandable sections
-    document.querySelectorAll('.expandable-content').forEach(content => {
-        content.classList.remove('active');
-    });
-    document.querySelectorAll('.expand-btn').forEach(btn => {
-        btn.classList.remove('active');
-    });
-    
-    // Populate tags
+    // Populate tags with icons
     const modalTags = document.getElementById('modal-tags');
-    if (modalTags) {
-        modalTags.innerHTML = '';
-        
-        // Add price tag
-        const priceTag = document.createElement('span');
-        priceTag.className = db.price === 'Free' ? 'tag free' : 'tag for-sale';
-        priceTag.textContent = db.price;
-        modalTags.appendChild(priceTag);
-        
-        // Add other tags
-        db.tags.forEach(tag => {
-            const tagElement = document.createElement('span');
-            tagElement.className = 'tag';
-            tagElement.textContent = tag;
-            modalTags.appendChild(tagElement);
-        });
-    }
+    modalTags.innerHTML = '';
+    
+    // Add price tag
+    const priceTag = document.createElement('span');
+    priceTag.className = db.price === 'Free' ? 'tag free' : 'tag for-sale';
+    priceTag.innerHTML = `<span class="tag-icon">${db.price === 'Free' ? '💰' : '🤑'}</span> ${db.price}`;
+    modalTags.appendChild(priceTag);
+    
+    // Add other tags with icons
+    db.tags.forEach(tag => {
+        const tagElement = document.createElement('span');
+        const icon = tagIcons[tag] || '🏷️';
+        const className = tag.toLowerCase().replace(/\s+/g, '-');
+        tagElement.className = `tag ${className}`;
+        tagElement.innerHTML = `<span class="tag-icon">${icon}</span> ${tag}`;
+        modalTags.appendChild(tagElement);
+    });
     
     modal.classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+// Toggle sample blur
+function toggleSampleBlur() {
+    playSound('expand');
+    const preview = document.getElementById('sample-preview');
+    const btn = document.getElementById('unblur-btn');
+    const samplePre = document.getElementById('modal-sample');
+    
+    if (preview.classList.contains('blurred')) {
+        preview.classList.remove('blurred');
+        btn.textContent = 'Click to blur sample';
+        
+        // Load full sample if not already loaded
+        const currentDb = filteredDatabases.find(db => 
+            db.sample.substring(0, 300) + '...' === samplePre.textContent
+        );
+        if (currentDb) {
+            samplePre.textContent = currentDb.sample;
+        }
+    } else {
+        preview.classList.add('blurred');
+        btn.textContent = 'Click to unblur sample';
+    }
+}
+
+// Download timer function
+function startDownloadTimer(dbId, isInfected) {
+    const btn = document.getElementById(`download-btn-${dbId}`);
+    const timerDisplay = document.getElementById(`timer-${dbId}`);
+    const countdownDisplay = document.getElementById(`countdown-${dbId}`);
+    
+    if (!btn || !timerDisplay || !countdownDisplay) return;
+    
+    playSound(isInfected ? 'warning' : 'download');
+    
+    let seconds = isInfected ? 10 : 3;
+    btn.disabled = true;
+    timerDisplay.style.display = 'block';
+    countdownDisplay.textContent = seconds;
+    
+    if (downloadTimers[dbId]) {
+        clearInterval(downloadTimers[dbId].interval);
+    }
+    
+    downloadTimers[dbId] = {
+        interval: setInterval(() => {
+            seconds--;
+            countdownDisplay.textContent = seconds;
+            
+            if (seconds <= 0) {
+                clearInterval(downloadTimers[dbId].interval);
+                btn.disabled = false;
+                timerDisplay.style.display = 'none';
+                btn.textContent = isInfected ? 
+                    '⚠️ Download Infected File (Ready)' : 
+                    '⬇️ Download Database (Ready)';
+                playSound('click');
+                
+                // Change button to trigger actual download
+                btn.onclick = () => initiateDownload(dbId, isInfected);
+                delete downloadTimers[dbId];
+            }
+        }, 1000)
+    };
+}
+
+// Initiate download
+function initiateDownload(dbId, isInfected) {
+    playSound('download');
+    
+    const db = databases.find(d => d.id === dbId);
+    if (!db) return;
+    
+    // Create a fake download link (in real implementation, this would link to actual file)
+    const link = document.createElement('a');
+    link.href = '#';
+    link.download = `${db.name.replace(/\s+/g, '_')}.zip`;
+    
+    // Create download content
+    const content = `
+Database: ${db.name}
+Type: ${db.type}
+Date: ${db.date}
+Size: ${db.size}
+Price: ${db.price}
+
+Description:
+${db.description}
+
+Features:
+${db.features.map(f => `• ${f}`).join('\n')}
+
+Sample Data:
+${db.sample}
+
+${isInfected ? '\n⚠️ WARNING: This file may contain malware or infected content. Use with caution!' : ''}
+
+Downloaded from Asha's Database Index
+For research and educational purposes only.
+    `;
+    
+    const blob = new Blob([content], { type: 'text/plain' });
+    link.href = URL.createObjectURL(blob);
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Reset button
+    const btn = document.getElementById(`download-btn-${dbId}`);
+    if (btn) {
+        btn.textContent = isInfected ? 
+            '⚠️ Download Infected File (10s Cooldown)' : 
+            '⬇️ Download Database';
+        btn.onclick = () => startDownloadTimer(dbId, isInfected);
+    }
+    
+    // Show success message
+    alert(`Download started for: ${db.name}\n\nRemember: This is for research and educational purposes only!`);
 }
 
 // Close modal
@@ -518,6 +768,7 @@ function initializeDisclaimerModal() {
     
     if (disclaimerBtn && disclaimerModal) {
         disclaimerBtn.addEventListener('click', function() {
+            playSound('modal');
             disclaimerModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
@@ -527,6 +778,7 @@ function initializeDisclaimerModal() {
         
         if (closeBtn) {
             closeBtn.addEventListener('click', function() {
+                playSound('click');
                 disclaimerModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
@@ -534,9 +786,104 @@ function initializeDisclaimerModal() {
         
         if (overlay) {
             overlay.addEventListener('click', function() {
+                playSound('click');
                 disclaimerModal.classList.remove('active');
                 document.body.style.overflow = 'auto';
             });
         }
     }
+}
+
+// Education modal
+function initializeEducationModal() {
+    const educationBtn = document.getElementById('education-btn');
+    const educationModal = document.getElementById('education-modal');
+    
+    if (!educationBtn) {
+        // Create education button if it doesn't exist
+        const footer = document.getElementById('footer');
+        if (footer) {
+            const educationBtn = document.createElement('button');
+            educationBtn.id = 'education-btn';
+            educationBtn.className = 'disclaimer-btn';
+            educationBtn.textContent = 'Research & Educational Purposes Only';
+            educationBtn.style.marginLeft = '1rem';
+            
+            const footerContent = footer.querySelector('.footer-content');
+            if (footerContent) {
+                footerContent.appendChild(educationBtn);
+            }
+        }
+    }
+    
+    if (educationBtn && educationModal) {
+        educationBtn.addEventListener('click', function() {
+            playSound('modal');
+            educationModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        const closeBtn = educationModal.querySelector('.modal-close');
+        const overlay = educationModal.querySelector('.modal-overlay');
+        const acceptBtn = educationModal.querySelector('.education-btn');
+        
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                playSound('click');
+                educationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        if (overlay) {
+            overlay.addEventListener('click', function() {
+                playSound('click');
+                educationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        }
+        
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', function() {
+                playSound('click');
+                educationModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                localStorage.setItem('educationAccepted', 'true');
+            });
+        }
+    }
+    
+    // Show education modal on first visit
+    if (!localStorage.getItem('educationAccepted')) {
+        setTimeout(() => {
+            if (educationModal) {
+                educationModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }, 1000);
+    }
+}
+
+// Add sound effects to interactive elements
+function addSoundEffects() {
+    // Hover sounds
+    document.addEventListener('mouseover', function(e) {
+        if (e.target.matches('.database-card, .nav-link, .filter-btn, button:not(.expand-btn), a, .tag')) {
+            playSound('hover');
+        }
+    });
+    
+    // Click sounds
+    document.addEventListener('click', function(e) {
+        if (e.target.matches('.nav-link, .filter-btn, button:not(.expand-btn), a')) {
+            playSound('click');
+        }
+    });
+    
+    // Expand sounds
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.expand-btn')) {
+            playSound('expand');
+        }
+    });
 }

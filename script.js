@@ -204,7 +204,7 @@ let filteredDatabases = [...databases];
 let currentFilter = 'all';
 let downloadTimers = {};
 
-// Sound effects using Web Audio API
+// Sound effects
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
 function playSound(type) {
@@ -241,33 +241,10 @@ function playSound(type) {
             oscillator.start(audioContext.currentTime);
             oscillator.stop(audioContext.currentTime + 0.2);
             break;
-        case 'expand':
-            oscillator.frequency.value = 300;
-            oscillator.frequency.exponentialRampToValueAtTime(700, audioContext.currentTime + 0.15);
-            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.15);
-            break;
-        case 'download':
-            oscillator.frequency.value = 1000;
-            oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.3);
-            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.3);
-            break;
-        case 'warning':
-            oscillator.frequency.value = 200;
-            gainNode.gain.setValueAtTime(0.2, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.5);
-            break;
     }
 }
 
-// Tag icons mapping
+// Tag icons
 const tagIcons = {
     "Official": "🏛️",
     "Verified": "✅",
@@ -293,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addSoundEffects();
 });
 
-// Loading screen - Improved with actual loading
+// Loading screen
 function initializeLoading() {
     const loadingScreen = document.getElementById('loading-screen');
     const loadingProgress = document.querySelector('.loading-progress');
@@ -302,7 +279,7 @@ function initializeLoading() {
     
     let progress = 0;
     const interval = setInterval(() => {
-        progress += 1 + Math.random() * 3; // Simulate actual loading
+        progress += 1 + Math.random() * 3;
         if (progress >= 100) {
             progress = 100;
             clearInterval(interval);
@@ -320,7 +297,7 @@ function initializeLoading() {
         loadingProgress.style.width = `${progress}%`;
     }, 20);
     
-    // Failsafe: force hide after 5 seconds
+    // Failsafe
     setTimeout(() => {
         if (loadingScreen && !loadingScreen.classList.contains('hidden')) {
             loadingScreen.classList.add('hidden');
@@ -418,7 +395,6 @@ function initializeSearch() {
             }
         });
         
-        // Real-time search
         searchInput.addEventListener('input', performSearch);
     }
 }
@@ -499,6 +475,30 @@ function initializeModal() {
             }
         }
     });
+    
+    // Handle sample preview click
+    document.addEventListener('click', function(e) {
+        if (e.target.closest('.sample-preview.blurred')) {
+            toggleSampleBlur();
+        }
+        
+        if (e.target.closest('.unblur-btn')) {
+            toggleSampleBlur();
+        }
+        
+        // Expand features (not expandable anymore, just showing)
+        if (e.target.closest('.expand-btn')) {
+            playSound('click');
+            const btn = e.target.closest('.expand-btn');
+            const targetId = btn.getAttribute('data-target');
+            const content = document.getElementById(targetId);
+            
+            if (content) {
+                btn.classList.toggle('active');
+                content.classList.toggle('active');
+            }
+        }
+    });
 }
 
 // Open modal with database details
@@ -508,16 +508,17 @@ function openModal(db) {
     
     playSound('modal');
     
-    // Clear existing download timer for this database
+    // Clear existing download timer
     if (downloadTimers[db.id]) {
         clearInterval(downloadTimers[db.id].interval);
         delete downloadTimers[db.id];
     }
     
     // Populate modal content
-    const modalImageContainer = document.querySelector('.modal-image-container');
-    if (modalImageContainer) {
-        modalImageContainer.innerHTML = `<img src="${db.image}" alt="${db.name}" onerror="this.src='https://i.imgur.com/fE9JMni.png'">`;
+    const modalImage = document.querySelector('.modal-image-container img');
+    if (modalImage) {
+        modalImage.src = db.image;
+        modalImage.alt = db.name;
     }
     
     document.getElementById('modal-title').textContent = db.name;
@@ -526,7 +527,7 @@ function openModal(db) {
     document.getElementById('modal-size').textContent = db.size;
     document.getElementById('modal-description').textContent = db.description;
     
-    // Populate features list
+    // Populate features list (not expandable)
     const featuresList = document.getElementById('modal-features');
     featuresList.innerHTML = '';
     db.features.forEach(feature => {
@@ -535,57 +536,49 @@ function openModal(db) {
         featuresList.appendChild(li);
     });
     
-    // Create sample content with expandable sections
-    const sampleSection = document.querySelector('.sample-section');
-    if (sampleSection) {
-        sampleSection.innerHTML = `
+    // Sample data - show first few lines
+    const samplePre = document.getElementById('modal-sample');
+    const previewLines = db.sample.split('\n').slice(0, 6).join('\n');
+    samplePre.textContent = previewLines + '\n[...]';
+    
+    // Reset sample blur
+    const samplePreview = document.getElementById('sample-preview');
+    const unblurBtn = document.getElementById('unblur-btn');
+    samplePreview.classList.add('blurred');
+    if (unblurBtn) unblurBtn.classList.remove('hidden');
+    
+    // Update sample content with full data
+    window.currentSample = db.sample;
+    
+    // Download section
+    const downloadSection = document.querySelector('.download-section');
+    if (downloadSection) {
+        const isInfected = db.infected;
+        downloadSection.innerHTML = `
             <div class="expandable-section">
-                <button class="expand-btn" data-target="sample-content">
-                    <span>📋 Sample Data Preview</span>
+                <button class="expand-btn" data-target="download-content">
+                    <span>⬇️ Database Download</span>
                     <span class="expand-icon">▶</span>
                 </button>
-                <div class="expandable-content" id="sample-content">
-                    <div class="sample-preview blurred" id="sample-preview" onclick="toggleSampleBlur()">
-                        <pre id="modal-sample">${db.sample.substring(0, 300)}...</pre>
-                    </div>
-                    <button class="unblur-btn" id="unblur-btn" onclick="toggleSampleBlur()">
-                        Click to ${db.sample.includes('WARNING') ? 'view warning' : 'unblur sample'}
+                <div class="expandable-content" id="download-content">
+                    <button class="download-btn ${isInfected ? 'warning' : ''}" onclick="startDownloadTimer(${db.id}, ${isInfected})" id="download-btn-${db.id}">
+                        ${isInfected ? '⚠️ ' : '⬇️ '}${isInfected ? 'Download Infected File' : 'Download Database'}
                     </button>
+                    <div class="download-timer" id="timer-${db.id}" style="display: none;">
+                        Download available in: <span id="countdown-${db.id}">${isInfected ? '10' : '3'}</span> seconds
+                    </div>
+                    ${isInfected ? `
+                    <div class="download-warning">
+                        <span class="warning-icon">⚠️</span>
+                        <strong>WARNING:</strong> This file may contain malware or infected content. 
+                        Download at your own risk. Always use in a secure environment.
+                    </div>` : ''}
                 </div>
             </div>
         `;
     }
     
-    // Create download section
-    const downloadSection = document.querySelector('.download-section');
-    if (downloadSection) {
-        const isInfected = db.infected;
-        const downloadBtnHTML = isInfected ? 
-            `<button class="download-btn warning" onclick="startDownloadTimer(${db.id}, true)" id="download-btn-${db.id}">
-                <span class="warning-icon">⚠️</span> Download Infected File (10s Cooldown)
-            </button>` :
-            `<button class="download-btn" onclick="startDownloadTimer(${db.id}, false)" id="download-btn-${db.id}">
-                ⬇️ Download Database
-            </button>`;
-        
-        downloadSection.innerHTML = `
-            <div class="download-header">
-                <h3>🔽 Database Download</h3>
-            </div>
-            ${downloadBtnHTML}
-            <div class="download-timer" id="timer-${db.id}" style="display: none;">
-                Download available in: <span id="countdown-${db.id}">10</span> seconds
-            </div>
-            ${isInfected ? `
-            <div class="download-warning">
-                <span class="warning-icon">⚠️</span>
-                <strong>WARNING:</strong> This file may contain malware or infected content. 
-                Download at your own risk. Always use in a secure environment.
-            </div>` : ''}
-        `;
-    }
-    
-    // Populate tags with icons
+    // Populate tags
     const modalTags = document.getElementById('modal-tags');
     modalTags.innerHTML = '';
     
@@ -595,7 +588,7 @@ function openModal(db) {
     priceTag.innerHTML = `<span class="tag-icon">${db.price === 'Free' ? '💰' : '🤑'}</span> ${db.price}`;
     modalTags.appendChild(priceTag);
     
-    // Add other tags with icons
+    // Add other tags
     db.tags.forEach(tag => {
         const tagElement = document.createElement('span');
         const icon = tagIcons[tag] || '🏷️';
@@ -611,43 +604,53 @@ function openModal(db) {
 
 // Toggle sample blur
 function toggleSampleBlur() {
-    playSound('expand');
+    playSound('click');
     const preview = document.getElementById('sample-preview');
     const btn = document.getElementById('unblur-btn');
     const samplePre = document.getElementById('modal-sample');
     
+    if (!preview || !samplePre) return;
+    
     if (preview.classList.contains('blurred')) {
         preview.classList.remove('blurred');
-        btn.textContent = 'Click to blur sample';
+        if (btn) btn.textContent = 'Click to blur sample';
         
-        // Load full sample if not already loaded
-        const currentDb = filteredDatabases.find(db => 
-            db.sample.substring(0, 300) + '...' === samplePre.textContent
-        );
-        if (currentDb) {
-            samplePre.textContent = currentDb.sample;
+        // Load full sample
+        if (window.currentSample) {
+            samplePre.textContent = window.currentSample;
         }
     } else {
         preview.classList.add('blurred');
-        btn.textContent = 'Click to unblur sample';
+        if (btn) btn.textContent = 'Click to unblur sample';
+        
+        // Show only preview
+        const previewLines = window.currentSample.split('\n').slice(0, 6).join('\n');
+        samplePre.textContent = previewLines + '\n[...]';
     }
 }
 
 // Download timer function
 function startDownloadTimer(dbId, isInfected) {
+    playSound(isInfected ? 'warning' : 'click');
+    
+    // Show warning for infected files
+    if (isInfected) {
+        const confirmDownload = confirm('⚠️ WARNING: This file may contain malware or infected content.\n\nDo you want to continue with the download?\n\nYou must use this file in a secure, isolated environment for research purposes only.');
+        if (!confirmDownload) return;
+    }
+    
     const btn = document.getElementById(`download-btn-${dbId}`);
     const timerDisplay = document.getElementById(`timer-${dbId}`);
     const countdownDisplay = document.getElementById(`countdown-${dbId}`);
     
     if (!btn || !timerDisplay || !countdownDisplay) return;
     
-    playSound(isInfected ? 'warning' : 'download');
-    
     let seconds = isInfected ? 10 : 3;
     btn.disabled = true;
     timerDisplay.style.display = 'block';
     countdownDisplay.textContent = seconds;
     
+    // Clear existing timer
     if (downloadTimers[dbId]) {
         clearInterval(downloadTimers[dbId].interval);
     }
@@ -676,17 +679,13 @@ function startDownloadTimer(dbId, isInfected) {
 
 // Initiate download
 function initiateDownload(dbId, isInfected) {
-    playSound('download');
+    playSound('click');
     
     const db = databases.find(d => d.id === dbId);
     if (!db) return;
     
-    // Create a fake download link (in real implementation, this would link to actual file)
+    // Create fake download
     const link = document.createElement('a');
-    link.href = '#';
-    link.download = `${db.name.replace(/\s+/g, '_')}.zip`;
-    
-    // Create download content
     const content = `
 Database: ${db.name}
 Type: ${db.type}
@@ -707,10 +706,12 @@ ${isInfected ? '\n⚠️ WARNING: This file may contain malware or infected cont
 
 Downloaded from Asha's Database Index
 For research and educational purposes only.
+Date: ${new Date().toLocaleDateString()}
     `;
     
     const blob = new Blob([content], { type: 'text/plain' });
     link.href = URL.createObjectURL(blob);
+    link.download = `${db.name.replace(/\s+/g, '_')}_sample.txt`;
     
     document.body.appendChild(link);
     link.click();
@@ -720,13 +721,13 @@ For research and educational purposes only.
     const btn = document.getElementById(`download-btn-${dbId}`);
     if (btn) {
         btn.textContent = isInfected ? 
-            '⚠️ Download Infected File (10s Cooldown)' : 
+            '⚠️ Download Infected File' : 
             '⬇️ Download Database';
         btn.onclick = () => startDownloadTimer(dbId, isInfected);
     }
     
-    // Show success message
-    alert(`Download started for: ${db.name}\n\nRemember: This is for research and educational purposes only!`);
+    // Clean up
+    setTimeout(() => URL.revokeObjectURL(link.href), 100);
 }
 
 // Close modal
@@ -738,7 +739,7 @@ function closeModal() {
     }
 }
 
-// Scroll behavior for header and footer
+// Scroll behavior
 function initializeScrollBehavior() {
     let lastScrollTop = 0;
     const header = document.getElementById('header');
@@ -748,11 +749,9 @@ function initializeScrollBehavior() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
         if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // Scrolling down
             if (header) header.classList.add('hidden');
             if (footer) footer.classList.add('hidden');
         } else {
-            // Scrolling up
             if (header) header.classList.remove('hidden');
             if (footer) footer.classList.remove('hidden');
         }
@@ -796,45 +795,13 @@ function initializeDisclaimerModal() {
 
 // Education modal
 function initializeEducationModal() {
-    const educationBtn = document.getElementById('education-btn');
     const educationModal = document.getElementById('education-modal');
-    const educationAcceptBtn = document.getElementById('education-accept-btn');
-    
-    if (!educationBtn) {
-        // Create education button if it doesn't exist
-        const footer = document.getElementById('footer');
-        if (footer) {
-            const newEducationBtn = document.createElement('button');
-            newEducationBtn.id = 'education-btn';
-            newEducationBtn.className = 'disclaimer-btn';
-            newEducationBtn.textContent = 'Research & Educational Purposes Only';
-            newEducationBtn.style.marginLeft = '1rem';
-            
-            const footerContent = footer.querySelector('.footer-content');
-            if (footerContent) {
-                footerContent.appendChild(newEducationBtn);
-            }
-            
-            // Add event listener to the newly created button
-            newEducationBtn.addEventListener('click', function() {
-                playSound('modal');
-                educationModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-            });
-        }
-    } else {
-        educationBtn.addEventListener('click', function() {
-            playSound('modal');
-            educationModal.classList.add('active');
-            document.body.style.overflow = 'hidden';
-        });
-    }
     
     if (educationModal) {
         const closeBtn = educationModal.querySelector('.modal-close');
         const overlay = educationModal.querySelector('.modal-overlay');
+        const acceptBtn = educationModal.querySelector('.education-btn');
         
-        // Close function
         const closeEducationModal = function() {
             playSound('click');
             educationModal.classList.remove('active');
@@ -842,34 +809,29 @@ function initializeEducationModal() {
             localStorage.setItem('educationAccepted', 'true');
         };
         
-        // Close button
         if (closeBtn) {
             closeBtn.addEventListener('click', closeEducationModal);
         }
         
-        // Overlay click
         if (overlay) {
             overlay.addEventListener('click', closeEducationModal);
         }
         
-        // Accept button
-        if (educationAcceptBtn) {
-            educationAcceptBtn.addEventListener('click', closeEducationModal);
+        if (acceptBtn) {
+            acceptBtn.addEventListener('click', closeEducationModal);
         }
         
-        // Show education modal on first visit
+        // Show on first visit
         if (!localStorage.getItem('educationAccepted')) {
             setTimeout(() => {
                 educationModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }, 1000);
         }
-        
-        // Close on ESC key (handled in main modal initialization)
     }
 }
 
-// Add sound effects to interactive elements
+// Add sound effects
 function addSoundEffects() {
     // Hover sounds
     document.addEventListener('mouseover', function(e) {
@@ -882,13 +844,6 @@ function addSoundEffects() {
     document.addEventListener('click', function(e) {
         if (e.target.matches('.nav-link, .filter-btn, button:not(.expand-btn), a')) {
             playSound('click');
-        }
-    });
-    
-    // Expand sounds
-    document.addEventListener('click', function(e) {
-        if (e.target.closest('.expand-btn')) {
-            playSound('expand');
         }
     });
 }

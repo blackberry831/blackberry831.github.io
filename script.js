@@ -798,69 +798,74 @@ function initializeDisclaimerModal() {
 function initializeEducationModal() {
     const educationBtn = document.getElementById('education-btn');
     const educationModal = document.getElementById('education-modal');
+    const educationAcceptBtn = document.getElementById('education-accept-btn');
     
     if (!educationBtn) {
         // Create education button if it doesn't exist
         const footer = document.getElementById('footer');
         if (footer) {
-            const educationBtn = document.createElement('button');
-            educationBtn.id = 'education-btn';
-            educationBtn.className = 'disclaimer-btn';
-            educationBtn.textContent = 'Research & Educational Purposes Only';
-            educationBtn.style.marginLeft = '1rem';
+            const newEducationBtn = document.createElement('button');
+            newEducationBtn.id = 'education-btn';
+            newEducationBtn.className = 'disclaimer-btn';
+            newEducationBtn.textContent = 'Research & Educational Purposes Only';
+            newEducationBtn.style.marginLeft = '1rem';
             
             const footerContent = footer.querySelector('.footer-content');
             if (footerContent) {
-                footerContent.appendChild(educationBtn);
+                footerContent.appendChild(newEducationBtn);
             }
+            
+            // Add event listener to the newly created button
+            newEducationBtn.addEventListener('click', function() {
+                playSound('modal');
+                educationModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
         }
-    }
-    
-    if (educationBtn && educationModal) {
+    } else {
         educationBtn.addEventListener('click', function() {
             playSound('modal');
             educationModal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
-        
-        const closeBtn = educationModal.querySelector('.modal-close');
-        const overlay = educationModal.querySelector('.modal-overlay');
-        const acceptBtn = educationModal.querySelector('.education-btn');
-        
-        if (closeBtn) {
-            closeBtn.addEventListener('click', function() {
-                playSound('click');
-                educationModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        }
-        
-        if (overlay) {
-            overlay.addEventListener('click', function() {
-                playSound('click');
-                educationModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        }
-        
-        if (acceptBtn) {
-            acceptBtn.addEventListener('click', function() {
-                playSound('click');
-                educationModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-                localStorage.setItem('educationAccepted', 'true');
-            });
-        }
     }
     
-    // Show education modal on first visit
-    if (!localStorage.getItem('educationAccepted')) {
-        setTimeout(() => {
-            if (educationModal) {
+    if (educationModal) {
+        const closeBtn = educationModal.querySelector('.modal-close');
+        const overlay = educationModal.querySelector('.modal-overlay');
+        
+        // Close function
+        const closeEducationModal = function() {
+            playSound('click');
+            educationModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            localStorage.setItem('educationAccepted', 'true');
+        };
+        
+        // Close button
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeEducationModal);
+        }
+        
+        // Overlay click
+        if (overlay) {
+            overlay.addEventListener('click', closeEducationModal);
+        }
+        
+        // Accept button
+        if (educationAcceptBtn) {
+            educationAcceptBtn.addEventListener('click', closeEducationModal);
+        }
+        
+        // Show education modal on first visit
+        if (!localStorage.getItem('educationAccepted')) {
+            setTimeout(() => {
                 educationModal.classList.add('active');
                 document.body.style.overflow = 'hidden';
-            }
-        }, 1000);
+            }, 1000);
+        }
+        
+        // Close on ESC key (handled in main modal initialization)
     }
 }
 
